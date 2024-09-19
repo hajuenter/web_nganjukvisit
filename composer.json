@@ -1,0 +1,17 @@
+{
+    "name": "asus/nganjukvisitnew",
+    "autoload": {
+        "psr-4": {
+            "Asus\\Nganjukvisitnew\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "TheHajuenter",
+            "email": "150408093+TheHajuenter@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

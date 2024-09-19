@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+.bg-image {
+  background-image: url("../img/bg_airterjun.jpg"); /* Ganti dengan path gambar yang kamu inginkan */
+  background-size: cover; /* Menyesuaikan gambar agar menutupi seluruh background */
+  background-position: center; /* Memposisikan gambar di tengah */
+  background-repeat: no-repeat; /* Menghindari pengulangan gambar */
+  min-height: 100vh; /* Mengatur tinggi minimal agar background mencakup seluruh layar */
+}
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/*------------ Login container ------------*/
+
+.box-area {
+  width: 930px;
+}
+
+/*------------ Right box ------------*/
+
+.right-box {
+  padding: 40px 30px 40px 40px;
+}
+
+/*------------ Custom Placeholder ------------*/
+
+::placeholder {
+  font-size: 16px;
+}
+
+.rounded-4 {
+  border-radius: 20px;
+}
+.rounded-5 {
+  border-radius: 30px;
+}
+
+/*------------ For small screens------------*/
+
+@media only screen and (max-width: 768px) {
+  .box-area {
+    margin: 0 10px;
+  }
+  .left-box {
+    height: 100px;
+    overflow: hidden;
+  }
+  .right-box {
+    padding: 20px;
+  }
+}
+
+/* Atur gambar tetap 250px di layar besar */
+.featured-image img {
+  width: 250px;
+  height: auto;
+}
+
+/* Buat gambar lebih kecil di layar dengan lebar di bawah 768px */
+@media only screen and (max-width: 768px) {
+  .featured-image img {
+    width: 0px; /* Atur sesuai keinginan untuk layar kecil */
+  }
+}
