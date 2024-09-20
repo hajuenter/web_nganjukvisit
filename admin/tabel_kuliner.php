@@ -1,10 +1,207 @@
+<?php
+// Koneksi ke database
+include '../koneksi.php';
+$conn = $koneksi;
+
+// Ambil query pencarian dari URL (GET method)
+$search = isset($_GET['search_query']) ? $_GET['search_query'] : '';
+
+// Query untuk menampilkan data (dengan atau tanpa pencarian)
+if (!empty($search)) {
+    // Pencarian berdasarkan id_wisata atau nama_wisata
+    $sql = "SELECT * FROM detail_kuliner WHERE id_kuliner LIKE ? OR nama_kuliner LIKE ?";
+    $stmt = $conn->prepare($sql);
+    $search_param = "%" . $search . "%";
+    $stmt->bind_param("ss", $search_param, $search_param);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    // Tampilkan semua data jika tidak ada pencarian
+    $sql = "SELECT * FROM detail_kuliner";
+    $result = $conn->query($sql);
+}
+?>
+
+
 <div class="container-fluid">
+    <!-- alert tambah -->
+    <?php if (isset($_GET['tambah']) && $_GET['tambah'] == 'success'): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data berhasil ditambah!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- alert edit -->
+    <?php if (isset($_GET['update']) && $_GET['update'] == 'success'): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data berhasil diperbarui!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
 
     <!-- Judul tabel kuliner -->
     <h1 class="h3 mb-2 text-gray-800">Data Kuliner</h1>
     <p class="mb-4">Informasi kuliner di Kota Nganjuk</p>
 
     <!-- DataTales Example -->
- 
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold mb-3 text-primary">Tabel Data Kuliner</h6>
+            <!-- Tombol Tambah -->
+            <button class='btn btn-success px-3 ms-lg-4 ms-2' data-bs-toggle="modal" data-bs-target="#modalTambahKuliner">Tambah</button>
+            <button class='btn btn-info px-3 mt-1 mt-lg-0 ms-lg-4 ms-2' onclick="window.location.href='kuliner_admin.php'">Refresh</button>
+            <!-- Form Pencarian -->
+            <form method="GET" class="form-inline ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group px-2 mt-2">
+                    <input type="text" name="search_query" class="form-control bg-white border-0 small" placeholder="Cari kuliner..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Id Kuliner</th>
+                            <th>Nama Kuliner</th>
+                            <th>Deskripsi</th>
+                            <th>Harga</th>
+                            <th>Gambar</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . htmlspecialchars($row['id_kuliner']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['nama_kuliner']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['deskripsi']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['harga']) . "</td>";
 
+                                // Tambahkan jalur lengkap ke gambar
+                                echo "<td><img src='../public/gambar/" . htmlspecialchars($row['gambar']) . "' alt='Gambar' style='width:100px;height:auto;'></td>";
+
+                                echo "<td>
+                                <button class='btn btn-primary btn-edit mb-1 mb-lg-0' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>Edit</button> 
+                                <button class='btn btn-danger' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-toggle='modal' data-target='#hapusModal'>Hapus</button>
+                                </td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='9'>Tidak ada data ditemukan</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- JQuery dan Ajax untuk mengambil data -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- ambil data untuk edit -->
+<script>
+    $(document).ready(function() {
+        // Event ketika tombol edit di klik
+        $('.btn-edit').on('click', function() {
+            var id_kuliner = $(this).data('id');
+
+            // Mengambil data wisata berdasarkan id_kuliner
+            $.ajax({
+                url: '../controllers/get_kuliner.php',
+                type: 'POST',
+                data: {
+                    id_kuliner: id_kuliner
+                },
+                success: function(data) {
+                    // Tampilkan data yang didapatkan ke dalam modal
+                    $('.modal-body-edit').html(data);
+                }
+            });
+        });
+    });
+</script>
+
+
+<!-- Modal Tambah kuliner -->
+<div class="modal fade" id="modalTambahKuliner" tabindex="-1" aria-labelledby="modalTambahKulinerLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTambahKulinerLabel">Tambah Data Kuliner</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="../controllers/tambah_kuliner.php" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="nama_kuliner" class="form-label">Nama Kuliner</label>
+                        <input type="text" class="form-control" id="nama_kuliner" name="nama_kuliner" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="harga" class="form-label">Harga</label>
+                        <input type="number" class="form-control" id="harga" name="harga" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gambar" class="form-label">Gambar</label>
+                        <input type="file" class="form-control" id="gambar" name="gambar" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Wisata</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body-edit p-2">
+                <!-- Data dari Ajax akan dimasukkan ke sini -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="form-edit">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- script ketika alert di close url kembali ke semula -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dapatkan semua elemen dengan class 'alert-dismissible'
+        var alertElement = document.querySelector('.alert-dismissible');
+
+        // Jika ada alert, tambahkan event ketika tombol "X" ditekan
+        if (alertElement) {
+            alertElement.addEventListener('closed.bs.alert', function() {
+                // Hapus parameter dari URL setelah alert ditutup
+                var url = new URL(window.location.href);
+                url.searchParams.delete('update'); // Hapus parameter 'update'
+                url.searchParams.delete('tambah'); // Hapus parameter 'tambah'
+                url.searchParams.delete('delete'); // Hapus parameter 'tambah'
+                window.history.replaceState(null, null, url.pathname); // Ubah URL tanpa reload
+            });
+        }
+    });
+</script>
