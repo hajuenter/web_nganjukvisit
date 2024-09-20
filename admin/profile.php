@@ -1,66 +1,120 @@
-<div class="container-fluid">
+<?php
+include("../koneksi.php");
+$conn = $koneksi;
 
+$id_user = $_SESSION['user_id'];
+
+// Fetch user data from the database
+function fetchUserData($conn, $id_user)
+{
+    $mysqlTampil = "SELECT * FROM user WHERE id_user = ?";
+    $stmt = $conn->prepare($mysqlTampil);
+    $stmt->bind_param("i", $id_user);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
+
+$user = fetchUserData($conn, $id_user);
+
+// Set the profile picture URL
+$urlGambar = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar'] : "../public/gambar/avatar_profile.jpg";
+
+// Handle form submission for updating profile and uploading image
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = $_POST['name'];
+    $role = $_POST['role'];
+    $alamat = $_POST['alamat'];
+    $email = $_POST['email'];
+
+    // Process image upload
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['foto']['tmp_name'];
+        $fileName = $_FILES['foto']['name'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedfileExtensions = ['jpg', 'jpeg', 'png'];
+
+        if (in_array($fileExtension, $allowedfileExtensions)) {
+            $newFileName = $id_user . '_' . time() . '.' . $fileExtension;
+            $uploadFileDir = '../public/gambar/';
+            $dest_path = $uploadFileDir . $newFileName;
+
+            if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                $updateGambarQuery = "UPDATE user SET gambar = ? WHERE id_user = ?";
+                $stmt = $conn->prepare($updateGambarQuery);
+                $stmt->bind_param("si", $newFileName, $id_user);
+                $stmt->execute();
+                $urlGambar = "../public/gambar/" . $newFileName; // Update image URL
+            } else {
+                echo 'Error moving the uploaded file.';
+            }
+        } else {
+            echo 'Invalid file type. Only JPG, JPEG, and PNG are allowed.';
+        }
+    }
+
+    // Update user details in the database
+    $updateQuery = "UPDATE user SET nama = ?, role = ?, alamat = ?, email = ? WHERE id_user = ?";
+    $stmt = $conn->prepare($updateQuery);
+    $stmt->bind_param("ssssi", $name, $role, $alamat, $email, $id_user);
+    $stmt->execute();
+
+    // Fetch the updated user data
+    $user = fetchUserData($conn, $id_user);
+
+    $_SESSION['profile_update'] = "Profil berhasil di perbarui.";
+}
+?>
+
+<div class="container-fluid">
     <div class="container-xl px-4 mt-4">
+
+        <?php if (isset($_SESSION['profile_update'])): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= htmlspecialchars($_SESSION['profile_update']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['profile_update']); ?>
+        <?php endif; ?>
+
         <hr class="mt-0 mb-2">
         <div class="row">
             <div class="col-xl-4">
-                <!-- Profile picture card-->
                 <div class="card mb-4 mb-xl-0">
-                    <div class="card-header">Profile Picture</div>
+                    <div class="card-header">Foto Profil</div>
                     <div class="card-body text-center">
-                        <!-- Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="width: 250px;">
-                        <!-- Profile picture help block-->
-                        <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-                        <!-- Profile picture upload button-->
-                        <button class="btn btn-primary" type="button">Upload new image</button>
+                        <img class="img-account-profile rounded-circle mb-2" src="<?= htmlspecialchars($urlGambar) ?>" alt="Foto Profil" style="width: 200px;">
+                        <div class="small font-italic text-muted mb-4">JPG atau PNG</div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-8">
-                <!-- Account details card-->
                 <div class="card mb-4">
                     <div class="card-header">Detail Akun</div>
                     <div class="card-body">
-                        <form>
-                            <!-- Form Group (username)-->
+                        <form method="post" enctype="multipart/form-data">
                             <div class="mb-3">
-                                <label class="small mb-1" for="inputUsername">Nama</label>
-                                <input class="form-control" id="inputName" type="text" placeholder="Enter your name" value="">
+                                <label class="small mb-1" for="inputFoto">Upload Gambar Baru</label>
+                                <input type="file" name="foto" class="form-control mb-3">
                             </div>
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (first name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputFirstName">Role</label>
-                                    <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
-                                </div>
-                                <!-- Form Group (last name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLastName">Alamat</label>
-                                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
-                                </div>
-                            </div>
-                            <!-- Form Group (email address)-->
                             <div class="mb-3">
-                                <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
+                                <label class="small mb-1" for="inputName">Nama</label>
+                                <input class="form-control" id="inputName" type="text" name="name" value="<?= htmlspecialchars($user['nama']) ?>" required>
                             </div>
-                            <!-- Form Row-->
                             <div class="row gx-3 mb-3">
-                                <!-- Form Group (phone number)-->
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Phone number</label>
-                                    <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                                    <label class="small mb-1" for="inputRole">Role</label>
+                                    <input class="form-control" id="inputRole" type="text" name="role" value="<?= htmlspecialchars($user['role']) ?>" required>
                                 </div>
-                                <!-- Form Group (birthday)-->
                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                    <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+                                    <label class="small mb-1" for="inputAlamat">Alamat</label>
+                                    <input class="form-control" id="inputAlamat" type="text" name="alamat" value="<?= htmlspecialchars($user['alamat']) ?>" required>
                                 </div>
                             </div>
-                            <!-- Save changes button-->
-                            <button class="btn btn-primary" type="button">Save changes</button>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                <input class="form-control" id="inputEmailAddress" type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Simpan</button>
                         </form>
                     </div>
                 </div>

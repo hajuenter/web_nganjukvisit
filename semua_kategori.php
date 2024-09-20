@@ -91,35 +91,50 @@
         </div>
         <!-- Content kuliner end -->
 
+        <?php
+        include("koneksi.php");
+        $conn = $koneksi;
+
+        // Query untuk mengambil data
+        $sql = "SELECT nama_wisata, deskripsi, alamat, harga_tiket, jadwal, gambar FROM detail_wisata";
+        $result = $conn->query($sql);
+
+        $data = [];
+        if ($result->num_rows > 0) {
+            $data = $result->fetch_all(MYSQLI_ASSOC);
+        }
+        $conn->close();
+        ?>
 
         <!-- Content wisata -->
         <div class="tab-pane fade" id="course-pills-tabs-2" role="tabpanel" aria-labelledby="course-pills-tab-2">
             <div class="row g-4">
-                <!-- Card wisata -->
-                <div class="col-sm-6 col-lg-6 col-xl-6">
-                    <div class="card shadow h-100">
-                        <!-- Image wisata -->
-                        <img src="./img/nasipecel.jpg" class="card-img-top" alt="course image">
-                        <div class="card-body pb-0">
-                            <!-- Title -->
-                            <h5 class="card-title fw-normal"><a href="#" class="text-black text-decoration-none"></a></h5>
-                            <p class="text-truncate-2 mb-2 text-justify"></p>
-                            <!-- Rating star -->
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item ms-0 h6 fw-light mb-0">4.5/5.0</li>
-                            </ul>
-                        </div>
-                        <!-- Card footer -->
-                        <div class="card-footer pt-0 pb-3">
-                            <hr>
-                            <div class="d-flex justify-content-between mt-2">
-                                <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>10h 00m</span>
-                                <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>26 lectures</span>
+                <?php if (!empty($data)): ?>
+                    <?php foreach ($data as $row): ?>
+                        <?php $gambar = "./public/gambar/" . $row['gambar']; ?>
+                        <div class="col-sm-6 col-lg-6 col-xl-6">
+                            <div class="card shadow h-100">
+                                <img src="<?php echo $gambar; ?>" class="card-img-top" alt="course image">
+                                <div class="card-body pb-0">
+                                    <h5 class="card-title fw-normal"><a href="#" class="text-black text-decoration-none"><?php echo $row['nama_wisata']; ?></a></h5>
+                                    <p class="text-truncate-2 mb-2 text-justify"><?php echo $row['deskripsi']; ?></p>
+                                    <p class="text-truncate-2 mb-2 text-justify"><?php echo $row['alamat']; ?></p>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item ms-0 h6 fw-light mb-0"><?php echo $row['harga_tiket']; ?></li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer pt-0 pb-3">
+                                    <hr>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i><?= $row['jadwal']; ?></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Card item wisata end -->
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12">Tidak ada data</div>
+                <?php endif; ?>
             </div>
         </div>
         <!-- Content wisata end -->
