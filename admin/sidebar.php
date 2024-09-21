@@ -54,9 +54,9 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">User:</h6>
-                <a class="collapse-item" href="">Pengelola</a>
-                <a class="collapse-item" href="">User</a>
+                <h6 class="collapse-header">Pilih Role</h6>
+                <a class="collapse-item" href="admin_pengelola.php">Pengelola</a>
+                <a class="collapse-item" href="admin_user.php">User</a>
             </div>
         </div>
     </li>

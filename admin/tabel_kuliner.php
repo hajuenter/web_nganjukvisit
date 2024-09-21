@@ -40,6 +40,13 @@ if (!empty($search)) {
         </div>
     <?php endif; ?>
 
+    <!-- alert hapus -->
+    <?php if (isset($_GET['delete']) && $_GET['delete'] == 'success'): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Data berhasil dihapus!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
 
     <!-- Judul tabel kuliner -->
     <h1 class="h3 mb-2 text-gray-800">Data Kuliner</h1>
@@ -133,7 +140,6 @@ if (!empty($search)) {
     });
 </script>
 
-
 <!-- Modal Tambah kuliner -->
 <div class="modal fade" id="modalTambahKuliner" tabindex="-1" aria-labelledby="modalTambahKulinerLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -167,6 +173,7 @@ if (!empty($search)) {
     </div>
 </div>
 
+<!-- Modal Edit -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -185,6 +192,27 @@ if (!empty($search)) {
     </div>
 </div>
 
+<!-- Modal Hapus -->
+<div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Apakah Anda yakin ingin menghapus data ini?</div>
+            <div class="modal-footer">
+                <form id="hapusForm" method="post" action="">
+                    <input type="hidden" name="id_kuliner" id="id_kuliner">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-danger" type="submit">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- script ketika alert di close url kembali ke semula -->
 <script>
@@ -203,5 +231,26 @@ if (!empty($search)) {
                 window.history.replaceState(null, null, url.pathname); // Ubah URL tanpa reload
             });
         }
+    });
+</script>
+
+<!-- script dari modal hapus ke hapus_kuliner.php -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Setup event listeners for the delete buttons
+        const btnHapus = document.querySelectorAll('.btn-danger[data-target="#hapusModal"]');
+
+        btnHapus.forEach(button => {
+            button.addEventListener('click', function() {
+                // Ambil ID dari data-id tombol
+                const idWisata = this.getAttribute('data-id');
+                // Set ID data pada field di formulir modal
+                const idWisataField = document.getElementById('id_kuliner');
+                idWisataField.value = idWisata;
+                // Set action form ke URL yang sesuai
+                const hapusForm = document.getElementById('hapusForm');
+                hapusForm.action = '../controllers/hapus_kuliner.php';
+            });
+        });
     });
 </script>

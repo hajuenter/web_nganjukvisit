@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputRole">Role</label>
-                                    <input class="form-control" id="inputRole" type="text" name="role" value="<?= htmlspecialchars($user['role']) ?>" required>
+                                    <input class="form-control" id="inputRole" type="text" name="role" value="<?= htmlspecialchars($user['role']) ?>" readonly required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputAlamat">Alamat</label>
