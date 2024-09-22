@@ -11,13 +11,11 @@ $jumlahPengelola = mysqli_num_rows($result); // Count the number of rows
     <h1 class="h3 mb-2 text-gray-800">Data Pengelola</h1>
     <p class="mb-4">Informasi pengelola Nganjuk Visit</p>
     <div class="mb-3">
-        <span class="badge me-3 badge-primary p-2 px-3 rounded-pill d-inline"><?= $jumlahPengelola ?></span>
-        <div class="btn-group" role="group"
-            aria-label="Basic outlined example">
-            <button type="button" class="btn btn-lg btn-outline-danger">
-                <i class="fa fa-bug"></i> Report Bug
-            </button>
-        </div>
+        <span class="badge me-3 badge-danger py-2 px-3 rounded-pill d-inline">Jumlah Pengelola : <?= $jumlahPengelola ?></span>
+    </div>
+    <div class="mb-2">
+        <button class='btn btn-success px-3 ms-2' data-bs-toggle="modal" data-bs-target="#modalTambahPengelola">Tambah</button>
+        <button class='btn btn-info px-3 mt-1 mt-lg-0 ms-lg-2 ms-2' onclick="window.location.href='admin_pengelola.php'">Refresh</button>
     </div>
     <table class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
@@ -37,7 +35,7 @@ $jumlahPengelola = mysqli_num_rows($result); // Count the number of rows
                     echo '<tr>';
                     echo '<td>' . htmlspecialchars($row['email']) . '</td>';
                     echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
-                    echo '<td><span class="badge badge-success rounded-pill d-inline">' . htmlspecialchars($row['role']) . '</span></td>';
+                    echo '<td><span class="badge badge-success rounded-pill py-2 px-3 d-inline">' . htmlspecialchars($row['role']) . '</span></td>';
                     echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
                     echo '<td><img src="' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
                     echo '<td>';
@@ -53,69 +51,38 @@ $jumlahPengelola = mysqli_num_rows($result); // Count the number of rows
         </tbody>
     </table>
 </div>
-
-<!-- <tr>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <img
-                            src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                            class="rounded-circle"
-                            alt=""
-                            style="width: 45px; height: 45px" />
-                        <div class="ms-3">
-                            <p class="fw-bold mb-1">Alex Ray</p>
-                            <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <p class="fw-normal mb-1">Consultant</p>
-                    <p class="text-muted mb-0">Finance</p>
-                </td>
-                <td>
-                    <span class="badge badge-primary rounded-pill d-inline">Onboarding</span>
-                </td>
-                <td>Junior</td>
-                <td>
-                    <button
-                        type="button"
-                        class="btn btn-link btn-rounded btn-sm fw-bold"
-                        data-mdb-ripple-color="dark">
-                        Edit
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <img
-                            src="https://mdbootstrap.com/img/new/avatars/7.jpg"
-                            class="rounded-circle"
-                            alt=""
-                            style="width: 45px; height: 45px" />
-                        <div class="ms-3">
-                            <p class="fw-bold mb-1">Kate Hunington</p>
-                            <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <p class="fw-normal mb-1">Designer</p>
-                    <p class="text-muted mb-0">UI/UX</p>
-                </td>
-                <td>
-                    <span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
-                </td>
-                <td>Senior</td>
-                <td>
-                    <button
-                        type="button"
-                        class="btn btn-link btn-rounded btn-sm fw-bold"
-                        data-mdb-ripple-color="dark">
-                        Edit
-                    </button>
-                </td>
-            </tr> -->
 <?php
 mysqli_close($conn);
 ?>
+
+<!-- JQuery dan Ajax untuk mengambil data -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Modal Tambah pengelola -->
+<div class="modal fade" id="modalTambahPengelola" tabindex="-1" aria-labelledby="modalTambahPengelolaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTambahPengelolaLabel">Tambah Data Pengelola</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="../controllers/tambah_pengelola.php" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama</label>
+                        <input type="text" class="form-control" id="nama" name="nama" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gambar" class="form-label">Gambar</label>
+                        <input type="file" class="form-control" id="gambar" name="gambar" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

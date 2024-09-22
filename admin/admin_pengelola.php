@@ -28,7 +28,7 @@ if ($_SESSION['role'] !== 'admin') {
     <meta name="author" content="">
 
     <title>Admin Nganjuk Visit</title>
-
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -81,6 +81,8 @@ if ($_SESSION['role'] !== 'admin') {
             </div>
         </div>
     </div>
+
+    <script src="../bootstrap/js/bootstrap.js"></script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
