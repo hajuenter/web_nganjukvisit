@@ -20,22 +20,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Verifikasi password yang dimasukkan dengan yang ada di database
         if (password_verify($password, $row['password'])) {
-            // Jika password benar, simpan informasi pengguna ke session
-            $_SESSION['user_id'] = $row['id_user'];
-            $_SESSION['nama'] = $row['nama'];
-            $_SESSION['logged_in'] = true;
-            $_SESSION['role'] = $row['role']; // Menyimpan role pengguna (admin/pengelola)
-
-            // Cek role pengguna dan redirect ke halaman sesuai
-            if ($row['role'] == 'admin') {
-                header("Location: /nganjukvisitnew/admin/index.php");
-            } elseif ($row['role'] == 'pengelola') {
-                header("Location: /nganjukvisitnew/pengelola/index.php");
-            } else {
-                $_SESSION['error'] = "Role pengguna tidak valid!";
+            // Cek status akun
+            if ($row['status'] == 'inactive') {
+                $_SESSION['error_status'] = "Status akun Anda masih non aktif!";
                 header("Location: /nganjukvisitnew/login.php");
+                exit;
+            } else {
+                // Jika password benar, simpan informasi pengguna ke session
+                $_SESSION['user_id'] = $row['id_user'];
+                $_SESSION['nama'] = $row['nama'];
+                $_SESSION['logged_in'] = true;
+                $_SESSION['role'] = $row['role']; // Menyimpan role pengguna (admin/pengelola)
+
+                // Cek role pengguna dan redirect ke halaman sesuai
+                if ($row['role'] == 'admin') {
+                    header("Location: /nganjukvisitnew/admin/index.php");
+                } elseif ($row['role'] == 'pengelola') {
+                    header("Location: /nganjukvisitnew/pengelola/index.php");
+                } else {
+                    $_SESSION['error'] = "Role pengguna tidak valid!";
+                    header("Location: /nganjukvisitnew/login.php");
+                }
+                exit;
             }
-            exit;
         } else {
             // Jika password salah
             $_SESSION['error'] = "Password salah!";

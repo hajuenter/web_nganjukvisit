@@ -3,41 +3,71 @@ include("../koneksi.php");
 
 $conn = $koneksi;
 
-$pengelolaQuery = "SELECT * FROM user WHERE role = 'pengelola'";
-$result = mysqli_query($conn, $pengelolaQuery);
-$jumlahPengelola = mysqli_num_rows($result); // Count the number of rows
+// Query untuk mengambil data pengelola dengan status active
+$pengelolaActiveQuery = "SELECT email, nama, role, alamat, gambar, status FROM user WHERE role = 'pengelola' AND status = 'active'";
+$resultActive = mysqli_query($conn, $pengelolaActiveQuery);
+$jumlahPengelolaActive = mysqli_num_rows($resultActive);
+
+// Query untuk mengambil data pengelola dengan status inactive
+$pengelolaInactiveQuery = "SELECT id_user, email, nama, status FROM user WHERE role = 'pengelola' AND status = 'inactive'";
+$resultInactive = mysqli_query($conn, $pengelolaInactiveQuery);
+$jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
 ?>
+
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">Data Pengelola</h1>
     <p class="mb-4">Informasi pengelola Nganjuk Visit</p>
+
+    <?php if (isset($_SESSION['success_konfir'])): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($_SESSION['success_konfir']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <?php unset($_SESSION['success_konfir']); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['error_konfir'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($_SESSION['error_konfir']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <?php unset($_SESSION['error_konfir']); ?>
+        </div>
+    <?php endif; ?>
+
     <div class="mb-3">
-        <span class="badge me-3 badge-danger py-2 px-3 rounded-pill d-inline">Jumlah Pengelola : <?= $jumlahPengelola ?></span>
+        <span class="badge me-1 badge-info py-2 px-3 rounded-pill d-inline">Jumlah Pengelola Aktif : <?= $jumlahPengelolaActive ?></span>
+        <span class="badge me-1 badge-warning py-2 px-3 rounded-pill d-inline">Jumlah Pengelola Inaktif : <?= $jumlahPengelolaInactive ?></span>
     </div>
     <div class="mb-2">
         <button class='btn btn-success px-3 ms-2' data-bs-toggle="modal" data-bs-target="#modalTambahPengelola">Tambah</button>
-        <button class='btn btn-info px-3 mt-1 mt-lg-0 ms-lg-2 ms-2' onclick="window.location.href='admin_pengelola.php'">Refresh</button>
+        <button class='btn btn-primary px-3 mt-1 mt-lg-0 ms-lg-2 ms-2' data-bs-toggle="modal" data-bs-target="#modaltabelpengelola">Permintaan</button>
+        <button class='btn btn-danger px-3 mt-1 mt-lg-0 ms-lg-2 ms-2' onclick="window.location.href='admin_pengelola.php'">Refresh</button>
     </div>
-    <table class="table align-middle mb-0 bg-white">
+
+    <!-- Tabel Pengelola Aktif -->
+    <table class="table align-middle mb-lg-5 mb-2 bg-white">
         <thead class="bg-light">
             <tr>
                 <th>Email</th>
                 <th>Nama</th>
                 <th>Role</th>
                 <th>Alamat</th>
+                <th>Status</th>
                 <th>Gambar</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
+            if ($jumlahPengelolaActive > 0) {
+                while ($row = mysqli_fetch_assoc($resultActive)) {
                     echo '<tr>';
                     echo '<td>' . htmlspecialchars($row['email']) . '</td>';
                     echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
-                    echo '<td><span class="badge badge-success rounded-pill py-2 px-3 d-inline">' . htmlspecialchars($row['role']) . '</span></td>';
+                    echo '<td><span class="badge badge-success rounded-pill py-2 px-3 d-inline">Pengelola</span></td>';
                     echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
-                    echo '<td><img src="' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
+                    echo '<td>' . htmlspecialchars($row['status']) . '</td>';
+                    echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
                     echo '<td>';
                     echo '<button type="button" class="btn btn-link btn-sm btn-rounded">Edit</button>';
                     echo '<button type="button" class="btn btn-link btn-sm btn-rounded">Hapus</button>';
@@ -45,20 +75,14 @@ $jumlahPengelola = mysqli_num_rows($result); // Count the number of rows
                     echo '</tr>';
                 }
             } else {
-                echo '<tr><td colspan="6" class="text-center">Tidak ada data pengelola.</td></tr>';
+                echo '<tr><td colspan="6" class="text-center">Tidak ada data pengelola aktif.</td></tr>';
             }
             ?>
         </tbody>
     </table>
 </div>
-<?php
-mysqli_close($conn);
-?>
 
-<!-- JQuery dan Ajax untuk mengambil data -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Modal Tambah pengelola -->
+<!-- Modal Tambah Pengelola -->
 <div class="modal fade" id="modalTambahPengelola" tabindex="-1" aria-labelledby="modalTambahPengelolaLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -86,3 +110,104 @@ mysqli_close($conn);
         </div>
     </div>
 </div>
+
+<!-- Modal Tabel Pengelola Inaktif -->
+<div class="modal fade" id="modaltabelpengelola" tabindex="-1" aria-labelledby="modaltabelpengelolaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modaltabelpengelolaLabel">Detail Permintaan Pengelola In aktif</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Nama</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if ($jumlahPengelolaInactive > 0) {
+                            while ($row = mysqli_fetch_assoc($resultInactive)) {
+                                echo '<tr>';
+                                echo '<td>' . htmlspecialchars($row['email']) . '</td>';
+                                echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
+                                echo '<td>' . htmlspecialchars($row['status']) . '</td>';
+                                echo '<td> 
+                                <button class="btn btn-success" onclick="showConfirmModal(' . htmlspecialchars($row['id_user']) . ')">
+                                <i class="fas fa-check"></i> Aktifkan
+                                </button>
+                                </td>';
+                                echo '</tr>';
+                            }
+                        } else {
+                            echo '<tr><td colspan="4" class="text-center">Tidak ada data pengelola yang statusnya inactive.</td></tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Aktivasi</h5>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin mengaktifkan pengguna dengan ID <span id="userIdDisplay"></span>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmButton">Aktifkan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+<script>
+    let userIdToActivate;
+
+    function showConfirmModal(userId) {
+        userIdToActivate = userId; // Simpan ID pengguna
+        document.getElementById('userIdDisplay').innerText = userId; // Tampilkan ID pengguna di modal
+        const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        modal.show(); // Tampilkan modal
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Menambahkan penanganan event untuk confirmButton
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            if (userIdToActivate) {
+                // Buat form untuk mengirimkan ID pengguna
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '../controllers/activate_pengelola.php'; // Ubah URL sesuai kebutuhan
+
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'user_id';
+                input.value = userIdToActivate;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit(); // Kirim form
+            }
+        });
+    });
+</script>
+
+
+<?php
+// Tutup koneksi setelah semua data selesai digunakan
+mysqli_close($conn);
+?>

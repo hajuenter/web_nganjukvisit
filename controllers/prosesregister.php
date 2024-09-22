@@ -31,10 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash password sebelum disimpan
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+    // Set status to inactive if role is pengelola
+    $status = ($role == 'pengelola') ? 'inactive' : 'active';
+
     // Query untuk menyimpan data ke tabel user
-    $sql = "INSERT INTO user (email, nama, role, password, alamat) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO user (email, nama, role, password, alamat, status) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $koneksi->prepare($sql);
-    $stmt->bind_param("sssss", $email, $name, $role, $hashed_password, $alamat);
+    $stmt->bind_param("ssssss", $email, $name, $role, $hashed_password, $alamat, $status);
 
     // Eksekusi query
     if ($stmt->execute()) {
