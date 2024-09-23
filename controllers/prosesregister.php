@@ -14,6 +14,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $alamat = $_POST['alamat'];
 
+    // Validasi panjang name
+    if (strlen($name) < 4 || strlen($name) > 50) {
+        $_SESSION['error'] = "Nama harus memiliki antara 4 hingga 50 karakter.";
+        header("Location: /nganjukvisitnew/register.php");
+        exit;
+    }
+
+    // Validasi panjang password
+    if (strlen($password) > 50) {
+        $_SESSION['error'] = "Password tidak boleh lebih dari 50 karakter.";
+        header("Location: /nganjukvisitnew/register.php");
+        exit;
+    }
+
+    // Validasi pola password (kombinasi huruf dan angka)
+    if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,50}$/', $password)) {
+        $_SESSION['error'] = "Password harus mengandung huruf, angka, dan panjang antara 8 hingga 50 karakter.";
+        header("Location: /nganjukvisitnew/register.php");
+        exit;
+    }
+
     // Validasi sederhana apakah email sudah digunakan
     $sql_check_email = "SELECT * FROM user WHERE email = ?";
     $stmt_check = $koneksi->prepare($sql_check_email);
