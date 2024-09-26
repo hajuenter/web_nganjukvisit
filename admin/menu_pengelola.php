@@ -4,7 +4,7 @@ include("../koneksi.php");
 $conn = $koneksi;
 
 // Query untuk mengambil data pengelola dengan status active
-$pengelolaActiveQuery = "SELECT email, nama, role, alamat, gambar, status FROM user WHERE role = 'pengelola' AND status = 'active'";
+$pengelolaActiveQuery = "SELECT id_user, email, nama, role, alamat, gambar, status FROM user WHERE role = 'pengelola' AND status = 'active'";
 $resultActive = mysqli_query($conn, $pengelolaActiveQuery);
 $jumlahPengelolaActive = mysqli_num_rows($resultActive);
 
@@ -39,9 +39,9 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
         <span class="badge me-1 badge-warning py-2 px-3 rounded-pill d-inline">Jumlah Pengelola Inaktif : <?= $jumlahPengelolaInactive ?></span>
     </div>
     <div class="mb-2">
-        <button class='btn btn-success px-3 ms-2' data-bs-toggle="modal" data-bs-target="#modalTambahPengelola">Tambah</button>
-        <button class='btn btn-primary px-3 mt-1 mt-lg-0 ms-lg-2 ms-2' data-bs-toggle="modal" data-bs-target="#modaltabelpengelola">Permintaan</button>
-        <button class='btn btn-danger px-3 mt-1 mt-lg-0 ms-lg-2 ms-2' onclick="window.location.href='admin_pengelola.php'">Refresh</button>
+        <button class='btn btn-success px-3 ms-2' data-bs-toggle="modal" data-bs-target="#modalTambahPengelola"><i class="fas fa-plus"></i> Tambah</button>
+        <button class='btn btn-primary px-3 mt-1 mt-lg-0 ms-lg-2 ms-2' data-bs-toggle="modal" data-bs-target="#modaltabelpengelola"><i class="fas fa-check-circle"></i> Permintaan</button>
+        <button class='btn btn-danger px-3 mt-1 mt-lg-0 ms-lg-2 ms-2' onclick="window.location.href='admin_pengelola.php'"><i class="fas fa-sync"></i> Refresh</button>
     </div>
 
     <!-- Tabel Pengelola Aktif -->
@@ -69,8 +69,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                     echo '<td>' . htmlspecialchars($row['status']) . '</td>';
                     echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
                     echo '<td>';
-                    echo '<button type="button" class="btn btn-link btn-sm btn-rounded">Edit</button>';
-                    echo '<button type="button" class="btn btn-link btn-sm btn-rounded">Hapus</button>';
+                    echo '<button class="btn btn-danger" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal"><i class="fas fa-trash-alt"></i> Hapus</button>';
                     echo '</td>';
                     echo '</tr>';
                 }
@@ -101,8 +100,12 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         <input type="text" class="form-control" id="nama" name="nama" required>
                     </div>
                     <div class="mb-3">
-                        <label for="gambar" class="form-label">Gambar</label>
-                        <input type="file" class="form-control" id="gambar" name="gambar" required>
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </form>
@@ -155,7 +158,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
     </div>
 </div>
 
-<!-- Modal Konfirmasi -->
+<!-- Modal Konfirmasi pengelola -->
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -172,6 +175,27 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
     </div>
 </div>
 
+<!-- Modal Hapus Pengelola -->
+<div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Apakah Anda yakin ingin menghapus data ini?</div>
+            <div class="modal-footer">
+                <form id="hapusForm" method="post" action="">
+                    <input type="hidden" name="id_user" id="id_user">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-danger" type="submit">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 <script>
@@ -206,6 +230,25 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
     });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Setup event listeners for the delete buttons
+        const btnHapus = document.querySelectorAll('.btn-danger[data-target="#hapusModal"]');
+
+        btnHapus.forEach(button => {
+            button.addEventListener('click', function() {
+                // Ambil ID dari data-id tombol
+                const idUser = this.getAttribute('data-id');
+                // Set ID data pada field di formulir modal
+                const idUserField = document.getElementById('id_user'); // Perbaiki di sini
+                idUserField.value = idUser;
+                // Set action form ke URL yang sesuai
+                const hapusForm = document.getElementById('hapusForm');
+                hapusForm.action = '../controllers/hapus_pengelola.php';
+            });
+        });
+    });
+</script>
 
 <?php
 // Tutup koneksi setelah semua data selesai digunakan

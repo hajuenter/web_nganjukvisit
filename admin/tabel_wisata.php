@@ -56,8 +56,8 @@ if (!empty($search)) {
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold mb-3 text-primary">Tabel Data Wisata</h6>
             <!-- Tombol Tambah -->
-            <button class='btn btn-success px-3 ms-lg-4 ms-2' data-bs-toggle="modal" data-bs-target="#modalTambahWisata">Tambah</button>
-            <button class='btn btn-info px-3 mt-1 mt-lg-0 ms-lg-4 ms-2' onclick="window.location.href='wisata_admin.php'">Refresh</button>
+            <button class='btn btn-success px-3 ms-lg-4 ms-2' data-bs-toggle="modal" data-bs-target="#modalTambahWisata"><i class="fas fa-plus"></i> Tambah</button>
+            <button class='btn btn-info px-3 mt-1 mt-lg-0 ms-lg-4 ms-2' onclick="window.location.href='wisata_admin.php'"><i class="fas fa-sync"></i> Refresh</button>
             <!-- Form Pencarian -->
             <form method="GET" class="form-inline ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group px-2 mt-2">
@@ -105,8 +105,8 @@ if (!empty($search)) {
                                 echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
                                 echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
                                 echo "<td>
-                                <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>Edit</button> 
-                                <button class='btn btn-danger mt-lg-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-toggle='modal' data-target='#hapusModal'>Hapus</button>
+                                <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fas fa-edit'></i> Edit</button> 
+                                <button class='btn btn-danger mt-lg-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-toggle='modal' data-target='#hapusModal'><i class='fas fa-trash-alt'></i> Hapus</button>
                                 </td>";
                                 echo "</tr>";
                             }

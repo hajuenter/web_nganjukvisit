@@ -50,8 +50,10 @@ $conn->close();
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-calendar-alt fa-sm text-white-50 ms-1"></i>
+            <span id="currentDateTime"><?= date('d-m-Y'); ?></span>
+        </a>
     </div>
 
     <!-- Content Row -->
@@ -68,7 +70,7 @@ $conn->close();
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_event; ?></div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fas fa-bullhorn fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -86,7 +88,7 @@ $conn->close();
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_penginapan; ?></div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fas fa-building fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -103,7 +105,7 @@ $conn->close();
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_kuliner; ?></div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            <i class="fas fa-utensils fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -120,7 +122,7 @@ $conn->close();
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_wisata; ?></div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-mountain fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -199,3 +201,21 @@ $conn->close();
         },
     });
 </script>
+
+<!-- <script>
+    // Fungsi untuk mengupdate waktu setiap detik
+    function updateTime() {
+        var now = new Date();
+        var dateTimeString = now.getFullYear() + '-' +
+            ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + now.getDate()).slice(-2) + ' ' +
+            ('0' + now.getHours()).slice(-2) + ':' +
+            ('0' + now.getMinutes()).slice(-2) + ':' +
+            ('0' + now.getSeconds()).slice(-2);
+
+        document.getElementById('currentDateTime').textContent = dateTimeString;
+    }
+
+    // Update waktu setiap detik
+    setInterval(updateTime, 1000);
+</script> -->
