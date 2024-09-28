@@ -99,8 +99,14 @@ if (!empty($search)) {
                                 echo "<td>" . htmlspecialchars($row['harga_tiket']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['jadwal']) . "</td>";
 
-                                // Tambahkan jalur lengkap ke gambar
-                                echo "<td><img src='../public/gambar/" . htmlspecialchars($row['gambar']) . "' alt='Gambar' style='width:100px;height:auto;'></td>";
+                                // Ambil gambar dan pisahkan nama file yang dipisahkan koma menjadi array
+                                $gambar_array = explode(',', $row['gambar']);
+
+                                // Pilih satu gambar secara acak dari array
+                                $gambar_acak = $gambar_array[array_rand($gambar_array)];
+
+                                // Tampilkan gambar acak
+                                echo "<td><img src='../public/gambar/" . htmlspecialchars($gambar_acak) . "' alt='Gambar Acak' style='width:100px;height:auto;'></td>";
 
                                 echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
                                 echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
@@ -173,7 +179,7 @@ if (!empty($search)) {
                     </div>
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
-                        <input type="file" class="form-control" id="gambar" name="gambar" required>
+                        <input type="file" class="form-control" id="gambar" name="gambar[]" multiple required>
                     </div>
                     <div class="mb-3">
                         <label for="koordinat" class="form-label">Koordinat</label>

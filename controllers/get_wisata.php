@@ -42,7 +42,7 @@ if (isset($_POST['id_wisata'])) {
             </div>
             <div class="mb-3">
                 <label for="gambar" class="form-label">Gambar Wisata</label>
-                <input type="file" class="form-control" id="gambar" name="gambar">
+                <input type="file" class="form-control" id="gambar" name="gambar[]" multiple>
             </div>
             </div>
             <div class="mb-3">

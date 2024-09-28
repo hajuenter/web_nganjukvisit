@@ -94,12 +94,17 @@ if (!empty($search)) {
                                 echo "<td>" . htmlspecialchars($row['deskripsi']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['harga']) . "</td>";
 
-                                // Tambahkan jalur lengkap ke gambar
-                                echo "<td><img src='../public/gambar/" . htmlspecialchars($row['gambar']) . "' alt='Gambar' style='width:100px;height:auto;'></td>";
+                                // Pecah gambar menjadi array
+                                $gambarArray = explode(',', $row['gambar']);
 
+                                // Pilih satu gambar secara acak
+                                $gambarAcak = $gambarArray[array_rand($gambarArray)];
+
+                                // Tampilkan gambar acak
+                                echo "<td><img src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;height:auto;'></td>";
                                 echo "<td>
                                 <button class='btn btn-primary btn-edit mb-1 mb-lg-0' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
-                                    <i class='fas fa-edit'></i> Edit
+                                <i class='fas fa-edit'></i> Edit
                                 </button> 
                                 <button class='btn btn-danger' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-toggle='modal' data-target='#hapusModal'>
                                 <i class='fas fa-trash-alt'></i> Hapus
@@ -168,7 +173,7 @@ if (!empty($search)) {
                     </div>
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
-                        <input type="file" class="form-control" id="gambar" name="gambar" required>
+                        <input type="file" class="form-control" id="gambar" name="gambar[]" multiple required>
                     </div>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </form>

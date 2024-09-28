@@ -3,7 +3,6 @@ include("../koneksi.php");
 $conn = $koneksi;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Ambil data dari form
     $id_wisata = $_POST['id_wisata'];
     $nama_wisata = $_POST['nama_wisata'];
     $deskripsi = $_POST['deskripsi'];
@@ -13,32 +12,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $koordinat = $_POST['koordinat'];
     $link_maps = $_POST['link_maps'];
 
-    // Variabel untuk nama file gambar
-    $gambar = $_FILES['gambar']['name'];
-    $gambar_tmp = $_FILES['gambar']['tmp_name'];
+    // Dapatkan gambar lama dari database
+    $sql_get_gambar = "SELECT gambar FROM detail_wisata WHERE id_wisata = ?";
+    $stmt_get_gambar = $conn->prepare($sql_get_gambar);
+    $stmt_get_gambar->bind_param('i', $id_wisata);
+    $stmt_get_gambar->execute();
+    $result = $stmt_get_gambar->get_result();
+    $row = $result->fetch_assoc();
+    $gambar_lama = $row['gambar']; // Ini adalah gambar yang sudah ada
 
-    // Cek apakah ada gambar yang diunggah
-    if (!empty($gambar)) {
-        // Tentukan folder tempat menyimpan gambar
-        $target_dir = "../public/gambar/";
-        $target_file = $target_dir . basename($gambar);
+    // Variabel untuk nama file gambar baru
+    $gambar_baru = '';
+    if (isset($_FILES['gambar'])) {
+        $gambar_baru_array = [];
+        foreach ($_FILES['gambar']['name'] as $key => $nama_gambar_baru) {
+            $gambar_tmp = $_FILES['gambar']['tmp_name'][$key];
+            $target_dir = "../public/gambar/";
+            $target_file = $target_dir . basename($nama_gambar_baru);
 
-        // Pindahkan file gambar ke folder target
-        if (move_uploaded_file($gambar_tmp, $target_file)) {
-            // Jika file berhasil diunggah, simpan nama file ke database
-            $sql = "UPDATE detail_wisata SET nama_wisata = ?, deskripsi = ?, alamat = ?, harga_tiket = ?, jadwal = ?, gambar = ?, koordinat = ?, link_maps = ? WHERE id_wisata = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('ssssssssi', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal, $gambar, $koordinat, $link_maps, $id_wisata);
-        } else {
-            echo "Error: Gagal mengunggah gambar.";
-            exit();
+            // Pindahkan file gambar ke folder target
+            if (move_uploaded_file($gambar_tmp, $target_file)) {
+                $gambar_baru_array[] = $nama_gambar_baru;
+            }
         }
-    } else {
-        // Jika tidak ada gambar yang diunggah, tetap update tanpa gambar
-        $sql = "UPDATE detail_wisata SET nama_wisata = ?, deskripsi = ?, alamat = ?, harga_tiket = ?, jadwal = ?, koordinat = ?, link_maps = ? WHERE id_wisata = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssssssi', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal, $koordinat, $link_maps, $id_wisata);
+        $gambar_baru = implode(',', $gambar_baru_array); // Gabungkan gambar baru jadi satu string
     }
+
+    // Gabungkan gambar lama dan gambar baru
+    if (!empty($gambar_baru)) {
+        $gambar_final = $gambar_lama ? $gambar_lama . ',' . $gambar_baru : $gambar_baru;
+    } else {
+        $gambar_final = $gambar_lama;
+    }
+
+    // Update data di database
+    $sql = "UPDATE detail_wisata SET nama_wisata = ?, deskripsi = ?, alamat = ?, harga_tiket = ?, jadwal = ?, gambar = ?, koordinat = ?, link_maps = ? WHERE id_wisata = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ssssssssi', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal, $gambar_final, $koordinat, $link_maps, $id_wisata);
 
     if ($stmt->execute()) {
         header("Location: ../admin/wisata_admin.php?update=success");
@@ -49,5 +59,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt->close();
 }
-
 $conn->close();

@@ -10,31 +10,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $harga = $_POST['harga'];
 
     // Variabel untuk nama file gambar
-    $gambar = $_FILES['gambar']['name'];
+    $gambar_files = $_FILES['gambar']['name'];
     $gambar_tmp = $_FILES['gambar']['tmp_name'];
+    $gambar_array = [];
+
+    // Ambil gambar yang sudah ada di database
+    $sql_get_gambar = "SELECT gambar FROM detail_kuliner WHERE id_kuliner = ?";
+    $stmt_get_gambar = $conn->prepare($sql_get_gambar);
+    $stmt_get_gambar->bind_param('i', $id_kuliner);
+    $stmt_get_gambar->execute();
+    $stmt_get_gambar->bind_result($existing_gambar);
+    $stmt_get_gambar->fetch();
+    $stmt_get_gambar->close();
+
+    // Jika ada gambar yang sudah ada, pisahkan menjadi array
+    if ($existing_gambar) {
+        $gambar_array = explode(',', $existing_gambar);
+    }
 
     // Cek apakah ada gambar yang diunggah
-    if (!empty($gambar)) {
+    if (!empty($gambar_files[0])) { // Cek jika ada setidaknya satu file yang diupload
         // Tentukan folder tempat menyimpan gambar
         $target_dir = "../public/gambar/";
-        $target_file = $target_dir . basename($gambar);
 
-        // Pindahkan file gambar ke folder target
-        if (move_uploaded_file($gambar_tmp, $target_file)) {
-            // Jika file berhasil diunggah, simpan nama file ke database
-            $sql = "UPDATE detail_kuliner SET nama_kuliner = ?, deskripsi = ?, harga = ?, gambar = ? WHERE id_kuliner = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('ssssi', $nama_kuliner, $deskripsi, $harga, $gambar, $id_kuliner);
-        } else {
-            echo "Error: Gagal mengunggah gambar.";
-            exit();
+        foreach ($gambar_files as $key => $gambar) {
+            $target_file = $target_dir . basename($gambar);
+
+            // Pindahkan file gambar ke folder target
+            if (move_uploaded_file($gambar_tmp[$key], $target_file)) {
+                // Jika file berhasil diunggah, tambahkan nama file ke array
+                $gambar_array[] = $gambar; // Menambahkan gambar baru
+            } else {
+                echo "Error: Gagal mengunggah gambar.";
+                exit();
+            }
         }
-    } else {
-        // Jika tidak ada gambar yang diunggah, tetap update tanpa gambar
-        $sql = "UPDATE detail_kuliner SET nama_kuliner = ?, deskripsi = ?, harga = ? WHERE id_kuliner = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssi', $nama_kuliner, $deskripsi, $harga, $id_kuliner);
     }
+
+    // Gabungkan semua nama gambar menjadi string untuk disimpan di database
+    $gambar_string = implode(',', $gambar_array);
+
+    // Update data kuliner dengan gambar baru dan gambar lama
+    $sql = "UPDATE detail_kuliner SET nama_kuliner = ?, deskripsi = ?, harga = ?, gambar = ? WHERE id_kuliner = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ssssi', $nama_kuliner, $deskripsi, $harga, $gambar_string, $id_kuliner);
 
     if ($stmt->execute()) {
         header("Location: ../admin/kuliner_admin.php?update=success");
