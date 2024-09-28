@@ -38,7 +38,7 @@ if (isset($_POST['id_kuliner'])) {
         $stmt_delete->bind_param('i', $id_kuliner);
 
         if ($stmt_delete->execute()) {
-            header("Location: ../admin/kuliner_admin.php?delete=success");
+            header("Location: ../admin/admin_kuliner.php?delete=success");
             exit();
         } else {
             echo "Error: " . $conn->error;

@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             // Redirect ke halaman admin dengan pesan sukses
-            header("Location: ../admin/wisata_admin.php?tambah=success");
+            header("Location: ../admin/admin_wisata.php?tambah=success");
             exit();
         } else {
             echo "Error: " . $conn->error;

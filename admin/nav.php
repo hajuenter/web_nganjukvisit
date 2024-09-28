@@ -58,11 +58,11 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="profile_admin.php">
+                <a class="dropdown-item" href="admin_profile.php">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
-                <a class="dropdown-item" href="ganti_password.php">
+                <a class="dropdown-item" href="admin_ganti_password.php">
                     <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
                     Ganti Password
                 </a>

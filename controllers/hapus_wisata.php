@@ -33,7 +33,7 @@ if (isset($_POST['id_wisata'])) {
         $stmt_delete->bind_param('i', $id_wisata);
 
         if ($stmt_delete->execute()) {
-            header("Location: ../admin/wisata_admin.php?delete=success");
+            header("Location: ../admin/admin_wisata.php?delete=success");
             exit();
         } else {
             echo "Error: " . $conn->error;

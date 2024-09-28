@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('ssssssssi', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal, $gambar_final, $koordinat, $link_maps, $id_wisata);
 
     if ($stmt->execute()) {
-        header("Location: ../admin/wisata_admin.php?update=success");
+        header("Location: ../admin/admin_wisata.php?update=success");
         exit();
     } else {
         echo "Error: " . $conn->error;

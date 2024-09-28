@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">Foto Profil</div>
                     <div class="card-body text-center">
-                        <img class="img-account-profile rounded-circle mb-2" src="<?= htmlspecialchars($urlGambar) ?>" alt="Foto Profil" style="width: 200px;">
+                        <img class="img-account-profile img-fluid rounded-circle mb-2" src="<?= htmlspecialchars($urlGambar) ?>" alt="Foto Profil">
                         <div class="small font-italic text-muted mb-4">JPG atau PNG</div>
                     </div>
                 </div>

@@ -19,28 +19,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validasi input
     if (empty($password_baru) || empty($konfir_password)) {
         $_SESSION['error'] = "Semua kolom wajib diisi.";
-        header("Location: /nganjukvisitnew/admin/ganti_password.php");
+        header("Location: /nganjukvisitnew/admin/admin_ganti_password.php");
         exit();
     }
 
     // Validasi panjang password
     if (strlen($password_baru) > 50) {
         $_SESSION['error'] = "Password tidak boleh lebih dari 50 karakter.";
-        header("Location: /nganjukvisitnew/admin/ganti_password.php");
+        header("Location: /nganjukvisitnew/admin/admin_ganti_password.php");
         exit();
     }
 
     // Validasi pola password (kombinasi huruf dan angka)
     if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,50}$/', $password_baru)) {
         $_SESSION['error'] = "Password harus mengandung huruf, angka, dan panjang antara 8 hingga 50 karakter.";
-        header("Location: /nganjukvisitnew/admin/ganti_password.php");
+        header("Location: /nganjukvisitnew/admin/admin_ganti_password.php");
         exit();
     }
 
     // Cek apakah password baru dan konfirmasi password cocok
     if ($password_baru !== $konfir_password) {
         $_SESSION['error'] = "Password dan konfirmasi password tidak cocok.";
-        header("Location: /nganjukvisitnew/admin/ganti_password.php");
+        header("Location: /nganjukvisitnew/admin/admin_ganti_password.php");
         exit();
     }
 
@@ -54,11 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         $_SESSION['success'] = "Password berhasil diperbarui.";
-        header("Location: /nganjukvisitnew/admin/ganti_password.php");
+        header("Location: /nganjukvisitnew/admin/admin_ganti_password.php");
         exit();
     } else {
         $_SESSION['error'] = "Terjadi kesalahan saat memperbarui password.";
-        header("Location: /nganjukvisitnew/admin/ganti_password.php");
+        header("Location: /nganjukvisitnew/admin/admin_ganti_password.php");
         exit();
     }
 
@@ -67,6 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     // Jika pengguna mencoba mengakses file ini tanpa submit form
     $_SESSION['error'] = "Akses tidak valid.";
-    header("Location: /nganjukvisitnew/admin/ganti_password.php");
+    header("Location: /nganjukvisitnew/admin/admin_ganti_password.php");
     exit();
 }

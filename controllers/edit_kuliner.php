@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('ssssi', $nama_kuliner, $deskripsi, $harga, $gambar_string, $id_kuliner);
 
     if ($stmt->execute()) {
-        header("Location: ../admin/kuliner_admin.php?update=success");
+        header("Location: ../admin/admin_kuliner.php?update=success");
         exit();
     } else {
         echo "Error: " . $conn->error;

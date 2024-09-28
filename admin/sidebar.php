@@ -36,10 +36,10 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Nganjuk Visit:</h6>
-                <a class="collapse-item" href="wisata_admin.php">Wisata</a>
-                <a class="collapse-item" href="kuliner_admin.php">Kuliner</a>
-                <a class="collapse-item" href="penginapan_admin.php">Penginapan</a>
-                <a class="collapse-item" href="event_admin.php">Event</a>
+                <a class="collapse-item" href="admin_wisata.php">Wisata</a>
+                <a class="collapse-item" href="admin_kuliner.php">Kuliner</a>
+                <a class="collapse-item" href="admin_penginapan.php">Penginapan</a>
+                <a class="collapse-item" href="admin_event.php">Event</a>
             </div>
         </div>
     </li>
@@ -71,7 +71,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="profile_admin.php">
+        <a class="nav-link" href="admin_profile.php">
             <i class="fas fa-fw fa-folder"></i>
             <span>Profil</span></a>
     </li>

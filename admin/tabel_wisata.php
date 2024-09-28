@@ -57,7 +57,7 @@ if (!empty($search)) {
             <h6 class="m-0 font-weight-bold mb-3 text-primary">Tabel Data Wisata</h6>
             <!-- Tombol Tambah -->
             <button class='btn btn-success px-3 ms-lg-4 ms-2' data-bs-toggle="modal" data-bs-target="#modalTambahWisata"><i class="fas fa-plus"></i> Tambah</button>
-            <button class='btn btn-info px-3 mt-1 mt-lg-0 ms-lg-4 ms-2' onclick="window.location.href='wisata_admin.php'"><i class="fas fa-sync"></i> Refresh</button>
+            <button class='btn btn-info px-3 mt-1 mt-lg-0 ms-lg-4 ms-2' onclick="window.location.href='admin_wisata.php'"><i class="fas fa-sync"></i> Refresh</button>
             <!-- Form Pencarian -->
             <form method="GET" class="form-inline ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group px-2 mt-2">
