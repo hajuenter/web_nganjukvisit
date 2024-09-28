@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data">
                             <div class="mb-3">
-                                <label class="small mb-1" for="inputFoto">Upload Gambar Baru</label>
+                                <label class="small mb-1" id="inputFoto">Upload Gambar Baru</label>
                                 <input type="file" name="foto" class="form-control mb-3">
                             </div>
                             <div class="mb-3">
@@ -114,7 +114,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label class="small mb-1" for="inputEmailAddress">Email</label>
                                 <input class="form-control" id="inputEmailAddress" type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
                             </div>
-                            <button class="btn btn-primary" type="submit">Simpan</button>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-save"></i> Simpan
+                            </button>
                         </form>
                     </div>
                 </div>

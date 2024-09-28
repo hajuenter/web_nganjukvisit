@@ -38,8 +38,8 @@
                 <h6 class="collapse-header">Nganjuk Visit:</h6>
                 <a class="collapse-item" href="wisata_admin.php">Wisata</a>
                 <a class="collapse-item" href="kuliner_admin.php">Kuliner</a>
-                <a class="collapse-item" href="">Penginapan</a>
-                <a class="collapse-item" href="">Event</a>
+                <a class="collapse-item" href="penginapan_admin.php">Penginapan</a>
+                <a class="collapse-item" href="event_admin.php">Event</a>
             </div>
         </div>
     </li>
