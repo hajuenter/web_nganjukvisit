@@ -35,7 +35,9 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
     <?php endif; ?>
 
     <div class="mb-3">
-        <span class="badge me-1 badge-info py-2 px-3 rounded-pill d-inline">Jumlah Pengelola Aktif : <?= $jumlahPengelolaActive ?></span>
+        <div class="mb-3">
+            <span class="badge me-1 badge-info py-2 px-3 rounded-pill d-inline">Jumlah Pengelola Aktif : <?= $jumlahPengelolaActive ?></span>
+        </div>
         <span class="badge me-1 badge-warning py-2 px-3 rounded-pill d-inline">Jumlah Pengelola Inaktif : <?= $jumlahPengelolaInactive ?></span>
     </div>
     <div class="mb-2">
@@ -45,40 +47,42 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
     </div>
 
     <!-- Tabel Pengelola Aktif -->
-    <table class="table align-middle mb-lg-5 mb-2 bg-white">
-        <thead class="bg-light">
-            <tr>
-                <th>Email</th>
-                <th>Nama</th>
-                <th>Role</th>
-                <th>Alamat</th>
-                <th>Status</th>
-                <th>Gambar</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if ($jumlahPengelolaActive > 0) {
-                while ($row = mysqli_fetch_assoc($resultActive)) {
-                    echo '<tr>';
-                    echo '<td>' . htmlspecialchars($row['email']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
-                    echo '<td><span class="badge badge-success rounded-pill py-2 px-3 d-inline">Pengelola</span></td>';
-                    echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['status']) . '</td>';
-                    echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
-                    echo '<td>';
-                    echo '<button class="btn btn-danger" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal"><i class="fas fa-trash-alt"></i> Hapus</button>';
-                    echo '</td>';
-                    echo '</tr>';
+    <div class="table-responsive">
+        <table class="table align-middle mb-lg-5 mb-2 bg-white">
+            <thead class="bg-light">
+                <tr>
+                    <th>Email</th>
+                    <th>Nama</th>
+                    <th>Role</th>
+                    <th>Alamat</th>
+                    <th>Status</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($jumlahPengelolaActive > 0) {
+                    while ($row = mysqli_fetch_assoc($resultActive)) {
+                        echo '<tr>';
+                        echo '<td>' . htmlspecialchars($row['email']) . '</td>';
+                        echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
+                        echo '<td><span class="badge badge-success rounded-pill py-2 px-3 d-inline">Pengelola</span></td>';
+                        echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
+                        echo '<td>' . htmlspecialchars($row['status']) . '</td>';
+                        echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
+                        echo '<td>';
+                        echo '<button class="btn btn-danger" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal"><i class="fas fa-trash-alt"></i> Hapus</button>';
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+                } else {
+                    echo '<tr><td colspan="6" class="text-center">Tidak ada data pengelola aktif.</td></tr>';
                 }
-            } else {
-                echo '<tr><td colspan="6" class="text-center">Tidak ada data pengelola aktif.</td></tr>';
-            }
-            ?>
-        </tbody>
-    </table>
+                ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Modal Tambah Pengelola -->

@@ -48,7 +48,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
+            <i class="fas fa-fw fa-users"></i>
             <span>Pengguna</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
@@ -59,6 +59,17 @@
                 <a class="collapse-item" href="admin_user.php">User</a>
             </div>
         </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">
+        Ulasan
+    </div>
+    <li class="nav-item">
+        <a class="nav-link" href="admin_ulasan.php">
+            <i class="fas fa-fw fa-comment-alt"></i>
+            <span>Ulasan</span></a>
     </li>
 
     <!-- Divider -->
