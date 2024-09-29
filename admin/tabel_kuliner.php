@@ -101,7 +101,7 @@ if (!empty($search)) {
                                 $gambarAcak = $gambarArray[array_rand($gambarArray)];
 
                                 // Tampilkan gambar acak
-                                echo "<td><img src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;height:auto;'></td>";
+                                echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;'></td>";
                                 echo "<td>
                                 <button class='btn btn-primary btn-edit mb-1 mb-lg-0' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
                                 <i class='fas fa-edit'></i> Edit

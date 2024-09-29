@@ -106,7 +106,7 @@ if (!empty($search)) {
                                 $gambar_acak = $gambar_array[array_rand($gambar_array)];
 
                                 // Tampilkan gambar acak
-                                echo "<td><img src='../public/gambar/" . htmlspecialchars($gambar_acak) . "' alt='Gambar Acak' style='width:100px;height:auto;'></td>";
+                                echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambar_acak) . "' alt='Gambar Acak' style='width:100px;'></td>";
 
                                 echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
                                 echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
