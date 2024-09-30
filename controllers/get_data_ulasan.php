@@ -4,6 +4,7 @@ include("../koneksi.php");
 $conn = $koneksi;
 
 // Mendapatkan kategori dari request
+//iki teko ajax
 $category = $_GET['category'] ?? '';
 
 // Menyiapkan query SQL berdasarkan kategori yang dipilih
