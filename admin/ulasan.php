@@ -9,26 +9,27 @@
             <button class="btn btn-outline-primary" type="submit">Search</button>
         </form>
         <div class="col-md-4">
-            <select class="form-select">
-                <option selected>Filter Kategori</option>
-                <option value="1">Wisata</option>
-                <option value="2">Hotel</option>
-                <option value="3">Kuliner</option>
+            <select class="form-select" id="categoryFilter">
+                <option selected value="">Filter Kategori</option>
+                <option value="ulasan_wisata">Wisata</option>
+                <option value="ulasan_penginapan">Hotel</option>
+                <option value="ulasan_kuliner">Kuliner</option>
             </select>
         </div>
     </div>
 
     <!-- Table Ulasan (Responsive) -->
-    <div class="card shadow-sm">
+    <div class="card">
         <div class="card-header">
             <h5>Data Ulasan</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
-                    <thead class="table-dark">
+                    <thead class="table-light">
                         <tr>
                             <th>Id Ulasan</th>
+                            <th>Id User</th>
                             <th>Nama Pengulas</th>
                             <th>Kategori</th>
                             <th>Isi Ulasan</th>
@@ -36,37 +37,44 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="ulasanTableBody">
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm mb-1 mb-lg-1"><i class="fas fa-eye"></i> Detail</button>
-                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button>
-                            </td>
+                            <td colspan="6" class="text-center">Pilih kategori untuk menampilkan data</td>
                         </tr>
-                        <!-- Tambahkan data ulasan lainnya di sini -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-    <!-- Pagination -->
-    <nav aria-label="Page navigation example" class="mt-4">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
 </div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    // Fungsi untuk mengambil data ulasan
+    function loadData(category = '') {
+        $.ajax({
+            url: '../controllers/get_data_ulasan.php',
+            type: 'GET',
+            data: { category: category },
+            success: function(response) {
+                $('#ulasanTableBody').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error: " + error);
+            }
+        });
+    }
+
+    // Memuat semua data ulasan saat halaman pertama kali dimuat
+    $(document).ready(function() {
+        loadData();  // Memuat semua data ulasan
+
+        // Ketika kategori diubah
+        $('#categoryFilter').change(function() {
+            var category = $(this).val();
+            loadData(category);  // Memuat data berdasarkan kategori
+        });
+    });
+</script>

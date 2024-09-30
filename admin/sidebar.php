@@ -77,14 +77,14 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Pengaturan
+        Tiket
     </div>
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="admin_profile.php">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Profil</span></a>
+        <a class="nav-link" href="admin_boking_tiket.php">
+            <i class="fas fa-fw fa-ticket-alt"></i>
+            <span>Booking dan Tiket</span></a>
     </li>
 
     <!-- Divider -->
