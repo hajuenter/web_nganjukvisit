@@ -1,16 +1,40 @@
+<?php
+// Koneksi ke database
+include '../koneksi.php';
+$conn = $koneksi;
+
+// Ambil query pencarian dari URL (GET method)
+$search = isset($_GET['search_query']) ? $_GET['search_query'] : '';
+
+// Query untuk menampilkan data (dengan atau tanpa pencarian)
+if (!empty($search)) {
+    // Pencarian berdasarkan id_wisata atau nama_wisata
+    $sql = "SELECT * FROM detail_penginapan WHERE id_penginapan LIKE ? OR nama_penginapan LIKE ?";
+    $stmt = $conn->prepare($sql);
+    $search_param = "%" . $search . "%";
+    $stmt->bind_param("ss", $search_param, $search_param);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    // Tampilkan semua data jika tidak ada pencarian
+    $sql = "SELECT * FROM detail_penginapan";
+    $result = $conn->query($sql);
+}
+?>
+
 <div class="container-fluid">
     <h2>Data Penginapan</h2>
     <p>Informasi penginapan atau hotel yang ada di kawasan Nganjuk</p>
-    <form class="input-group mb-2" style="max-width: 700px;">
-        <input type="search" class="form-control form-control-lg" placeholder="Search for something..." aria-label="Search" aria-describedby="button-addon2">
+    <form method="get" class="input-group mb-2">
+        <input type="search" name="search_query" class="form-control form-control-lg" placeholder="Search for something..." aria-label="Search" aria-describedby="button-addon2">
         <button class="btn btn-primary btn-lg" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
     </form>
     <!-- Button for Adding -->
-    <button class="btn btn-success btn-md mb-lg-2" type="button" data-bs-toggle="modal" data-bs-target="#addModal">
+    <button class="btn btn-success btn-md mb-2" type="button" data-bs-toggle="modal" data-bs-target="#addModal">
         <i class="fas fa-plus"></i> Add
     </button>
     <!-- Button for Refreshing -->
-    <button class="btn btn-warning btn-md ms-2 mb-lg-2" onclick="window.location.href='admin_penginapan.php'" type="button">
+    <button class="btn btn-warning btn-md ms-2 mb-2" onclick="window.location.href='admin_penginapan.php'" type="button">
         <i class="fas fa-sync-alt"></i> Refresh
     </button>
     <div class="table-responsive">
@@ -28,16 +52,40 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+            <tbody>
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['id_penginapan']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['nama_penginapan']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['deskripsi']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['harga']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['lokasi']) . "</td>";
+
+                        // Pecah gambar menjadi array
+                        $gambarArray = explode(',', $row['gambar']);
+
+                        // Pilih satu gambar secara acak
+                        $gambarAcak = $gambarArray[array_rand($gambarArray)];
+
+                        // Tampilkan gambar acak
+                        echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;'></td>";
+                        echo "<td>" . htmlspecialchars($row['telepon']) . "</td>";
+                        echo "<td>
+                                <button class='btn btn-primary btn-edit mb-1 mb-lg-1' data-id='" . htmlspecialchars($row['id_penginapan']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
+                                <i class='fas fa-edit'></i> Edit
+                                </button> 
+                                <button class='btn btn-danger' data-id='" . htmlspecialchars($row['id_penginapan']) . "' data-toggle='modal' data-target='#hapusModal'>
+                                <i class='fas fa-trash-alt'></i> Hapus
+                                </button>
+                                </td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='9'>Tidak ada data ditemukan</td></tr>";
+                }
+                ?>
             </tbody>
         </table>
     </div>
