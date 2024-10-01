@@ -34,11 +34,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $allowedfileExtensions = ['jpg', 'jpeg', 'png'];
 
         if (in_array($fileExtension, $allowedfileExtensions)) {
+            // Generate new file name
             $newFileName = $id_user . '_' . time() . '.' . $fileExtension;
             $uploadFileDir = '../public/gambar/';
             $dest_path = $uploadFileDir . $newFileName;
 
+            // Move the uploaded file and update the database
             if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                // Hapus gambar lama jika bukan avatar default
+                if (!empty($user['gambar']) && $user['gambar'] !== 'avatar_profile.jpg') {
+                    $oldFilePath = $uploadFileDir . $user['gambar'];
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath); // Hapus gambar lama
+                    }
+                }
+
+                // Update gambar di database
                 $updateGambarQuery = "UPDATE user SET gambar = ? WHERE id_user = ?";
                 $stmt = $conn->prepare($updateGambarQuery);
                 $stmt->bind_param("si", $newFileName, $id_user);
@@ -61,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Fetch the updated user data
     $user = fetchUserData($conn, $id_user);
 
-    $_SESSION['profile_update'] = "Profil berhasil di perbarui.";
+    $_SESSION['profile_update'] = "Profil berhasil diperbarui.";
 }
 ?>
 
@@ -81,8 +92,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-xl-4">
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">Foto Profil</div>
-                    <div class="card-body text-center">
-                        <img class="img-account-profile img-fluid rounded-circle mb-2" src="<?= htmlspecialchars($urlGambar) ?>" alt="Foto Profil">
+                    <div class="card-body text-center mb-2">
+                        <img class="img-account-profile img-fluid rounded-circle w-100"
+                            src="<?= htmlspecialchars($urlGambar) ?>"
+                            alt="Foto Profil" style="max-width: 200px; height: auto;">
                         <div class="small font-italic text-muted mb-4">JPG atau PNG</div>
                     </div>
                 </div>

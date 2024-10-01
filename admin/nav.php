@@ -5,34 +5,25 @@ if (!isset($_SESSION['nama'])) {
     exit;
 }
 ?>
-
 <?php
-// Pastikan id_user sudah ada dalam session
-if (!isset($_SESSION['user_id'])) {
-    echo "Pengguna belum login.";
-    exit;
-}
 include("../koneksi.php");
 
 $conn = $koneksi;
-// Siapkan query untuk mengambil data user berdasarkan id_user dari session
+$id_user = $_SESSION['user_id'];
+
+// Ambil data pengguna dari database
 $sql = "SELECT gambar FROM user WHERE id_user = ?";
-
-// Mempersiapkan statement
 $stmt = $conn->prepare($sql);
-
-// Bind id_user dari session ke dalam query
-$stmt->bind_param("i", $_SESSION['user_id']);
-
-// Eksekusi query
+$stmt->bind_param("i", $id_user);
 $stmt->execute();
-
-// Mendapatkan hasil query
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
-// Jika gambar tidak ditemukan, berikan gambar default
+// Ganti gambar default jika pengguna belum memiliki gambar
 $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar'] : "../public/gambar/avatar_profile.jpg";
+
+// Tambahkan timestamp agar browser memuat ulang gambar terbaru
+$gambar_profil .= '?v=' . time();
 ?>
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -53,7 +44,8 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= htmlspecialchars($_SESSION['nama']); ?></span>
-                <img class="img-profile rounded-circle" src="<?= htmlspecialchars($gambar_profil); ?>">
+                <!-- Gambar Profil di Navbar -->
+                <img id="profileNavImage" class="img-profile rounded-circle" src="<?= htmlspecialchars($gambar_profil); ?>" alt="Foto Profil">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
