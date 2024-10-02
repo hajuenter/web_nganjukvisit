@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <form method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label class="small mb-1" id="inputFoto">Upload Gambar Baru</label>
-                                <input type="file" name="foto" class="form-control mb-3">
+                                <input type="file" name="foto" class="form-control mb-3" accept="image/*">
                             </div>
                             <div class="mb-3">
                                 <label class="small mb-1" for="inputName">Nama</label>
