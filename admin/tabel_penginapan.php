@@ -100,7 +100,7 @@ if (!empty($search)) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addForm">
+                <form id="addForm" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <input type="text" class="form-control" id="nama" name="nama" required>
@@ -119,7 +119,7 @@ if (!empty($search)) {
                     </div>
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
-                        <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
+                        <input type="file" class="form-control" id="gambar" name="gambar[]" multiple accept="image/*" required>
                     </div>
                     <div class="mb-3">
                         <label for="telepon" class="form-label">Telepon</label>
