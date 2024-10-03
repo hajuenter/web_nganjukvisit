@@ -25,6 +25,31 @@ if (!empty($search)) {
 <div class="container-fluid">
     <h2>Data Event</h2>
     <p>Informasi event atau acara yang ada di Nganjuk</p>
+
+    <!-- alert tambah -->
+    <?php if (isset($_GET['tambah']) && $_GET['tambah'] == 'success'): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data berhasil ditambah!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- alert edit -->
+    <?php if (isset($_GET['update']) && $_GET['update'] == 'success'): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data berhasil diperbarui!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
+    <!-- alert hapus -->
+    <?php if (isset($_GET['delete']) && $_GET['delete'] == 'success'): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Data berhasil dihapus!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+
     <form class="input-group mb-2">
         <input type="search" name="search_query" class="form-control form-control-lg" placeholder="Search for something..." aria-label="Search" aria-describedby="button-addon2">
         <button class="btn btn-primary btn-lg" type="submit" id="button-addon2">
@@ -97,30 +122,22 @@ if (!empty($search)) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addForm">
+                <form id="addForm" method="post" action="../controllers/tambah_event.php" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <input type="text" class="form-control" id="nama" name="nama" required>
                     </div>
                     <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="harga" class="form-label">Harga</label>
-                        <input type="number" class="form-control" id="harga" name="harga" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="lokasi" class="form-label">Lokasi</label>
-                        <input type="text" class="form-control" id="lokasi" name="lokasi" required>
+                        <label for="deskripsi" class="form-label">Deskripsi Event</label>
+                        <textarea class="form-control" id="deskripsi_event" name="deskripsi_event" rows="3" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
-                        <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
+                        <input type="file" class="form-control" id="gambar" name="gambar[]" accept="image/*" multiple required>
                     </div>
                     <div class="mb-3">
-                        <label for="telepon" class="form-label">Telepon</label>
-                        <input type="tel" class="form-control" id="telepon" name="telepon" required>
+                        <label for="tanggal_event" class="form-label">Tanggal Event</label>
+                        <input type="date" class="form-control" id="tanggal_event" name="tanggal_event" required>
                     </div>
                 </form>
             </div>
@@ -131,3 +148,110 @@ if (!empty($search)) {
         </div>
     </div>
 </div>
+
+<!-- modal hapus -->
+<div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Apakah Anda yakin ingin menghapus data ini?</div>
+            <div class="modal-footer">
+                <form id="hapusForm" method="post" action="">
+                    <input type="hidden" name="id_event" id="id_event">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-danger" type="submit">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Event</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body-edit p-2">
+                <!-- Data dari Ajax akan dimasukkan ke sini -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="form-edit">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JQuery dan Ajax untuk mengambil data -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- script ketika alert di close url kembali ke semula -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dapatkan semua elemen dengan class 'alert-dismissible'
+        var alertElement = document.querySelector('.alert-dismissible');
+
+        // Jika ada alert, tambahkan event ketika tombol "X" ditekan
+        if (alertElement) {
+            alertElement.addEventListener('closed.bs.alert', function() {
+                // Hapus parameter dari URL setelah alert ditutup
+                var url = new URL(window.location.href);
+                url.searchParams.delete('update'); // Hapus parameter 'update'
+                url.searchParams.delete('tambah'); // Hapus parameter 'tambah'
+                url.searchParams.delete('delete'); // Hapus parameter 'tambah'
+                window.history.replaceState(null, null, url.pathname); // Ubah URL tanpa reload
+            });
+        }
+    });
+</script>
+
+<!-- script dari modal hapus ke hapus_eveent.php -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Setup event listeners for the delete buttons
+        const btnHapus = document.querySelectorAll('.btn-danger[data-target="#hapusModal"]');
+
+        btnHapus.forEach(button => {
+            button.addEventListener('click', function() {
+                // Ambil ID dari data-id tombol
+                const idEvent = this.getAttribute('data-id');
+                // Set ID data pada field di formulir modal
+                const idEventField = document.getElementById('id_event');
+                idEventField.value = idEvent;
+                // Set action form ke URL yang sesuai
+                const hapusForm = document.getElementById('hapusForm');
+                hapusForm.action = '../controllers/hapus_event.php';
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Event ketika tombol edit di klik
+        $('.btn-edit').on('click', function() {
+            var id_event = $(this).data('id');
+
+            // Mengambil data wisata berdasarkan id_event
+            $.ajax({
+                url: '../controllers/get_data_event.php',
+                type: 'POST',
+                data: {
+                    id_event: id_event
+                },
+                success: function(data) {
+                    // Tampilkan data yang didapatkan ke dalam modal
+                    $('.modal-body-edit').html(data);
+                }
+            });
+        });
+    });
+</script>
