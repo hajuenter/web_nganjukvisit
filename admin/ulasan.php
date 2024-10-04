@@ -1,20 +1,26 @@
 <div class="container-fluid">
     <h1 class="mb-4">Menu Data Ulasan Nganjuk Visit</h1>
     <p class="mb-5">Kelola ulasan wisata, hotel, atau kuliner dari pengunjung Nganjuk Visit di sini.</p>
+    <!-- alert hapus -->
+    <?php if (isset($_GET['delete']) && $_GET['delete'] == 'success'): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Data berhasil dihapus!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
 
-    <!-- Filter & Search -->
-    <div class="row mb-2">
-        <form class="col-sm-4 mb-2 d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit">Search</button>
-        </form>
-        <div class="col-md-4">
-            <select class="form-select" id="categoryFilter">
+    <!-- Filter & refresh -->
+    <div class="row mb-2 align-items-center">
+        <div class="col-md-4 d-flex align-items-center">
+            <select class="form-select me-2" id="categoryFilter">
                 <option selected value="">Filter Kategori</option>
                 <option value="ulasan_wisata">Wisata</option>
                 <option value="ulasan_penginapan">Hotel</option>
                 <option value="ulasan_kuliner">Kuliner</option>
             </select>
+            <button class='btn btn-info' onclick="window.location.href='admin_ulasan.php'">
+                <i class="fas fa-sync"></i>
+            </button>
         </div>
     </div>
 
@@ -48,16 +54,38 @@
     </div>
 </div>
 
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus ulasan ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- njikok data ulasan -->
 <script>
     // Fungsi untuk mengambil data ulasan
     function loadData(category = '') {
         $.ajax({
             url: '../controllers/get_data_ulasan.php',
             type: 'GET',
-            data: { category: category },
+            data: {
+                category: category
+            },
             success: function(response) {
                 $('#ulasanTableBody').html(response);
             },
@@ -69,12 +97,32 @@
 
     // Memuat semua data ulasan saat halaman pertama kali dimuat
     $(document).ready(function() {
-        loadData();  // Memuat semua data ulasan
+        loadData(); // Memuat semua data ulasan
 
         // Ketika kategori diubah
         $('#categoryFilter').change(function() {
             var category = $(this).val();
-            loadData(category);  // Memuat data berdasarkan kategori
+            loadData(category); // Memuat data berdasarkan kategori
         });
+    });
+</script>
+
+<!-- nyekel data ulasan pas arep di hapus -->
+<script>
+    // Fungsi untuk menangkap data ulasan yang akan dihapus
+    $(document).on('click', '.btn-danger', function() {
+        // Ambil data dari atribut data-category dan data-id
+        categoryToDelete = $(this).data('category');
+        idToDelete = $(this).data('id');
+
+        // Tampilkan modal konfirmasi
+        $('#confirmDeleteModal').modal('show');
+    });
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        // Pastikan kategori dan id sudah terisi sebelum redirect
+        if (categoryToDelete && idToDelete) {
+            window.location.href = "../controllers/hapus_ulasan.php?category=" + categoryToDelete + "&id_ulasan=" + idToDelete;
+        }
     });
 </script>

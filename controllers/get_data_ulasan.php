@@ -39,8 +39,13 @@ if ($result->num_rows > 0) {
                 <td>{$row['isi_ulasan']}</td>
                 <td>{$row['tanggal']}</td>
                 <td>
-                    <button class='btn btn-primary px-2 btn-sm mb-1'><i class='fas fa-eye'></i> Detail</button>
-                    <button class='btn btn-danger px-2 btn-sm'><i class='fas fa-trash'></i> Hapus</button>
+                 <button class='btn btn-danger px-2 btn-sm' 
+                    data-bs-toggle='modal' 
+                    data-bs-target='#confirmDeleteModal' 
+                    data-category='{$row['kategori']}' 
+                    data-id='{$row['id_ulasan']}'>
+                <i class='fas fa-trash'></i> Hapus
+            </button>
                 </td>
               </tr>";
     }
@@ -49,3 +54,4 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
+?>
