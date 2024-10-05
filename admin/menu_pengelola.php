@@ -4,7 +4,7 @@ include("../koneksi.php");
 $conn = $koneksi;
 
 // Query untuk mengambil data pengelola dengan status active
-$pengelolaActiveQuery = "SELECT id_user, email, nama, role, alamat, gambar, status FROM user WHERE role = 'pengelola' AND status = 'active'";
+$pengelolaActiveQuery = "SELECT id_user, email, nama, role, alamat, gambar, status, ket_wisata FROM user WHERE role = 'pengelola' AND status = 'active'";
 $resultActive = mysqli_query($conn, $pengelolaActiveQuery);
 $jumlahPengelolaActive = mysqli_num_rows($resultActive);
 
@@ -56,6 +56,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                     <th>Role</th>
                     <th>Alamat</th>
                     <th>Status</th>
+                    <th>Pengelola Wisata</th>
                     <th>Gambar</th>
                     <th>Aksi</th>
                 </tr>
@@ -70,6 +71,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         echo '<td><span class="badge badge-success rounded-pill py-2 px-3 d-inline">Pengelola</span></td>';
                         echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
                         echo '<td>' . htmlspecialchars($row['status']) . '</td>';
+                        echo '<td>' . htmlspecialchars($row['ket_wisata']) . '</td>';
                         echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
                         echo '<td>';
                         echo '<button class="btn btn-danger" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal"><i class="fas fa-trash-alt"></i> Hapus</button>';
@@ -114,6 +116,24 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
                         <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pilih_untuk_mengelola" class="form-label">Pilih Wisata untuk Mengelola</label>
+                        <select class="form-control" id="pilih_untuk_mengelola" name="pilih_untuk_mengelola" required>
+                            <option value="">Pilih Wisata</option>
+                            <?php
+                            // Koneksi ke database
+                            include("../koneksi.php");
+
+                            // Query untuk mengambil id_wisata dan nama_wisata
+                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata");
+
+                            // Loop melalui hasil query dan buat opsi dropdown
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<option value='" . $row['id_wisata'] . "'>" . $row['nama_wisata'] . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </form>

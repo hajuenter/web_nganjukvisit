@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama = mysqli_real_escape_string($conn, $_POST['nama']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $alamat = mysqli_real_escape_string($conn, $_POST['alamat']);
+    $ket_wisata = mysqli_real_escape_string($conn, $_POST['pilih_untuk_mengelola']); // ID wisata dari dropdown
 
     // Validasi panjang password dan kombinasi huruf dan angka
     if (strlen($password) < 8 || strlen($password) > 50 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/[0-9]/', $password)) {
@@ -20,7 +21,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Enkripsi password (gunakan password_hash untuk keamanan)
+    // Cek apakah email sudah digunakan
+    $query_check_email = "SELECT email FROM user WHERE email = ?";
+    if ($stmt_check = mysqli_prepare($conn, $query_check_email)) {
+        mysqli_stmt_bind_param($stmt_check, 's', $email);
+        mysqli_stmt_execute($stmt_check);
+        mysqli_stmt_store_result($stmt_check);
+
+        if (mysqli_stmt_num_rows($stmt_check) > 0) {
+            // Jika email sudah terdaftar
+            $_SESSION['error_konfir'] = "Email sudah digunakan. Silakan gunakan email lain.";
+            mysqli_stmt_close($stmt_check); // Tutup $stmt_check setelah digunakan
+            header("Location: ../admin/admin_pengelola.php");
+            exit();
+        }
+
+        mysqli_stmt_close($stmt_check); // Pastikan ditutup di sini
+    }
+
+    // Enkripsi password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Cek apakah ada gambar yang diupload
@@ -35,62 +54,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Tentukan lokasi penyimpanan gambar
         $targetDir = "../public/gambar/";
-        $gambarBaru = uniqid() . "." . $gambarExt; // Generate nama unik untuk file gambar
+        $gambarBaru = uniqid() . "." . $gambarExt;
         $targetFile = $targetDir . $gambarBaru;
 
-        // Validasi jenis file gambar (hanya jpg, jpeg, png yang diizinkan)
+        // Validasi jenis file gambar
         $allowedExt = ['jpg', 'jpeg', 'png'];
         if (in_array(strtolower($gambarExt), $allowedExt)) {
-            // Pindahkan file gambar ke folder tujuan
             if (move_uploaded_file($gambarTmp, $targetFile)) {
-                // Jika gambar berhasil diupload, lanjutkan dengan menyimpan data ke database
-                $query = "INSERT INTO user (email, nama, password, alamat, gambar, role, status) VALUES (?, ?, ?, ?, ?, 'pengelola', 'active')";
+                // Simpan data ke database
+                $query = "INSERT INTO user (email, nama, password, alamat, gambar, role, status, ket_wisata) 
+                          VALUES (?, ?, ?, ?, ?, 'pengelola', 'active', ?)";
 
-                // Persiapan statement
                 if ($stmt = mysqli_prepare($conn, $query)) {
-                    // Bind parameter ke query
-                    mysqli_stmt_bind_param($stmt, 'sssss', $email, $nama, $hashedPassword, $alamat, $gambarBaru);
+                    mysqli_stmt_bind_param($stmt, 'ssssss', $email, $nama, $hashedPassword, $alamat, $gambarBaru, $ket_wisata);
 
-                    // Eksekusi query
                     if (mysqli_stmt_execute($stmt)) {
-                        // Jika berhasil, redirect ke halaman sebelumnya dengan pesan sukses
                         $_SESSION['success_konfir'] = "Pengelola berhasil ditambahkan.";
+                        mysqli_stmt_close($stmt); // Tutup statement $stmt setelah digunakan
                         header("Location: ../admin/admin_pengelola.php");
                         exit();
                     } else {
-                        // Jika terjadi error pada query
-                        $_SESSION['error_konfir'] = "Gagal menambahkan pengelola. Silakan coba lagi.";
+                        $_SESSION['error_konfir'] = "Gagal menambahkan pengelola.";
+                        mysqli_stmt_close($stmt); // Tutup $stmt di sini juga untuk mencegah kebocoran
                         header("Location: ../admin/admin_pengelola.php");
                         exit();
                     }
-                } else {
-                    // Jika terjadi error pada persiapan query
-                    $_SESSION['error_konfir'] = "Terjadi kesalahan pada server. Silakan coba lagi.";
-                    header("Location: ../admin/admin_pengelola.php");
-                    exit();
                 }
-
-                // Tutup statement
-                mysqli_stmt_close($stmt);
             } else {
-                // Jika gagal memindahkan file gambar
                 $_SESSION['error_konfir'] = "Gagal mengupload gambar.";
                 header("Location: ../admin/admin_pengelola.php");
                 exit();
             }
         } else {
-            // Jika jenis file tidak diizinkan
             $_SESSION['error_konfir'] = "Jenis file gambar tidak valid. Hanya jpg, jpeg, dan png yang diperbolehkan.";
             header("Location: ../admin/admin_pengelola.php");
             exit();
         }
     } else {
-        // Jika gambar tidak diupload atau terjadi error
         $_SESSION['error_konfir'] = "Harap upload gambar yang valid.";
         header("Location: ../admin/admin_pengelola.php");
         exit();
     }
 }
 
-// Tutup koneksi
 mysqli_close($conn);
