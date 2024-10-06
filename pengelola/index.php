@@ -8,6 +8,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
+//cobaa
 // Cek apakah pengguna memiliki role pengelola
 if ($_SESSION['role'] !== 'pengelola') {
     // Jika pengguna bukan pengelola, redirect ke halaman yang sesuai
