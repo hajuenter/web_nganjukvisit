@@ -75,6 +75,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
                         echo '<td>';
                         echo '<button class="btn btn-danger" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal"><i class="fas fa-trash-alt"></i> Hapus</button>';
+                        echo '<button class="btn btn-info mt-lg-1" data-id="' . htmlspecialchars($row['id_user']) . '" data-bs-toggle="modal" data-bs-target="#modalSetWisata" onclick="setPengelolaId(' . htmlspecialchars($row['id_user']) . ')"><i class="fas fa-map-marker-alt"></i> Set Wisata</button>';
                         echo '</td>';
                         echo '</tr>';
                     }
@@ -84,6 +85,39 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                 ?>
             </tbody>
         </table>
+    </div>
+</div>
+
+<!-- Modal Set Wisata -->
+<div class="modal fade" id="modalSetWisata" tabindex="-1" aria-labelledby="modalSetWisataLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalSetWisataLabel">Pilih Wisata untuk Pengelola</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="../controllers/set_wisata.php" method="POST">
+                    <input type="hidden" name="id_pengelola" id="id_pengelola">
+                    <div class="mb-3">
+                        <label for="wisata" class="form-label">Pilih Wisata</label>
+                        <select class="form-control" id="wisata" name="wisata" required>
+                            <option value="">Pilih Wisata</option>
+                            <?php
+                            // Query untuk mengambil id_wisata dan nama_wisata
+                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata");
+
+                            // Loop untuk membuat pilihan dropdown
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<option value='" . $row['id_wisata'] . "'>" . $row['nama_wisata'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Set Wisata</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -276,6 +310,13 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
             });
         });
     });
+</script>
+
+<!-- set wisata -->
+<script>
+    function setPengelolaId(id_pengelola) {
+        document.getElementById('id_pengelola').value = id_pengelola;
+    }
 </script>
 
 <?php
