@@ -65,11 +65,11 @@ if ($result_user->num_rows > 0) {
             <input type="text" class="form-control" id="alamat" name="alamat" value="<?php echo htmlspecialchars($alamat); ?>" required>
         </div>
         <div class="mb-3">
-            <label for="harga_tiket" class="form-label">harga_tiket</label>
+            <label for="harga_tiket" class="form-label">Harga Tiket</label>
             <input type="text" class="form-control" id="harga_tiket" name="harga_tiket" value="<?php echo htmlspecialchars($harga_tiket); ?>" required>
         </div>
         <div class="mb-3">
-            <label for="jadwal" class="form-label">jadwal</label>
+            <label for="jadwal" class="form-label">Jadwal</label>
             <input type="text" class="form-control" id="jadwal" name="jadwal" value="<?php echo htmlspecialchars($jadwal); ?>" required>
         </div>
         <div class="mb-3">
@@ -106,7 +106,5 @@ if ($result_user->num_rows > 0) {
             </button>
         </div>
     </div>
-    
     <hr>
-
 </div>
