@@ -107,4 +107,5 @@ if ($result_user->num_rows > 0) {
         </div>
     </div>
     <hr>
+    
 </div>
