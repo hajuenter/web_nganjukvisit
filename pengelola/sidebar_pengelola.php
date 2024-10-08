@@ -1,5 +1,5 @@
    <!-- Sidebar -->
-   <ul class="navbar-nav bg-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+   <ul class="navbar-nav bg-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
        <!-- Sidebar - Brand -->
        <a class="sidebar-brand d-flex align-items-center justify-content-center">
@@ -22,8 +22,8 @@
        </div>
 
        <!-- Nav Item - Pages Collapse Menu -->
-       <li class="nav-item">
-           <a class="nav-link" href="#">
+       <li class="nav-item active">
+           <a class="nav-link" href="index.php">
                <i class="fas fa-fw fa-map-signs"></i>
                <span>Wisata Nganjuk Visit</span>
            </a>
