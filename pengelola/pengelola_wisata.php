@@ -106,6 +106,7 @@ if ($result_user->num_rows > 0) {
             </button>
         </div>
     </div>
-    <hr>
     
+    <hr>
+
 </div>
