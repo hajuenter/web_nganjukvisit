@@ -46,11 +46,10 @@ if ($_SESSION['role'] !== 'pengelola') {
 
                 <?php include("nav_pengelola.php"); ?>
 
-                <?php include("pengelola_dashboard.php"); ?>
+                <?php include("pengelola_wisata.php"); ?>
 
             </div>
         </div>
-
 
     </div>
 
@@ -59,7 +58,9 @@ if ($_SESSION['role'] !== 'pengelola') {
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+    <!-- script js bootstrap -->
+    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- script js bootstrap end-->
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -81,10 +82,6 @@ if ($_SESSION['role'] !== 'pengelola') {
     <!-- Page level plugins -->
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- script js bootstrap -->
-    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-    <!-- script js bootstrap end-->
 
     <!-- script jquery cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
