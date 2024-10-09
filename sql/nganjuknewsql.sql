@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Okt 2024 pada 16.40
+-- Waktu pembuatan: 09 Okt 2024 pada 17.09
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -92,7 +92,7 @@ CREATE TABLE `detail_wisata` (
 --
 
 INSERT INTO `detail_wisata` (`id_wisata`, `nama_wisata`, `id_user`, `deskripsi`, `alamat`, `harga_tiket`, `jadwal`, `gambar`, `koordinat`, `link_maps`) VALUES
-(21, 'roro kuning ', 9, 'coba', 'aha', '12', '121', 'pd2.png,pd3.png,pemograman dasar.png', '12', 'https://maps.app.goo.gl/7cf8TZzykJcJnCr86');
+(21, 'Roro Kuning Nganjuk Tes', 9, 'ini adalah wisata yang ada di nganjuk', 'nganjuk sawahan', '12000', '121', '', '12232', 'https://maps.app.goo.gl/7cf8TZzykJcJnCr86');
 
 -- --------------------------------------------------------
 
@@ -144,6 +144,7 @@ CREATE TABLE `tiket_wisata` (
   `id_user` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `bayar` int(11) NOT NULL,
+  `total` int(12) NOT NULL,
   `kembalian` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -228,7 +229,8 @@ INSERT INTO `user` (`id_user`, `email`, `nama`, `role`, `password`, `alamat`, `g
 (12, 'amardjidan@gmail.com', 'amar', 'admin', '$2y$10$cb5uBupsKXMjAUC8wZtC..VsYOjHlGmv.RYHb2d6gWzK/kD075ILm', 'tanjunganom', NULL, '14232161', '2024-09-24 10:06:52', 'active', NULL),
 (20, 'esvanilla63@gmail.com', 'ess', 'pengelola', '$2y$10$N9Fvd57/ry0WqffbvEey1eo3zxU8DVFkzZEwU2LmMEt1eL5iIGN/m', 'yahahh', '67015879b5175.png', NULL, NULL, 'active', '21'),
 (21, 'eskuwut1945@gmail.com', 'hehehe', 'pengelola', '$2y$10$OCwf4I2Kf6o9pd1VYAVk.OZ2kSdT1LTwaDSVYCrO9lbvEJHxiKQOC', 'adban', '670159dacb250.png', NULL, NULL, 'active', '21'),
-(22, 'tespengelola@gmail.com', 'pengelola', 'pengelola', '$2y$10$SVlj6ms7Y7rlThPeNsy6WuadAAB6/msDgOlbUgjFfsL4MoQQCtZ8e', 'hahaha', '670164b4564fe.png', NULL, NULL, 'inactive', '21');
+(22, 'tespengelola@gmail.com', 'pengelola', 'pengelola', '$2y$10$SVlj6ms7Y7rlThPeNsy6WuadAAB6/msDgOlbUgjFfsL4MoQQCtZ8e', 'hahaha', '670164b4564fe.png', NULL, NULL, 'inactive', '21'),
+(23, 'user@gmail.com', 'bahrul tes api', 'user', 'user12345', 'sini', NULL, NULL, NULL, 'active', NULL);
 
 --
 -- Indexes for dumped tables
@@ -399,7 +401,7 @@ ALTER TABLE `ulasan_wisata`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
