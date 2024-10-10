@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Okt 2024 pada 17.09
+-- Waktu pembuatan: 10 Okt 2024 pada 16.59
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -213,24 +213,26 @@ CREATE TABLE `user` (
   `kode_otp` varchar(50) DEFAULT NULL,
   `expired_otp` datetime DEFAULT NULL,
   `status` enum('active','inactive') NOT NULL DEFAULT 'active',
-  `ket_wisata` varchar(200) DEFAULT NULL
+  `ket_wisata` varchar(200) DEFAULT NULL,
+  `no_hp` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id_user`, `email`, `nama`, `role`, `password`, `alamat`, `gambar`, `kode_otp`, `expired_otp`, `status`, `ket_wisata`) VALUES
-(5, 'esjeruk517@gmail.com', 'bahrul', 'admin', '$2y$10$e3JqdgSNaDBcIvjnvMVWl.CN0U6neesp8T2G6kqEFv/SCOssQGgZS', 'hhh', NULL, '934115', NULL, 'active', NULL),
-(6, 'esvanilla63@gmail.com', 'bahrul', 'admin', '$2y$10$8r7M1SakdsOYEUqFKc1ck.s0U6MCHpeRdrpB8oo.6jjx8SIoje1tG', 'hhhh', NULL, '70076637', '2024-09-15 15:46:21', 'active', NULL),
-(7, 'r882357@gmail.com', 'Ratna Indah Anggraini ', 'admin', '$2y$10$Lb/n7Z6sMzMrjdcZSb3jweu76/NS/tXpa7q6ZT/XEkFHcSvJxY1UC', 'ked', NULL, '17056642', '2024-09-18 05:54:28', 'active', NULL),
-(8, 'riandafaturahman@gmail.com', 'Rianda', 'admin', '$2y$10$UXKqMEL14aAHhJ3aScq2/eppHN/mqTMpgY4QsBibT3dLeSjSC892u', 'jl', NULL, '77123080', '2024-09-20 04:51:05', 'active', NULL),
-(9, 'bahrulahmad@gmail.com', 'bahrul testing', 'admin', '$2y$10$7AcxgYJwWdyHwhTTbGwJq.DnTKSIRBb.TDlK9s8qGdDWvY.5C1CbC', 'Nganjuk sini aja', '9_1727792888.jpeg', NULL, NULL, 'active', NULL),
-(12, 'amardjidan@gmail.com', 'amar', 'admin', '$2y$10$cb5uBupsKXMjAUC8wZtC..VsYOjHlGmv.RYHb2d6gWzK/kD075ILm', 'tanjunganom', NULL, '14232161', '2024-09-24 10:06:52', 'active', NULL),
-(20, 'esvanilla63@gmail.com', 'ess', 'pengelola', '$2y$10$N9Fvd57/ry0WqffbvEey1eo3zxU8DVFkzZEwU2LmMEt1eL5iIGN/m', 'yahahh', '67015879b5175.png', NULL, NULL, 'active', '21'),
-(21, 'eskuwut1945@gmail.com', 'hehehe', 'pengelola', '$2y$10$OCwf4I2Kf6o9pd1VYAVk.OZ2kSdT1LTwaDSVYCrO9lbvEJHxiKQOC', 'adban', '670159dacb250.png', NULL, NULL, 'active', '21'),
-(22, 'tespengelola@gmail.com', 'pengelola', 'pengelola', '$2y$10$SVlj6ms7Y7rlThPeNsy6WuadAAB6/msDgOlbUgjFfsL4MoQQCtZ8e', 'hahaha', '670164b4564fe.png', NULL, NULL, 'inactive', '21'),
-(23, 'user@gmail.com', 'bahrul tes api', 'user', 'user12345', 'sini', NULL, NULL, NULL, 'active', NULL);
+INSERT INTO `user` (`id_user`, `email`, `nama`, `role`, `password`, `alamat`, `gambar`, `kode_otp`, `expired_otp`, `status`, `ket_wisata`, `no_hp`) VALUES
+(5, 'esjeruk517@gmail.com', 'bahrul', 'admin', '$2y$10$e3JqdgSNaDBcIvjnvMVWl.CN0U6neesp8T2G6kqEFv/SCOssQGgZS', 'hhh', NULL, '934115', NULL, 'active', NULL, ''),
+(6, 'esvanilla63@gmail.com', 'bahrul', 'admin', '$2y$10$8r7M1SakdsOYEUqFKc1ck.s0U6MCHpeRdrpB8oo.6jjx8SIoje1tG', 'hhhh', NULL, '70076637', '2024-09-15 15:46:21', 'active', NULL, ''),
+(7, 'r882357@gmail.com', 'Ratna Indah Anggraini ', 'admin', '$2y$10$Lb/n7Z6sMzMrjdcZSb3jweu76/NS/tXpa7q6ZT/XEkFHcSvJxY1UC', 'ked', NULL, '17056642', '2024-09-18 05:54:28', 'active', NULL, ''),
+(8, 'riandafaturahman@gmail.com', 'Rianda', 'admin', '$2y$10$UXKqMEL14aAHhJ3aScq2/eppHN/mqTMpgY4QsBibT3dLeSjSC892u', 'jl', NULL, '77123080', '2024-09-20 04:51:05', 'active', NULL, ''),
+(9, 'bahrulahmad@gmail.com', 'bahrul testing', 'admin', '$2y$10$7AcxgYJwWdyHwhTTbGwJq.DnTKSIRBb.TDlK9s8qGdDWvY.5C1CbC', 'Nganjuk sini aja', '9_1727792888.jpeg', NULL, NULL, 'active', NULL, ''),
+(12, 'amardjidan@gmail.com', 'amar', 'admin', '$2y$10$cb5uBupsKXMjAUC8wZtC..VsYOjHlGmv.RYHb2d6gWzK/kD075ILm', 'tanjunganom', NULL, '14232161', '2024-09-24 10:06:52', 'active', NULL, ''),
+(20, 'esvanilla63@gmail.com', 'ess', 'pengelola', '$2y$10$N9Fvd57/ry0WqffbvEey1eo3zxU8DVFkzZEwU2LmMEt1eL5iIGN/m', 'yahahh', '67015879b5175.png', NULL, NULL, 'active', '21', ''),
+(21, 'eskuwut1945@gmail.com', 'hehehe', 'pengelola', '$2y$10$OCwf4I2Kf6o9pd1VYAVk.OZ2kSdT1LTwaDSVYCrO9lbvEJHxiKQOC', 'adban', '670159dacb250.png', NULL, NULL, 'active', '21', ''),
+(22, 'tespengelola@gmail.com', 'pengelola', 'pengelola', '$2y$10$SVlj6ms7Y7rlThPeNsy6WuadAAB6/msDgOlbUgjFfsL4MoQQCtZ8e', 'hahaha', '670164b4564fe.png', NULL, NULL, 'inactive', '21', ''),
+(23, 'user@gmail.com', 'bahrul tes api', 'user', 'user12345', 'sini', NULL, NULL, NULL, 'active', NULL, ''),
+(24, 'tesbroo@gmail.com', 'testing lagi', 'pengelola', '$2y$10$FAZu24O4B6nG.asGM9EmQeO4rxonmNhYi7ooPoUqmAVzUxweNSEjO', 'qwertyuiop', NULL, NULL, NULL, 'inactive', NULL, '123456789111');
 
 --
 -- Indexes for dumped tables
@@ -401,7 +403,7 @@ ALTER TABLE `ulasan_wisata`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
