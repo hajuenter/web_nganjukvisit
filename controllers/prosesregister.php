@@ -1,18 +1,23 @@
 <?php
-// Mulai session
 session_start();
-
-// Include koneksi ke database
 include("../koneksi.php");
 
-// Cek apakah form sudah disubmit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Ambil data dari form
     $email = $_POST['email'];
     $name = $_POST['name'];
-    $role = $_POST['role'];
     $password = $_POST['password'];
     $alamat = $_POST['alamat'];
+    $no_hp = $_POST['no_hp'];  // Ambil data no_hp dari form
+
+    // Tetapkan role otomatis sebagai 'pengelola'
+    $role = 'pengelola';
+
+    // Validasi email harus menggunakan @gmail.com
+    if (!preg_match('/@gmail\.com$/', $email)) {
+        $_SESSION['error'] = "Email harus menggunakan domain @gmail.com.";
+        header("Location: /nganjukvisitnew/register.php");
+        exit;
+    }
 
     // Validasi panjang name
     if (strlen($name) < 4 || strlen($name) > 50) {
@@ -28,6 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    // Validasi format nomor HP (minimal 10 digit dan hanya angka)
+    if (!preg_match('/^[0-9]{10,15}$/', $no_hp)) {
+        $_SESSION['error'] = "Nomor HP harus terdiri dari 10 hingga 15 digit angka.";
+        header("Location: /nganjukvisitnew/register.php");
+        exit;
+    }
+
     // Validasi pola password (kombinasi huruf dan angka)
     if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,50}$/', $password)) {
         $_SESSION['error'] = "Password harus mengandung huruf, angka, dan panjang antara 8 hingga 50 karakter.";
@@ -35,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Validasi sederhana apakah email sudah digunakan
+    // Validasi apakah email sudah digunakan
     $sql_check_email = "SELECT * FROM user WHERE email = ?";
     $stmt_check = $koneksi->prepare($sql_check_email);
     $stmt_check->bind_param("s", $email);
@@ -43,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result_check = $stmt_check->get_result();
 
     if ($result_check->num_rows > 0) {
-        // Jika email sudah terdaftar, kirim pesan error
         $_SESSION['error'] = "Email sudah digunakan!";
         header("Location: /nganjukvisitnew/register.php");
         exit;
@@ -52,22 +63,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash password sebelum disimpan
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Set status to inactive if role is pengelola
-    $status = ($role == 'pengelola') ? 'inactive' : 'active';
+    // Set status sebagai inactive untuk pengelola
+    $status = 'inactive';
 
     // Query untuk menyimpan data ke tabel user
-    $sql = "INSERT INTO user (email, nama, role, password, alamat, status) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO user (email, nama, role, password, alamat, no_hp, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $koneksi->prepare($sql);
-    $stmt->bind_param("ssssss", $email, $name, $role, $hashed_password, $alamat, $status);
+    $stmt->bind_param("sssssss", $email, $name, $role, $hashed_password, $alamat, $no_hp, $status);
 
     // Eksekusi query
     if ($stmt->execute()) {
-        // Jika berhasil, redirect ke halaman login dengan pesan sukses
         $_SESSION['success'] = "Registrasi berhasil! Silakan login.";
         header("Location: /nganjukvisitnew/register.php");
         exit;
     } else {
-        // Jika gagal, redirect dengan pesan error
         $_SESSION['error'] = "Terjadi kesalahan saat registrasi!";
         header("Location: /nganjukvisitnew/register.php");
         exit;

@@ -69,13 +69,12 @@ session_start();
                         </div>
 
                         <!-- Role -->
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="role" class="form-label">Role</label>
                             <select class="form-select w-100" id="role" name="role" required>
-                                <option value="admin">Admin</option>
                                 <option value="pengelola">Pengelola</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <!-- Password -->
                         <div class="mb-3">
@@ -87,6 +86,12 @@ session_start();
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Alamat</label>
                             <input type="text" class="form-control" id="alamat" name="alamat" required>
+                        </div>
+
+                        <!-- NO HP -->
+                        <div class="mb-3">
+                            <label for="no_hp" class="form-label">No Hp</label>
+                            <input type="text" class="form-control" id="no_hp" name="no_hp" required>
                         </div>
 
                         <!-- Submit Button -->

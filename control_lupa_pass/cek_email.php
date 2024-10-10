@@ -21,7 +21,15 @@ $result = $stmt->get_result();
 
 // Periksa apakah email ada di database
 if ($result->num_rows > 0) {
-    // Email ditemukan, set session dan kirim OTP
+    // Cek role pengguna
+    if ($user['role'] != 'admin' && $user['role'] != 'pengelola') {
+        // Jika role bukan admin atau pengelola, beri pesan error
+        $_SESSION['gagal'] = 'Akses ditolak. Hanya admin atau pengelola yang diizinkan.';
+        unset($_SESSION['berhasil']);
+        header("Location: /nganjukvisitnew/lupa_password.php");
+        exit();
+    }
+    // Email ditemukan dan role valid, set session dan kirim OTP
     $_SESSION['email'] = $email;
 
     $otp = rand(10000000, 99999999); // 8 digit OTP
