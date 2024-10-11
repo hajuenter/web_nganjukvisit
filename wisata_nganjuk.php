@@ -1,5 +1,21 @@
 <?php
 include("koneksi.php");
+
+$conn = $koneksi;
+
+// Ambil semua data dari tabel detail_wisata
+$query = "SELECT id_wisata, nama_wisata, alamat, harga_tiket, jadwal, deskripsi, gambar FROM detail_wisata";
+$result = mysqli_query($conn, $query);
+
+$wisata_data = [];
+
+// Masukkan data ke dalam array
+while ($row = mysqli_fetch_assoc($result)) {
+    // Hapus koma di awal dan di akhir dari string gambar
+    $row['gambar'] = trim($row['gambar'], ',');
+    $wisata_data[] = $row;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -58,56 +74,58 @@ include("koneksi.php");
 
     <div class="container pt-5 mt-5 pt-lg-5 mt-lg-5 mb-3">
         <div class="row">
-            <!-- Image Slider -->
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div id="wisataSlider" class="carousel slide mt-4" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#wisataSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#wisataSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#wisataSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <!-- Slide 1 -->
-                        <div class="carousel-item active">
-                            <img src="./public/gambar/lupa_password.drawio.png" class="d-block mx-auto" style="max-width: 80%;" alt="Gambar Wisata 1">
-                        </div>
-                        <!-- Slide 2 -->
-                        <div class="carousel-item">
-                            <img src="./public/gambar/login.drawio.png" class="d-block mx-auto" style="max-width: 80%;" alt="Gambar Wisata 2">
-                        </div>
-                        <!-- Slide 3 -->
-                        <div class="carousel-item">
-                            <img src="./public/gambar/dashboard.drawio.png" class="d-block mx-auto" style="max-width: 80%;" alt="Gambar Wisata 3">
-                        </div>
-                    </div>
-                    <!-- Previous Button -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#wisataSlider" data-bs-slide="prev" style="color: black; font-size: 2rem;">
-                        <span class="carousel-control-prev-icon visually-hidden">Prev</span>
-                        <span aria-hidden="true">&lt;</span> <!-- Icon "<" -->
-                    </button>
-                    <!-- Next Button -->
-                    <button class="carousel-control-next" type="button" data-bs-target="#wisataSlider" data-bs-slide="next" style="color: black; font-size: 2rem;">
-                        <span class="carousel-control-next-icon visually-hidden">Next</span>
-                        <span aria-hidden="true">&gt;</span> <!-- Icon ">" -->
-                    </button>
-                </div>
-            </div>
+            <?php foreach ($wisata_data as $wisata): ?>
+                <?php
+                // Pisahkan gambar berdasarkan koma
+                $gambar_array = explode(',', $wisata['gambar']);
+                $id_wisata = $wisata['id_wisata'];
+                ?>
 
-            <!-- Descriptions -->
-            <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Nama Wisata: Wisata Alam</h5>
-                        <p class="card-text"><strong>Alamat:</strong> Jalan Pegunungan, Kota A</p>
-                        <p class="card-text"><strong>Jam Operasional:</strong> 08:00 - 17:00</p>
-                        <p class="card-text"><strong>Harga Tiket:</strong> Rp 50.000</p>
-                        <p class="card-text"><strong>Deskripsi:</strong> Wisata alam ini menawarkan pemandangan yang luar biasa dan udara yang sejuk. Sangat cocok untuk tempat rekreasi bersama keluarga dan teman-teman.</p>
+                <!-- Slider untuk setiap id_wisata -->
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-lg-4 mb-1">
+                    <!-- <h4>Image Slider untuk ID Wisata: <?= $id_wisata ?></h4> -->
+                    <div id="wisataSlider<?= $id_wisata ?>" class="carousel slide mt-4" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <?php foreach ($gambar_array as $index => $gambar): ?>
+                                <button type="button" data-bs-target="#wisataSlider<?= $id_wisata ?>" data-bs-slide-to="<?= $index ?>" class="<?= $index == 0 ? 'active' : '' ?>" aria-current="<?= $index == 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $index + 1 ?>"></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="carousel-inner">
+                            <?php foreach ($gambar_array as $index => $gambar): ?>
+                                <div class="carousel-item <?= $index == 0 ? 'active' : '' ?>">
+                                    <img src="./public/gambar/<?= trim($gambar) ?>" class="d-block mx-auto img-fluid" style="max-width: 80%;" alt="Gambar Wisata <?= $id_wisata ?> - <?= $index + 1 ?>">
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <!-- Previous Button -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#wisataSlider<?= $id_wisata ?>" data-bs-slide="prev" style="color: black; font-size: 2rem;">
+                            <span class="carousel-control-prev-icon visually-hidden">Prev</span>
+                            <span aria-hidden="true">&lt;</span>
+                        </button>
+                        <!-- Next Button -->
+                        <button class="carousel-control-next" type="button" data-bs-target="#wisataSlider<?= $id_wisata ?>" data-bs-slide="next" style="color: black; font-size: 2rem;">
+                            <span class="carousel-control-next-icon visually-hidden">Next</span>
+                            <span aria-hidden="true">&gt;</span>
+                        </button>
                     </div>
                 </div>
-            </div>
+
+                <!-- Descriptions untuk setiap id_wisata -->
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-2 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Nama Wisata: <?= htmlspecialchars($wisata['nama_wisata']) ?></h5>
+                            <p class="card-text"><strong>Alamat:</strong> <?= htmlspecialchars($wisata['alamat']) ?></p>
+                            <p class="card-text"><strong>Jam Operasional:</strong> <?= htmlspecialchars($wisata['jadwal']) ?></p>
+                            <p class="card-text"><strong>Harga Tiket:</strong> Rp <?= number_format($wisata['harga_tiket'], 0, ',', '.') ?></p>
+                            <p class="card-text"><strong>Deskripsi:</strong> <?= htmlspecialchars($wisata['deskripsi']) ?></p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="border-5 border-dark">
+            <?php endforeach; ?>
         </div>
     </div>
-    <hr>
 
 
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>

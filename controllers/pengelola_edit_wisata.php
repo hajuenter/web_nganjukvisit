@@ -45,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gambar_terbaru = array_merge($gambar_lama, $gambar_baru);
     $gambar_terbaru_string = implode(',', $gambar_terbaru);
 
+    // Hapus koma di awal dan di akhir string gambar
+    $gambar_terbaru_string = trim($gambar_terbaru_string, ',');
+
     // Update data wisata
     $query_update = "
         UPDATE detail_wisata 
