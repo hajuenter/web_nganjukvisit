@@ -10,12 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Ambil data dari form
-    $nama_penginapan = $_POST['nama'];
+    // Ambil data dari form dan sanitasi input
+    $nama_penginapan = htmlspecialchars($_POST['nama']);
     $id_user = $_SESSION['user_id']; // Ambil user_id dari session
-    $deskripsi = $_POST['deskripsi'];
-    $harga = $_POST['harga'];
-    $lokasi = $_POST['lokasi'];
+    $deskripsi = htmlspecialchars($_POST['deskripsi']);
+    $harga = htmlspecialchars($_POST['harga']);
+    $lokasi = htmlspecialchars($_POST['lokasi']);
+    $telpon = htmlspecialchars($_POST['telepon']);
 
     // Variabel untuk nama file gambar
     $gambar = $_FILES['gambar']['name'];
@@ -41,7 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma
         $gambar_string = implode(',', $target_files);
-        $telpon = $_POST['telepon'];
+        // Hapus koma di awal dan di akhir dari string gambar
+        $gambar_string = trim($gambar_string, ',');
+
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_penginapan (nama_penginapan, id_user, deskripsi, harga, lokasi, gambar, telepon) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";

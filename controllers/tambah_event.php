@@ -37,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma
-        $gambar_string = implode(',', $target_files);
-        
+        // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma, dan trim jika ada koma di awal atau akhir
+        $gambar_string = trim(implode(',', $target_files), ',');
+
         $tanggal_event = $_POST['tanggal_event'];
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_event (nama, id_user, deskripsi_event, gambar, tanggal_event) 

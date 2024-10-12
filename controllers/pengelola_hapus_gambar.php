@@ -4,12 +4,12 @@ include("../koneksi.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_wisata = $_POST['id_wisata'];
-    $gambar = $_POST['gambar'];
+    $gambar = trim($_POST['gambar']); // Pastikan untuk trim gambar yang ingin dihapus
 
     // Validasi input
     if (!empty($id_wisata) && !empty($gambar)) {
         // Hapus gambar dari folder public/gambar
-        $gambar_path = "../public/gambar/" . trim($gambar);
+        $gambar_path = "../public/gambar/" . $gambar; // Gambar yang ingin dihapus
         if (file_exists($gambar_path)) {
             unlink($gambar_path); // Hapus file dari folder
         }
@@ -27,10 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $gambar_array = explode(',', $gambar_sekarang);
 
             // Hapus gambar dari array
-            $gambar_baru = array_diff($gambar_array, [$gambar]);
+            $gambar_baru = array_diff($gambar_array, [$gambar]); // Hapus gambar yang ingin dihapus
             $gambar_baru_string = implode(',', $gambar_baru);
 
-            // Update database
+            // Trim untuk memastikan tidak ada koma di awal dan akhir
+            $gambar_baru_string = trim($gambar_baru_string, ',');
+
+            // Update database hanya jika $gambar_baru_string tidak kosong
+            if ($gambar_baru_string === '') {
+                $gambar_baru_string = NULL; // Jika tidak ada gambar tersisa, set ke NULL
+            }
+
             $query_update_gambar = "UPDATE detail_wisata SET gambar = ? WHERE id_wisata = ?";
             $stmt_update_gambar = $koneksi->prepare($query_update_gambar);
             $stmt_update_gambar->bind_param("si", $gambar_baru_string, $id_wisata);

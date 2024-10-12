@@ -46,6 +46,7 @@
 
     <!-- Tabs isi content all -->
     <div class="tab-content" id="course-pills-tabContent">
+        <!-- php fav kuliner -->
         <?php
         include("koneksi.php");
         $conn = $koneksi;
@@ -64,6 +65,7 @@
         }
         $conn->close();
         ?>
+        <!-- php fav kuliner end -->
 
         <!-- Content kuliner -->
         <div class="tab-pane fade active show" id="course-pills-tabs-1" role="tabpanel" aria-labelledby="course-pills-tab-1">
@@ -96,7 +98,7 @@
                                 </div>
                                 <div class="card-body pb-0">
                                     <h5 class="card-title fw-normal">
-                                        <a href="#" class="text-black text-decoration-none"><?php echo htmlspecialchars($row['nama_kuliner']); ?></a>
+                                        <a class="text-black text-decoration-none"><?php echo htmlspecialchars($row['nama_kuliner']); ?></a>
                                     </h5>
                                     <p class="mb-2 text-truncate-2"><?php echo htmlspecialchars($row['deskripsi']); ?></p>
                                 </div>

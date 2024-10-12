@@ -45,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma
         $gambar_string = implode(',', $target_files);
 
+        // Hapus koma di awal dan di akhir dari string gambar
+        $gambar_string = trim($gambar_string, ',');
+
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_wisata (nama_wisata, deskripsi, alamat, harga_tiket, jadwal, gambar, koordinat, link_maps, id_user) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

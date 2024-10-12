@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt_get_gambar->execute();
     $result = $stmt_get_gambar->get_result();
     $row = $result->fetch_assoc();
-    $gambar_lama = $row['gambar']; // Ini adalah gambar yang sudah ada
+    $gambar_lama = trim($row['gambar'], ','); // Hapus koma di awal dan akhir
 
     // Variabel untuk nama file gambar baru
     $gambar_baru = '';
@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         $gambar_baru = implode(',', $gambar_baru_array); // Gabungkan gambar baru jadi satu string
+        $gambar_baru = trim($gambar_baru, ','); // Hapus koma di awal dan akhir
     }
 
     // Gabungkan gambar lama dan gambar baru
@@ -44,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $gambar_final = $gambar_lama;
     }
+
+    // Hapus koma di awal dan akhir dari gambar_final
+    $gambar_final = trim($gambar_final, ',');
 
     // Update data di database
     $sql = "UPDATE detail_wisata SET nama_wisata = ?, deskripsi = ?, alamat = ?, harga_tiket = ?, jadwal = ?, gambar = ?, koordinat = ?, link_maps = ? WHERE id_wisata = ?";

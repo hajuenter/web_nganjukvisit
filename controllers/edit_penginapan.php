@@ -26,11 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Jika ada gambar yang sudah ada, pisahkan menjadi array
     if ($existing_gambar) {
-        $gambar_array = explode(',', $existing_gambar);
+        $gambar_array = explode(',', trim($existing_gambar, ','));
     }
 
     // Cek apakah ada gambar yang diunggah
-    if (!empty($gambar_files[0])) { // Cek jika ada setidaknya satu file yang diupload
+    if (!empty($gambar_files[0])) {
         // Tentukan folder tempat menyimpan gambar
         $target_dir = "../public/gambar/";
 
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Pindahkan file gambar ke folder target
             if (move_uploaded_file($gambar_tmp[$key], $target_file)) {
                 // Jika file berhasil diunggah, tambahkan nama file ke array
-                $gambar_array[] = $gambar; // Menambahkan gambar baru
+                $gambar_array[] = $gambar;
             } else {
                 echo "Error: Gagal mengunggah gambar.";
                 exit();
@@ -48,10 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Gabungkan semua nama gambar menjadi string untuk disimpan di database
-    $gambar_string = implode(',', $gambar_array);
+    // Gabungkan semua nama gambar menjadi string untuk disimpan di database, dan pastikan tidak ada koma di awal/akhir
+    $gambar_string = trim(implode(',', $gambar_array), ',');
     $telepon = $_POST['telepon'];
-    // Update data kuliner dengan gambar baru dan gambar lama
+
+    // Update data penginapan dengan gambar baru dan gambar lama
     $sql = "UPDATE detail_penginapan SET nama_penginapan = ?, deskripsi = ?, harga = ?, lokasi = ?, gambar = ?, telepon = ? WHERE id_penginapan = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ssssssi', $nama_penginapan, $deskripsi, $harga, $lokasi, $gambar_string, $telepon, $id_penginapan);
@@ -67,3 +68,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $conn->close();
+?>

@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma
-        $gambar_string = implode(',', $target_files);
+        // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma, dan hapus koma di awal/akhir
+        $gambar_string = trim(implode(',', $target_files), ',');
 
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_kuliner (nama_kuliner, deskripsi, harga, gambar, id_user) 

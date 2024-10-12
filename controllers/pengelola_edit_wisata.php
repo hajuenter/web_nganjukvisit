@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Pindahkan file ke direktori tujuan
             if (move_uploaded_file($file_tmp, $target_file)) {
-                $gambar_baru[] = $file_name_new;
+                $gambar_baru[] = $file_name_new; // Simpan nama file gambar baru
             }
         }
     }
@@ -38,8 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt_gambar_lama->bind_param("i", $id_wisata);
     $stmt_gambar_lama->execute();
     $result_gambar_lama = $stmt_gambar_lama->get_result();
-    $row_gambar_lama = $result_gambar_lama->fetch_assoc();
-    $gambar_lama = explode(',', $row_gambar_lama['gambar']);
+
+    // Initialize gambar lama
+    $gambar_lama = [];
+    if ($row_gambar_lama = $result_gambar_lama->fetch_assoc()) {
+        $gambar_lama = explode(',', $row_gambar_lama['gambar']);
+    }
 
     // Jika ada gambar baru, gabungkan gambar lama dan baru
     $gambar_terbaru = array_merge($gambar_lama, $gambar_baru);
