@@ -265,19 +265,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <?php include("footer.php"); ?>
     <!-- footer end -->
 
-
-
-    <!-- js script -->
-    <!-- <script src="./js/script.js"></script> -->
-    <!-- js script end -->
+    <!-- script jquery cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- script jquery cdn end-->
 
     <!-- script js bootstrap -->
     <script src="./bootstrap/js/bootstrap.bundle.js"></script>
     <!-- script js bootstrap end-->
-
-    <!-- script jquery cdn -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- script jquery cdn end-->
 
     <!-- script aos -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

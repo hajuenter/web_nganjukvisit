@@ -93,7 +93,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <div class="carousel-inner">
                             <?php foreach ($gambar_array as $index => $gambar): ?>
                                 <div class="carousel-item <?= $index == 0 ? 'active' : '' ?>">
-                                    <img src="./public/gambar/<?= trim($gambar) ?>" class="d-block mx-auto img-fluid" style="max-width: 80%;" alt="Gambar Wisata <?= $id_wisata ?> - <?= $index + 1 ?>">
+                                    <img src="./public/gambar/<?= trim($gambar) ?>" class="d-block mx-auto img-fluid" style="height: 350px; object-fit: cover;" alt=" Gambar Wisata <?= $id_wisata ?> - <?= $index + 1 ?>">
                                 </div>
                             <?php endforeach; ?>
                         </div>
