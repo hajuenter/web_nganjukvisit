@@ -98,9 +98,9 @@
                                 </div>
                                 <div class="card-body pb-0">
                                     <h5 class="card-title fw-normal">
-                                        <a class="text-black text-decoration-none"><?php echo htmlspecialchars($row['nama_kuliner']); ?></a>
+                                        <a class="text-black text-decoration-none">Nama : <?php echo htmlspecialchars($row['nama_kuliner']); ?></a>
                                     </h5>
-                                    <p class="mb-2 text-truncate-2"><?php echo htmlspecialchars($row['deskripsi']); ?></p>
+                                    <p class="mb-2 text-truncate-2">Deskripsi : <?php echo htmlspecialchars($row['deskripsi']); ?></p>
                                 </div>
                                 <div class="card-footer pt-0 pb-3">
                                     <hr>
@@ -114,7 +114,6 @@
             </div>
         </div>
         <!-- Content kuliner end -->
-
 
         <!-- php gae fav wisata -->
         <?php
@@ -188,39 +187,75 @@
         </div>
         <!-- content wisata fav end -->
 
+        <!-- php fav hotel -->
+        <?php
+        include("koneksi.php");
+        $conn = $koneksi;
+
+        // Query untuk mengambil data hotel yang difavoritkan
+        $sql = "SELECT dh.id_penginapan, dh.nama_penginapan, dh.deskripsi, dh.gambar, dh.lokasi FROM detail_penginapan AS dh INNER JOIN fav_penginapan AS fh ON dh.id_penginapan = fh.id_penginapan";
+        $result = $conn->query($sql);
+
+        $dataHotel = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Hapus koma di awal dan di akhir dari string gambar
+                $row['gambar'] = trim($row['gambar'], ',');
+                $dataHotel[] = $row;
+            }
+        }
+        $conn->close();
+        ?>
+        <!-- php fav hotel end -->
+
         <!-- Content hotel -->
         <div class="tab-pane fade" id="course-pills-tabs-3" role="tabpanel" aria-labelledby="course-pills-tab-3">
             <div class="row g-4">
-                <!-- Card item hotel -->
-                <div class="col-sm-6 col-lg-4 col-xl-3">
-                    <div class="card shadow h-100">
-                        <!-- Image -->
-                        <img src="./img/nasipecel.jpg" class="card-img-top" alt="course image">
-                        <div class="card-body pb-0">
-                            <!-- Title -->
-                            <h5 class="card-title fw-normal"><a href="#">The Farrel Hotel</a></h5>
-                            <p class="text-truncate-2 mb-2">Tempat beristirahat yang sangat nyaman dengan kualitas bintang 5</p>
-                            <!-- Rating star -->
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item ms-0 h6 fw-light mb-0">4.0/5.0</li>
-                            </ul>
-                        </div>
-                        <!-- Card footer hotel -->
-                        <div class="card-footer pt-0 pb-3">
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>12h 56m</span>
-                                <span class="h6 fw-light mb-0"><i class="fas fa-table text-orange me-2"></i>15 lectures</span>
+                <?php if (!empty($dataHotel)): ?>
+                    <?php foreach ($dataHotel as $row): ?>
+                        <?php
+                        // Pisahkan gambar berdasarkan koma
+                        $gambarArray = array_filter(explode(',', $row['gambar']));
+                        $carouselId = "hotelSlider-" . $row['id_penginapan']; // ID unik untuk setiap slider
+                        ?>
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="card shadow h-100">
+                                <div id="<?php echo $carouselId; ?>" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <?php foreach ($gambarArray as $index => $gambar): ?>
+                                            <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                                <img src="<?php echo "./public/gambar/" . trim($gambar); ?>" class="d-block mx-auto img-fluid" alt="Gambar Hotel" style="max-height: 200px; object-fit: cover;">
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#<?php echo $carouselId; ?>" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#<?php echo $carouselId; ?>" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <h5 class="card-title fw-normal">
+                                        <a class="text-black text-decoration-none">Nama : <?php echo htmlspecialchars($row['nama_penginapan']); ?></a>
+                                    </h5>
+                                    <p class="mb-2 text-truncate-2">Deskripsi : <?php echo htmlspecialchars($row['deskripsi']); ?></p>
+                                    <p class="mb-2 text-truncate-2">Alamat : <?php echo htmlspecialchars($row['lokasi']); ?></p>
+                                </div>
+                                <div class="card-footer pt-0 pb-3">
+                                    <hr>
+                                </div>
                             </div>
                         </div>
-                        <!-- Card footer hotel end -->
-                    </div>
-                </div>
-                <!-- Card item hotel end -->
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12">Tidak ada data hotel yang tersedia.</div>
+                <?php endif; ?>
             </div>
         </div>
         <!-- Content hotel end -->
-
 
     </div> <!-- Tabs isi content all end -->
 </div>

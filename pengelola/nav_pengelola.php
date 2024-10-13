@@ -26,7 +26,7 @@ $gambar_profil .= '?v=' . time();
 ?>
 
 <!-- Topbar -->
-<nav class="navbar navbar-expand navbar-dark bg-dark topbar mb-4 static-top shadow">
+<nav class="navbar navbar-expand navbar-dark bg-light topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -41,7 +41,7 @@ $gambar_profil .= '?v=' . time();
         <li class="nav-item dropdown no-arrow">
             <a class="text-white nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-white small"><?= htmlspecialchars($_SESSION['nama']); ?></span>
+                <span class="mr-2 d-none d-lg-inline text-dark small"><?= htmlspecialchars($_SESSION['nama']); ?></span>
                 <img class="img-profile rounded-circle"
                     src="<?= htmlspecialchars($gambar_profil); ?>" alt="Foto Profil">
             </a>
