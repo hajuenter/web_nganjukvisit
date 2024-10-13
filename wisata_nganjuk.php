@@ -60,10 +60,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <a class="nav-link ms-lg-3" aria-current="page" href="#tentang_kami">Tentang Kami</a>
                     </li>
                 </ul>
-                <form class="d-flex me-lg-2" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
                 <div class="d-flex">
                     <a href="login.php" class="btn me-lg-5 btn-outline-primary mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Login</a>
                 </div>

@@ -1,7 +1,7 @@
 <!-- Footer 2 - Bootstrap Brain Component -->
 <footer class="footer">
     <!-- Widgets - Bootstrap Brain Component -->
-    <section class="bg-light py-2 py-md-5 py-xl-4 border-top border-light">
+    <section class="bg-warning py-2 py-md-5 py-xl-4 border-top border-light">
         <div class="container overflow-hidden">
             <div class="row gy-4 gy-lg-0 justify-content-xl-between">
                 <div class="col-12 col-md-4 pt-4 col-lg-3 col-xl-2">
@@ -68,7 +68,7 @@
     </section>
 
     <!-- Copyright - Bootstrap Brain Component -->
-    <div class="bg-light py-2 py-md-2 py-xl-3 border-top border-black">
+    <div class="bg-info py-2 py-md-2 py-xl-3 border-top border-black">
         <div class="container overflow-hidden">
             <div class="row gy-4 gy-md-0 align-items-md-center">
                 <div class="col-xs-12 col-md-7 order-1 order-md-0">

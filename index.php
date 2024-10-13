@@ -22,13 +22,54 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nganjuk Visit</title>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/font-size/font-size.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/padding/padding.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         html {
             scroll-behavior: smooth;
+        }
+
+        .text-stroke {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .type-writer {
+            color: #4fa3ff;
+            font-family: 'Poppins', sans-serif;
+            border-right: 2px solid #fff;
+            animation: typing 3s steps(10) infinite, blink 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0;
+            }
+
+            50% {
+                width: 100%;
+            }
+
+            100% {
+                width: 0;
+            }
+        }
+
+        @keyframes blink {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: #fff;
+            }
         }
     </style>
 </head>
@@ -64,10 +105,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <a class="nav-link ms-lg-3" aria-current="page" href="#tentang_kami">Tentang Kami</a>
                     </li>
                 </ul>
-                <form class="d-flex me-lg-2" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
                 <div class="d-flex">
                     <a href="login.php" class="btn me-lg-5 btn-outline-primary mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Login</a>
                 </div>
@@ -77,18 +114,24 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- navbar end -->
 
     <!-- header -->
-    <header id="home" class="head-bg pt-5 z-1 container-fluid pb-5">
+    <header id="home" class="pt-5 z-1 container-fluid pb-5">
         <div class="container-fluid overflow-hidden">
             <section class="pt-4 mt-3">
                 <div class="row">
                     <div class="col-lg-6 mt-lg-5 pt-lg-5 pt-2" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
-                        <h1 class="text-center pt-3 pt-lg-0 fw-bold">SELAMAT DATANG DI</h1>
-                        <h1 class="text-center fw-bold">KOTA <span class="text-primary type-writer" id="demo">NGANJUK</span></h1>
-                        <p class="text-center pt-lg-3">Nganjuk Visit memberikan pengalaman yang pastinya keren dan tak terlupakan dengan keindahan dan keistimewaan kota Nganjuk</p>
-                        <img src="./img/app_mobile.png" alt="app" class="img-fluid d-block mx-auto mt-lg-5 mt-2">
+                        <h1 class="text-center pt-3 pt-lg-0 fw-bold text-stroke animate__animated animate__fadeInDown">
+                            SELAMAT DATANG DI
+                        </h1>
+                        <h1 class="text-center fw-bold text-stroke animate__animated animate__fadeInDown">
+                            KOTA <span class="text-primary" id="demo"></span>
+                        </h1>
+                        <p class="text-center pt-lg-3 animate__animated animate__fadeInUp" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
+                            Nganjuk Visit memberikan pengalaman yang pastinya keren dan tak terlupakan dengan keindahan dan keistimewaan kota Nganjuk.
+                        </p>
+                        <img src="./img/app_mobile.png" alt="app" class="img-fluid d-block mx-auto mt-lg-5 mt-2 animate__animated animate__zoomIn" style="max-width: 300px;">
                     </div>
                     <div class="col-lg-6 mt-2 pt-4 mt-lg-4" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
-                        <img src="./img/Group 46.png" class="img-fluid" alt="nav-header">
+                        <img src="./img/Group 46.png" class="img-fluid animate__animated animate__fadeIn" alt="nav-header" style="max-width: 100%;">
                     </div>
                 </div>
             </section>
@@ -244,22 +287,42 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
     <!-- sesi kategori end -->
 
-    <!-- sesi tentang kami -->
-    <section id="tentang_kami" class="pb-5 pt-5 bg-secondary">
+    <!-- Sesi Tentang Kami -->
+    <section id="tentang_kami" class="pb-5 pt-5 bg-light">
         <div class="container-fluid overflow-x-hidden pb-5 pt-3">
             <div class="row justify-content-center mt-5 mb-5">
-                <h1 class="text-center text-white">Nganjuk Visit</h1>
+                <h1 class="text-center text-stroke display-4 animate__animated animate__fadeInDown">Nganjuk Visit</h1>
                 <div class="col-12 pt-5 d-flex justify-content-center">
-                    <img src="./img/logo_nav.png" alt="about me" class="img-fluid">
+                    <img src="./img/logo_nav.png" alt="Nganjuk Visit Logo" class="img-fluid animate__animated animate__zoomIn" style="max-width: 200px;">
                 </div>
             </div>
             <div class="container-fluid px-lg-5 px-2">
-                <p class="text-center text-white mx-lg-5 mx-1 fs-2">deskripsi kota nganjuk, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam et, sapiente fugit eos cupiditate totam eligendi sed culpa nam reprehenderit quod, inventore quis nisi deleniti. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugit soluta minima blanditiis eaque, eos pariatur fuga nihil sunt, optio modi adipisci consequuntur, in accusantium.</p>
+                <div class="text-center mx-lg-5 mx-1 fs-5 animate__animated animate__fadeInUp">
+                    <h2 class="mt-4 text-stroke">Keindahan Wisata Kota Nganjuk</h2>
+                    <p>
+                        Kota Nganjuk, dikenal sebagai Kota Angin, menawarkan beragam destinasi wisata alam yang menakjubkan. Dari pesona Air Terjun Sedudo yang memukau,
+                        hingga panorama alam perbukitan Wilis yang memanjakan mata. Nikmati suasana sejuk dan asri yang membuat Anda betah berlama-lama di setiap sudut
+                        keindahan Nganjuk.
+                    </p>
+
+                    <h2 class="mt-4 text-stroke">Kuliner Khas Nganjuk</h2>
+                    <p>
+                        Nganjuk juga kaya akan cita rasa kuliner tradisional yang menggugah selera. Cobalah Nasi Pecel Tumpang yang legendaris,
+                        atau Manisan Mangga yang segar dan lezat. Setiap gigitan dari kuliner khas Nganjuk membawa Anda ke dalam pengalaman kuliner
+                        yang autentik dan penuh kehangatan.
+                    </p>
+
+                    <h2 class="mt-4 text-stroke">Penginapan Nyaman di Kota Nganjuk</h2>
+                    <p>
+                        Temukan penginapan yang nyaman di Nganjuk, mulai dari hotel berbintang hingga homestay dengan suasana rumah yang ramah.
+                        Setiap penginapan menawarkan fasilitas lengkap dengan pelayanan yang hangat, memastikan perjalanan Anda semakin nyaman
+                        dan berkesan.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
-    <!-- sesi tentang kami end -->
-
+    <!-- Sesi Tentang Kami End -->
 
     <!-- footer -->
     <?php include("footer.php"); ?>
@@ -279,6 +342,26 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         AOS.init();
     </script>
     <!-- script aos end -->
+
+    <!-- animate writter -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- animate writter end -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var options = {
+                strings: ["Nganjuk", "Berbudaya", "Angin", "Asri dan Nyaman"],
+                typeSpeed: 100, // Kecepatan mengetik
+                backSpeed: 50, // Kecepatan menghapus
+                loop: true, // Agar teks terus berputar
+                backDelay: 2000, // Jeda sebelum menghapus
+                showCursor: true,
+                cursorChar: '|', // Karakter kursor
+            };
+
+            new Typed("#demo", options);
+        });
+    </script>
+
 </body>
 
 </html>
