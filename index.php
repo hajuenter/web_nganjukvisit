@@ -27,51 +27,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/font-size/font-size.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/padding/padding.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .text-stroke {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
-        }
-
-        .type-writer {
-            color: #4fa3ff;
-            font-family: 'Poppins', sans-serif;
-            border-right: 2px solid #fff;
-            animation: typing 3s steps(10) infinite, blink 0.75s step-end infinite;
-        }
-
-        @keyframes typing {
-            0% {
-                width: 0;
-            }
-
-            50% {
-                width: 100%;
-            }
-
-            100% {
-                width: 0;
-            }
-        }
-
-        @keyframes blink {
-
-            from,
-            to {
-                border-color: transparent;
-            }
-
-            50% {
-                border-color: #fff;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./style/index.css">
 </head>
 
 <body>
@@ -120,10 +76,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 <div class="row">
                     <div class="col-lg-6 mt-lg-5 pt-lg-5 pt-2" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
                         <h1 class="text-center pt-3 pt-lg-0 fw-bold text-stroke animate__animated animate__fadeInDown">
-                            SELAMAT DATANG DI
+                            Selamat Datang Di
                         </h1>
                         <h1 class="text-center fw-bold text-stroke animate__animated animate__fadeInDown">
-                            KOTA <span class="text-primary" id="demo"></span>
+                            Kota <span class="text-primary" id="demo"></span>
                         </h1>
                         <p class="text-center pt-lg-3 animate__animated animate__fadeInUp" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
                             Nganjuk Visit memberikan pengalaman yang pastinya keren dan tak terlupakan dengan keindahan dan keistimewaan kota Nganjuk.
@@ -284,7 +240,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </div>
         </div>
     </section>
-
     <!-- sesi kategori end -->
 
     <!-- Sesi Tentang Kami -->
@@ -296,24 +251,45 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <img src="./img/logo_nav.png" alt="Nganjuk Visit Logo" class="img-fluid animate__animated animate__zoomIn" style="max-width: 200px;">
                 </div>
             </div>
-            <div class="container-fluid px-lg-5 px-2">
-                <div class="text-center mx-lg-5 mx-1 fs-5 animate__animated animate__fadeInUp">
-                    <h2 class="mt-4 text-stroke">Keindahan Wisata Kota Nganjuk</h2>
-                    <p>
+
+            <!-- Keindahan Wisata Kota Nganjuk -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 order-lg-1 order-1 text-center">
+                    <img src="./img/index-aaa.png" alt="Keindahan Wisata Kota Nganjuk" class="img-fluid rounded shadow animate__animated animate__fadeIn" style="max-width: 100%;">
+                </div>
+                <div class="col-lg-6 order-lg-2 order-2">
+                    <h2 class="text-stroke">Keindahan Wisata Kota Nganjuk</h2>
+                    <p class="fs-5">
                         Kota Nganjuk, dikenal sebagai Kota Angin, menawarkan beragam destinasi wisata alam yang menakjubkan. Dari pesona Air Terjun Sedudo yang memukau,
                         hingga panorama alam perbukitan Wilis yang memanjakan mata. Nikmati suasana sejuk dan asri yang membuat Anda betah berlama-lama di setiap sudut
                         keindahan Nganjuk.
                     </p>
+                </div>
+            </div>
 
-                    <h2 class="mt-4 text-stroke">Kuliner Khas Nganjuk</h2>
-                    <p>
+            <!-- Kuliner Khas Nganjuk -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 order-lg-2 order-1 text-center">
+                    <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="img-fluid rounded shadow animate__animated animate__fadeIn" style="max-width: 100%;">
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2">
+                    <h2 class="text-stroke">Kuliner Khas Nganjuk</h2>
+                    <p class="fs-5">
                         Nganjuk juga kaya akan cita rasa kuliner tradisional yang menggugah selera. Cobalah Nasi Pecel Tumpang yang legendaris,
                         atau Manisan Mangga yang segar dan lezat. Setiap gigitan dari kuliner khas Nganjuk membawa Anda ke dalam pengalaman kuliner
                         yang autentik dan penuh kehangatan.
                     </p>
+                </div>
+            </div>
 
-                    <h2 class="mt-4 text-stroke">Penginapan Nyaman di Kota Nganjuk</h2>
-                    <p>
+            <!-- Penginapan Nyaman di Kota Nganjuk -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 order-lg-1 order-1 text-center">
+                    <img src="./img/index-ccc.png" alt="Penginapan di Nganjuk" class="img-fluid rounded shadow animate__animated animate__fadeIn" style="max-width: 100%;">
+                </div>
+                <div class="col-lg-6 order-lg-2 order-2">
+                    <h2 class="text-stroke">Penginapan Nyaman di Kota Nganjuk</h2>
+                    <p class="fs-5">
                         Temukan penginapan yang nyaman di Nganjuk, mulai dari hotel berbintang hingga homestay dengan suasana rumah yang ramah.
                         Setiap penginapan menawarkan fasilitas lengkap dengan pelayanan yang hangat, memastikan perjalanan Anda semakin nyaman
                         dan berkesan.
@@ -323,6 +299,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         </div>
     </section>
     <!-- Sesi Tentang Kami End -->
+
 
     <!-- footer -->
     <?php include("footer.php"); ?>
@@ -349,7 +326,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var options = {
-                strings: ["Nganjuk", "Berbudaya", "Angin", "Asri dan Nyaman"],
+                strings: ["Nganjuk", "Berbudaya", "Angin", "Adipura"],
                 typeSpeed: 100, // Kecepatan mengetik
                 backSpeed: 50, // Kecepatan menghapus
                 loop: true, // Agar teks terus berputar

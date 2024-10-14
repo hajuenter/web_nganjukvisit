@@ -1,0 +1,42 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.text-stroke {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
+}
+
+.type-writer {
+  color: #4fa3ff;
+  font-family: "Poppins", sans-serif;
+  border-right: 2px solid #fff;
+  animation: typing 3s steps(10) infinite, blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+
+  50% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  from,
+  to {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: #fff;
+  }
+}
+
