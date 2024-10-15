@@ -75,19 +75,19 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <section class="pt-4 mt-3">
                 <div class="row">
                     <div class="col-lg-6 mt-lg-5 pt-lg-5 pt-2" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
-                        <h1 class="text-center pt-3 pt-lg-0 fw-bold text-stroke animate__animated animate__fadeInDown">
+                        <h1 class="text-center pt-3 pt-lg-0 fw-bold text-stroke ">
                             Selamat Datang Di
                         </h1>
-                        <h1 class="text-center fw-bold text-stroke animate__animated animate__fadeInDown">
+                        <h1 class="text-center fw-bold">
                             Kota <span class="text-primary" id="demo"></span>
                         </h1>
-                        <p class="text-center pt-lg-3 animate__animated animate__fadeInUp" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
+                        <p class="text-center pt-lg-3" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
                             Nganjuk Visit memberikan pengalaman yang pastinya keren dan tak terlupakan dengan keindahan dan keistimewaan kota Nganjuk.
                         </p>
-                        <img src="./img/app_mobile.png" alt="app" class="img-fluid d-block mx-auto mt-lg-5 mt-2 animate__animated animate__zoomIn" style="max-width: 300px;">
+                        <img src="./img/app_mobile.png" alt="app" class="img-fluid d-block mx-auto mt-lg-5 mt-2" style="max-width: 300px;">
                     </div>
                     <div class="col-lg-6 mt-2 pt-4 mt-lg-4" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
-                        <img src="./img/Group 46.png" class="img-fluid animate__animated animate__fadeIn" alt="nav-header" style="max-width: 100%;">
+                        <img src="./img/Group 46.png" class="img-fluid" alt="nav-header" style="max-width: 100%;">
                     </div>
                 </div>
             </section>
@@ -246,20 +246,20 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <section id="tentang_kami" class="pb-5 pt-5 bg-light">
         <div class="container-fluid overflow-x-hidden pb-5 pt-3">
             <div class="row justify-content-center mt-5 mb-5">
-                <h1 class="text-center text-stroke display-4 animate__animated animate__fadeInDown">Nganjuk Visit</h1>
+                <h1 class="text-center text-stroke display-4">Nganjuk Visit</h1>
                 <div class="col-12 pt-5 d-flex justify-content-center">
-                    <img src="./img/logo_nav.png" alt="Nganjuk Visit Logo" class="img-fluid animate__animated animate__zoomIn" style="max-width: 200px;">
+                    <img src="./img/logo_nav.png" alt="Nganjuk Visit Logo" class="img-fluid" style="max-width: 200px;">
                 </div>
             </div>
 
             <!-- Keindahan Wisata Kota Nganjuk -->
             <div class="row align-items-center mb-5">
                 <div class="col-lg-6 order-lg-1 order-1 text-center">
-                    <img src="./img/index-aaa.png" alt="Keindahan Wisata Kota Nganjuk" class="img-fluid rounded shadow animate__animated animate__fadeIn" style="max-width: 100%;">
+                    <img src="./img/index-aaa.png" alt="Keindahan Wisata Kota Nganjuk" class="img-fluid rounded shadow" style="max-width: 100%;">
                 </div>
                 <div class="col-lg-6 order-lg-2 order-2">
-                    <h2 class="text-stroke">Keindahan Wisata Kota Nganjuk</h2>
-                    <p class="fs-5">
+                    <h2 class="text-stroke text-lg-start text-center mt-3 mt-lg-0">Keindahan Wisata Kota Nganjuk</h2>
+                    <p class="fs-5 text-lg-start text-center">
                         Kota Nganjuk, dikenal sebagai Kota Angin, menawarkan beragam destinasi wisata alam yang menakjubkan. Dari pesona Air Terjun Sedudo yang memukau,
                         hingga panorama alam perbukitan Wilis yang memanjakan mata. Nikmati suasana sejuk dan asri yang membuat Anda betah berlama-lama di setiap sudut
                         keindahan Nganjuk.
@@ -270,11 +270,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <!-- Kuliner Khas Nganjuk -->
             <div class="row align-items-center mb-5">
                 <div class="col-lg-6 order-lg-2 order-1 text-center">
-                    <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="img-fluid rounded shadow animate__animated animate__fadeIn" style="max-width: 100%;">
+                    <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="img-fluid rounded shadow" style="max-width: 100%;">
                 </div>
                 <div class="col-lg-6 order-lg-1 order-2">
-                    <h2 class="text-stroke">Kuliner Khas Nganjuk</h2>
-                    <p class="fs-5">
+                    <h2 class="text-stroke text-center text-lg-start mt-3 mt-lg-0">Kuliner Khas Nganjuk</h2>
+                    <p class="fs-5 text-center text-lg-start">
                         Nganjuk juga kaya akan cita rasa kuliner tradisional yang menggugah selera. Cobalah Nasi Pecel Tumpang yang legendaris,
                         atau Manisan Mangga yang segar dan lezat. Setiap gigitan dari kuliner khas Nganjuk membawa Anda ke dalam pengalaman kuliner
                         yang autentik dan penuh kehangatan.
@@ -285,11 +285,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <!-- Penginapan Nyaman di Kota Nganjuk -->
             <div class="row align-items-center mb-5">
                 <div class="col-lg-6 order-lg-1 order-1 text-center">
-                    <img src="./img/index-ccc.png" alt="Penginapan di Nganjuk" class="img-fluid rounded shadow animate__animated animate__fadeIn" style="max-width: 100%;">
+                    <img src="./img/index-ccc.png" alt="Penginapan di Nganjuk" class="img-fluid rounded shadow" style="max-width: 100%;">
                 </div>
                 <div class="col-lg-6 order-lg-2 order-2">
-                    <h2 class="text-stroke">Penginapan Nyaman di Kota Nganjuk</h2>
-                    <p class="fs-5">
+                    <h2 class="text-stroke text-center text-lg-start mt-3 mt-lg-0">Penginapan Nyaman di Kota Nganjuk</h2>
+                    <p class="fs-5 text-center text-lg-start">
                         Temukan penginapan yang nyaman di Nganjuk, mulai dari hotel berbintang hingga homestay dengan suasana rumah yang ramah.
                         Setiap penginapan menawarkan fasilitas lengkap dengan pelayanan yang hangat, memastikan perjalanan Anda semakin nyaman
                         dan berkesan.
@@ -320,19 +320,28 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     </script>
     <!-- script aos end -->
 
-    <!-- animate writter -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <!-- animate writter end -->
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var options = {
-                strings: ["Nganjuk", "Berbudaya", "Angin", "Adipura"],
-                typeSpeed: 100, // Kecepatan mengetik
-                backSpeed: 50, // Kecepatan menghapus
-                loop: true, // Agar teks terus berputar
-                backDelay: 2000, // Jeda sebelum menghapus
+                strings: ["Nganjuk", "Berbudaya", "Adipura"],
+                typeSpeed: 100,
+                backSpeed: 50,
+                loop: true,
+                backDelay: 2000,
                 showCursor: true,
-                cursorChar: '|', // Karakter kursor
+                cursorChar: '|',
+                preStringTyped: (arrayPos) => {
+                    const colors = ['text-danger', 'text-success', 'text-info'];
+                    const element = document.getElementById('demo');
+
+                    // Menghapus semua class warna sebelumnya
+                    element.classList.remove(...colors);
+
+                    // Menambahkan class warna sesuai index
+                    element.classList.add(colors[arrayPos % colors.length]);
+                }
             };
 
             new Typed("#demo", options);

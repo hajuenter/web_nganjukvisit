@@ -24,16 +24,16 @@
                         <h4 class="widget-title mb-4">Menu</h4>
                         <ul class="list-unstyled">
                             <li class="mb-2">
-                                <a href="#home" class="link-secondary text-decoration-none">Home</a>
+                                <a href="#home" class="link-secondary text-dark text-decoration-none">Home</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#kategori" class="link-secondary text-decoration-none">Kategori</a>
+                                <a href="#kategori" class="link-secondary text-dark text-decoration-none">Kategori</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#" class="link-secondary text-decoration-none">Detail</a>
+                                <a href="#" class="link-secondary text-dark text-decoration-none">Detail</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#" class="link-secondary text-decoration-none">Kontak</a>
+                                <a href="#" class="link-secondary text-dark text-decoration-none">Kontak</a>
                             </li>
                         </ul>
                     </div>
