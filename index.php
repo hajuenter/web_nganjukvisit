@@ -48,7 +48,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <a class="nav-link ms-lg-3" aria-current="page" href="#kategori">Kategori</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detaill</a>
+                        <a class="nav-link dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="wisata_nganjuk.php">Wisata</a></li>
                             <li><a class="dropdown-item" href="kuliner_nganjuk.php">Kuliner</a></li>
@@ -98,7 +98,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <section id="kategori" class="mt-lg-2 pt-lg-2 bg-info pb-5">
         <div class="container-fluid overflow-hidden mt-5 pb-5">
             <div class="row shadow justify-content-center mx-3 bg-white rounded-3 pb-4 mt-3 mb-2 mx-lg-5 mx-lg-5 px-lg-5">
-                <h1 class="text-center mt-5" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
+                <h1 class="text-center mt-5 pt-5" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
                 <section class="py-0 py-xl-3">
                     <!-- container -->
                     <div class="container">
@@ -242,8 +242,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- sesi kategori end -->
 
     <!-- Sesi Tentang Kami -->
-    <section id="tentang_kami" class="pb-5 pt-5 bg-light">
-        <div class="container-fluid overflow-x-hidden pb-5 pt-3">
+    <section id="tentang_kami" class="pb-2 pt-5 bg-light">
+        <div class="container-fluid overflow-x-hidden pb-2 pt-3">
             <div class="row justify-content-center mt-5 mb-5">
                 <h1 class="text-center text-stroke display-4">NGANJUK VISIT</h1>
                 <!-- <div class="col-12 pt-5 d-flex justify-content-center">

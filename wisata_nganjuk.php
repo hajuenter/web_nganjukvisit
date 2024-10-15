@@ -48,7 +48,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <a class="nav-link ms-lg-3" aria-current="page" href="index.php#kategori">Kategori</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detaill</a>
+                        <a class="nav-link dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="wisata_nganjuk.php">Wisata</a></li>
                             <li><a class="dropdown-item" href="kuliner_nganjuk.php">Kuliner</a></li>
@@ -57,7 +57,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ms-lg-3" aria-current="page" href="#tentang_kami">Tentang Kami</a>
+                        <a class="nav-link ms-lg-3" aria-current="page" href="index.php#tentang_kami">Tentang Kami</a>
                     </li>
                 </ul>
                 <div class="d-flex">

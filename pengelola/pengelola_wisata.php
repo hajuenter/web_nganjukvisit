@@ -111,12 +111,17 @@ if ($result_user->num_rows > 0) {
             <?php foreach ($gambar_array as $index => $img) : ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
                     <div class="card">
-                        <img src="../public/gambar/<?php echo htmlspecialchars(trim($img)); ?>" class="card-img-top" alt="Gambar Wisata">
+                        <img src="../public/gambar/<?php echo htmlspecialchars(trim($img)); ?>"
+                            class="card-img-top"
+                            alt="Gambar Wisata"
+                            style="aspect-ratio: 16/9; object-fit: cover; width: 100%; height: auto; max-width: 1280px;">
                         <div class="card-body text-center">
                             <form action="../controllers/pengelola_hapus_gambar.php" method="post">
                                 <input type="hidden" name="id_wisata" value="<?php echo htmlspecialchars($id_wisata); ?>">
                                 <input type="hidden" name="gambar" value="<?php echo htmlspecialchars(trim($img)); ?>">
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -126,4 +131,5 @@ if ($result_user->num_rows > 0) {
             <p class="text-center">Tidak ada gambar yang tersedia.</p>
         <?php endif; ?>
     </div>
+
 </div>
