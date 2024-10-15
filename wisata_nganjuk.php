@@ -68,8 +68,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     </nav>
     <!-- navbar end -->
 
-    <div class="container pt-5 mt-5 pt-lg-5 mt-lg-5 mb-3">
-        <div class="row">
+    <div class="container mb-3" style="margin-top: 8rem;">
+        <div class="row g-4">
             <?php foreach ($wisata_data as $wisata): ?>
                 <?php
                 // Pisahkan gambar berdasarkan koma
@@ -77,51 +77,49 @@ while ($row = mysqli_fetch_assoc($result)) {
                 $id_wisata = $wisata['id_wisata'];
                 ?>
 
-                <!-- Slider untuk setiap id_wisata -->
-                <div class="col-lg-6 col-md-6 col-sm-12 mb-lg-4 mb-1">
-                    <!-- <h4>Image Slider untuk ID Wisata: <?= $id_wisata ?></h4> -->
-                    <div id="wisataSlider<?= $id_wisata ?>" class="carousel slide mt-4" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <?php foreach ($gambar_array as $index => $gambar): ?>
-                                <button type="button" data-bs-target="#wisataSlider<?= $id_wisata ?>" data-bs-slide-to="<?= $index ?>" class="<?= $index == 0 ? 'active' : '' ?>" aria-current="<?= $index == 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $index + 1 ?>"></button>
-                            <?php endforeach; ?>
+                <!-- Card untuk setiap id_wisata -->
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="card shadow-lg border-0 h-100" style="background-color: #f5f5f5; border-radius: 15px; overflow: hidden;">
+                        <!-- Slider Gambar -->
+                        <div id="wisataSlider<?= $id_wisata ?>" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <?php foreach ($gambar_array as $index => $gambar): ?>
+                                    <button type="button" data-bs-target="#wisataSlider<?= $id_wisata ?>" data-bs-slide-to="<?= $index ?>" class="<?= $index == 0 ? 'active' : '' ?>" aria-current="<?= $index == 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $index + 1 ?>"></button>
+                                <?php endforeach; ?>
+                            </div>
+                            <div class="carousel-inner" style="border-radius: 15px;">
+                                <?php foreach ($gambar_array as $index => $gambar): ?>
+                                    <div class="carousel-item <?= $index == 0 ? 'active' : '' ?>">
+                                        <img src="./public/gambar/<?= trim($gambar) ?>" class="d-block w-100" style="aspect-ratio: 16/9; object-fit: cover; max-width: 1280px;" alt="Gambar Wisata <?= $id_wisata ?> - <?= $index + 1 ?>">
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#wisataSlider<?= $id_wisata ?>" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#wisataSlider<?= $id_wisata ?>" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <div class="carousel-inner">
-                            <?php foreach ($gambar_array as $index => $gambar): ?>
-                                <div class="carousel-item <?= $index == 0 ? 'active' : '' ?>">
-                                    <img src="./public/gambar/<?= trim($gambar) ?>" class="d-block mx-auto img-fluid" style="height: 350px; object-fit: cover;" alt=" Gambar Wisata <?= $id_wisata ?> - <?= $index + 1 ?>">
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                        <!-- Previous Button -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#wisataSlider<?= $id_wisata ?>" data-bs-slide="prev" style="color: black; font-size: 2rem;">
-                            <span class="carousel-control-prev-icon visually-hidden">Prev</span>
-                            <span aria-hidden="true">&lt;</span>
-                        </button>
-                        <!-- Next Button -->
-                        <button class="carousel-control-next" type="button" data-bs-target="#wisataSlider<?= $id_wisata ?>" data-bs-slide="next" style="color: black; font-size: 2rem;">
-                            <span class="carousel-control-next-icon visually-hidden">Next</span>
-                            <span aria-hidden="true">&gt;</span>
-                        </button>
-                    </div>
-                </div>
 
-                <!-- Descriptions untuk setiap id_wisata -->
-                <div class="col-lg-6 col-md-6 col-sm-12 mb-2 mt-4">
-                    <div class="card">
+                        <!-- Deskripsi Wisata -->
                         <div class="card-body">
-                            <h5 class="card-title">Nama Wisata: <?= htmlspecialchars($wisata['nama_wisata']) ?></h5>
-                            <p class="card-text"><strong>Alamat:</strong> <?= htmlspecialchars($wisata['alamat']) ?></p>
-                            <p class="card-text"><strong>Jam Operasional:</strong> <?= htmlspecialchars($wisata['jadwal']) ?></p>
-                            <p class="card-text"><strong>Harga Tiket:</strong> Rp <?= number_format($wisata['harga_tiket'], 0, ',', '.') ?></p>
-                            <p class="card-text"><strong>Deskripsi:</strong> <?= htmlspecialchars($wisata['deskripsi']) ?></p>
+                            <h5 class="card-title text-success"><?= htmlspecialchars($wisata['nama_wisata']) ?></h5>
+                            <p class="card-text"><i class="bi bi-geo-alt-fill text-danger"></i> <?= htmlspecialchars($wisata['alamat']) ?></p>
+                            <p class="card-text"><i class="bi bi-clock-fill text-primary"></i> <?= htmlspecialchars($wisata['jadwal']) ?></p>
+                            <p class="card-text"><i class="bi bi-currency-dollar text-warning"></i> Rp <?= number_format($wisata['harga_tiket'], 0, ',', '.') ?></p>
+                            <p class="card-text"><?= htmlspecialchars($wisata['deskripsi']) ?></p>
+                            <a href="#" class="btn btn-success btn-sm mt-2" style="transition: transform 0.2s;">Explore More</a>
                         </div>
                     </div>
                 </div>
-                <hr class="border-5 border-dark">
             <?php endforeach; ?>
+            
         </div>
     </div>
+
 
 
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>

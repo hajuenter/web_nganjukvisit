@@ -31,15 +31,15 @@
     <ul class="nav nav-pills justify-content-center mb-4 px-2 d-flex flex-wrap gap-3" id="course-pills-tab" role="tablist">
         <!-- Tab item kuliner -->
         <li class="nav-item text-center" role="presentation">
-            <button class="nav-link mb-2 mb-md-0 active" id="course-pills-tab-1" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1" aria-selected="true">Kuliner</button>
+            <button class="nav-link mb-2 mb-md-0 active bg-primary" id="course-pills-tab-1" data-bg="bg-primary" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1" aria-selected="true">Kuliner</button>
         </li>
         <!-- Tab item wisata -->
         <li class="nav-item text-center" role="presentation">
-            <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-2" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-2" type="button" role="tab" aria-controls="course-pills-tabs-2" aria-selected="false" tabindex="-1">Wisata</button>
+            <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-2" data-bg="bg-success" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-2" type="button" role="tab" aria-controls="course-pills-tabs-2" aria-selected="false">Wisata</button>
         </li>
         <!-- Tab item hotel -->
         <li class="nav-item text-center" role="presentation">
-            <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-3" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-3" type="button" role="tab" aria-controls="course-pills-tabs-3" aria-selected="false" tabindex="-1">Hotel</button>
+            <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-3" data-bg="bg-warning" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-3" type="button" role="tab" aria-controls="course-pills-tabs-3" aria-selected="false">Hotel</button>
         </li>
     </ul>
     <!-- Tabs all end -->
@@ -259,3 +259,17 @@
 
     </div> <!-- Tabs isi content all end -->
 </div>
+
+<script>
+    document.querySelectorAll('.nav-link').forEach(button => {
+        button.addEventListener('shown.bs.tab', function() {
+            // Hapus semua kelas bg-* dari tombol tab
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                btn.classList.remove('bg-primary', 'bg-success', 'bg-warning');
+            });
+
+            // Tambahkan kelas bg-* sesuai dengan data-bg dari tombol yang aktif
+            this.classList.add(this.getAttribute('data-bg'));
+        });
+    });
+</script>

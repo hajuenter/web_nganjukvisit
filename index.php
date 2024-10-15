@@ -22,7 +22,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nganjuk Visit</title>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/font-size/font-size.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/padding/padding.css">
@@ -84,9 +83,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <p class="text-center pt-lg-3" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
                             Nganjuk Visit memberikan pengalaman yang pastinya keren dan tak terlupakan dengan keindahan dan keistimewaan kota Nganjuk.
                         </p>
-                        <img src="./img/app_mobile.png" alt="app" class="img-fluid d-block mx-auto mt-lg-5 mt-2" style="max-width: 300px;">
+                        <img src="./img/app_mobile.png" alt="app" class="img-fluid d-block mx-auto mt-lg-5 mt-1" style="max-width: 300px;">
                     </div>
-                    <div class="col-lg-6 mt-2 pt-4 mt-lg-4" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
+                    <div class="col-lg-6 mt-2 pt-2 mt-lg-4" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
                         <img src="./img/Group 46.png" class="img-fluid" alt="nav-header" style="max-width: 100%;">
                     </div>
                 </div>
@@ -107,7 +106,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                             <!-- item event -->
                             <div class="col-sm-6 col-lg-3" data-aos="fade-right" data-aos-duration="700" data-aos-delay="600" data-aos-offset="100" data-aos-easing="ease-in-sine">
                                 <a href="event_nganjuk.php" class="text-decoration-none">
-                                    <div class="d-flex justify-content-start align-items-center p-4 bg-warning bg-opacity-0 rounded-3">
+                                    <div class="d-flex justify-content-start align-items-center p-4 bg-warning bg-opacity-50 rounded-3">
                                         <span class="display-6 lh-1 text-warning mb-0">
                                             <svg width="60px" height="70px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M3 8C2.44772 8 2 8.44772 2 9V17C2 19.7614 4.23858 22 7 22H17C19.7614 22 22 19.7614 22 17V9C22 8.44772 21.5523 8 21 8H3Z" fill="#4296FF" />
@@ -127,7 +126,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                             <!-- item hotel -->
                             <div class="col-sm-6 col-lg-3" data-aos="fade-right" data-aos-duration="500" data-aos-delay="500" data-aos-offset="100" data-aos-easing="ease-in-sine">
                                 <a href="hotel_nganjuk.php" class="text-decoration-none">
-                                    <div class="d-flex justify-content-center align-items-center p-4 bg-success bg-opacity-25 rounded-3">
+                                    <div class="d-flex justify-content-center align-items-center p-4 bg-success bg-opacity-50 rounded-3">
                                         <span class="display-6 lh-1 text-blue mb-0">
                                             <svg width="60px" height="70px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M762.9 116.2c-7.2-14-25.9-25.5-41.7-25.5h-417c-15.8 0-34.5 11.5-41.7 25.5L176 285.3c-7.2 14-0.1 25.5 15.6 25.5h642.1c15.8 0 22.8-11.5 15.6-25.5l-86.4-169.1z" fill="#333E48" />
@@ -174,7 +173,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                             <!-- item kuliner -->
                             <div class="col-sm-6 col-lg-3" data-aos="fade-left" data-aos-duration="500" data-aos-delay="500" data-aos-offset="100" data-aos-easing="ease-in-sine">
                                 <a href="kuliner_nganjuk.php" class="text-decoration-none">
-                                    <div class="d-flex justify-content-center align-items-center p-4 bg-danger bg-opacity-10 rounded-3">
+                                    <div class="d-flex justify-content-center align-items-center p-4 bg-danger bg-opacity-50 rounded-3">
                                         <span class="display-6 lh-1 text-purple mb-0">
                                             <svg height="70px" width="70px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                                 viewBox="0 0 512 512" xml:space="preserve">
@@ -206,7 +205,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                             <!-- item wisata -->
                             <div class="col-sm-6 col-lg-3" data-aos="fade-left" data-aos-duration="700" data-aos-delay="600" data-aos-offset="100" data-aos-easing="ease-in-sine">
                                 <a href="wisata_nganjuk.php" class="text-decoration-none">
-                                    <div class="d-flex justify-content-center align-items-center p-4 bg-primary bg-opacity-10 rounded-3">
+                                    <div class="d-flex justify-content-center align-items-center p-4 bg-primary bg-opacity-50 rounded-3">
                                         <span class="display-6 lh-1 text-primary mb-0">
                                             <svg width="70px" height="70px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M9 23H39V34C39 35.1046 38.1046 36 37 36H11C9.89543 36 9 35.1046 9 34V23Z" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linejoin="round" />
@@ -246,10 +245,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <section id="tentang_kami" class="pb-5 pt-5 bg-light">
         <div class="container-fluid overflow-x-hidden pb-5 pt-3">
             <div class="row justify-content-center mt-5 mb-5">
-                <h1 class="text-center text-stroke display-4">Nganjuk Visit</h1>
-                <div class="col-12 pt-5 d-flex justify-content-center">
+                <h1 class="text-center text-stroke display-4">NGANJUK VISIT</h1>
+                <!-- <div class="col-12 pt-5 d-flex justify-content-center">
                     <img src="./img/logo_nav.png" alt="Nganjuk Visit Logo" class="img-fluid" style="max-width: 200px;">
-                </div>
+                </div> -->
             </div>
 
             <!-- Keindahan Wisata Kota Nganjuk -->
