@@ -26,6 +26,28 @@ while ($row = mysqli_fetch_assoc($result)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wisata Nganjuk Visit</title>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(-45deg, #FFE0B2, #FFCCBC, #B2DFDB, #FFF9C4);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -40,7 +62,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 100px;">
                     <li class="nav-item">
                         <a class="nav-link ms-lg-5" aria-current="page" href="index.php#home">Home</a>
                     </li>
@@ -69,7 +91,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <!-- navbar end -->
 
     <div class="container mb-3" style="margin-top: 8rem;">
-        <div class="row g-4">
+        <div class="row g-5">
             <?php foreach ($wisata_data as $wisata): ?>
                 <?php
                 // Pisahkan gambar berdasarkan koma
@@ -78,7 +100,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 ?>
 
                 <!-- Card untuk setiap id_wisata -->
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-6 col-md-6 mb-1 col-sm-12">
                     <div class="card shadow-lg border-0 h-100" style="background-color: #f5f5f5; border-radius: 15px; overflow: hidden;">
                         <!-- Slider Gambar -->
                         <div id="wisataSlider<?= $id_wisata ?>" class="carousel slide" data-bs-ride="carousel">
@@ -106,17 +128,17 @@ while ($row = mysqli_fetch_assoc($result)) {
 
                         <!-- Deskripsi Wisata -->
                         <div class="card-body">
-                            <h5 class="card-title text-success"><?= htmlspecialchars($wisata['nama_wisata']) ?></h5>
-                            <p class="card-text"><i class="bi bi-geo-alt-fill text-danger"></i> <?= htmlspecialchars($wisata['alamat']) ?></p>
-                            <p class="card-text"><i class="bi bi-clock-fill text-primary"></i> <?= htmlspecialchars($wisata['jadwal']) ?></p>
-                            <p class="card-text"><i class="bi bi-currency-dollar text-warning"></i> Rp <?= number_format($wisata['harga_tiket'], 0, ',', '.') ?></p>
-                            <p class="card-text"><?= htmlspecialchars($wisata['deskripsi']) ?></p>
+                            <h5 class="card-title text-success">Nama Wisata : <?= htmlspecialchars($wisata['nama_wisata']) ?></h5>
+                            <p class="card-text"><i class="bi bi-geo-alt-fill text-danger">Alamat :</i> <?= htmlspecialchars($wisata['alamat']) ?></p>
+                            <p class="card-text"><i class="bi bi-clock-fill text-primary">Jam Operasioal :</i> <?= htmlspecialchars($wisata['jadwal']) ?></p>
+                            <p class="card-text"><i class="bi bi-currency-dollar text-warning">Harga Tiket :</i> Rp <?= number_format($wisata['harga_tiket'], 0, ',', '.') ?></p>
+                            <p class="card-text">Deskripsi : <?= htmlspecialchars($wisata['deskripsi']) ?></p>
                             <a href="#" class="btn btn-success btn-sm mt-2" style="transition: transform 0.2s;">Explore More</a>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
-            
+
         </div>
     </div>
 

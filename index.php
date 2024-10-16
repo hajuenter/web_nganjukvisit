@@ -40,7 +40,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 100px;">
                     <li class="nav-item">
                         <a class="nav-link ms-lg-5" aria-current="page" href="#home">Home</a>
                     </li>
