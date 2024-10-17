@@ -10,6 +10,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $new_password = $_POST['new_password'];
         $email = $_SESSION['email'] ?? ''; // Ambil email dari session
 
+        // Validasi panjang password
+        if (strlen($new_password) > 50) {
+            $_SESSION['error_password'] = "Password tidak boleh lebih dari 50 karakter.";
+            header("Location: /nganjukvisitnew/lupa_password.php"); // Sesuaikan URL redirect jika perlu
+            exit();
+        }
+
+        // Validasi pola password (kombinasi huruf dan angka)
+        if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,50}$/', $new_password)) {
+            $_SESSION['error_password'] = "Password harus mengandung huruf, angka, dan panjang antara 8 hingga 50 karakter.";
+            header("Location: /nganjukvisitnew/lupa_password.php"); // Sesuaikan URL redirect jika perlu
+            exit();
+        }
+
         if ($email) {
             // Enkripsi password baru
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
@@ -20,9 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("ss", $hashed_password, $email);
 
             if ($stmt->execute()) {
-                $_SESSION['sukses_password'] = 'Password berhasil diperbarui.';
+                $_SESSION['sukses_password'] = 'Password berhasil diperbarui, silahkan login kembali.';
                 unset($_SESSION['email']); // Hapus email dari session
-                header("Location: /nganjukvisitnew/password_baru.php"); // Redirect ke halaman login
+                unset($_SESSION['berhasil']);
+                header("Location: /nganjukvisitnew/login.php"); // Redirect ke halaman login
                 exit();
             } else {
                 $_SESSION['error_password'] = 'Terjadi kesalahan saat memperbarui password. Silakan coba lagi.';
@@ -33,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,9 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="input-group mb-3 mt-3">
                             <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Perbarui</button>
-                        </div>
-                        <div class="input-group mb-3 mt-3">
-                            <button class="btn btn-lg btn-success w-100 fs-6" onclick="window.location.href='login.php';">Login</button>
                         </div>
                     </form>
                 </div>

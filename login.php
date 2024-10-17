@@ -66,6 +66,16 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <div class="header-text mt-3 mb-2">
                         <h2>Login</h2>
                         <p class="mb-4">Selamat datang di Destinasi wisata Nganjuk</p>
+                        
+                        <!-- Pesan Sukses Password -->
+                        <?php if (isset($_SESSION['sukses_password'])): ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= htmlspecialchars($_SESSION['sukses_password']); ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <?php unset($_SESSION['sukses_password']); ?>
+                            </div>
+                        <?php endif; ?>
+
                         <!-- error gak iso login -->
                         <?php if (isset($_SESSION['error'])): ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">

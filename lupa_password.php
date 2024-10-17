@@ -46,7 +46,7 @@ session_start();
                             </div>
                         <?php endif; ?>
                     </div>
-                    <form action="control_lupa_pass/cek_email.php" method="post">
+                    <form action="./controllers/cek_email_kirim_OTP.php" method="post">
                         <div class="input-group mb-3">
                             <input type="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Email" required>
                         </div>

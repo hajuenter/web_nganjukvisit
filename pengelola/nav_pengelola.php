@@ -52,7 +52,7 @@ $gambar_profil .= '?v=' . time();
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
-                <a class="dropdown-item" href="admin_ganti_password.php">
+                <a class="dropdown-item" href="pengelola_ganti_password.php">
                     <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
                     Ganti Password
                 </a>

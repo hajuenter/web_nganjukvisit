@@ -48,9 +48,9 @@ if ($result_user->num_rows > 0) {
 ?>
 
 <div class="container-fluid">
-    <h1 class="text-center">Menu Pengelola Wisata Nganjuk Visit</h1>
+    <h1 class="text-center text-black fw-bold">Menu Pengelola Wisata Nganjuk Visit</h1>
     <hr>
-    <h2 class="text-center">Form Detail Wisata <?php echo htmlspecialchars($nama_wisata); ?></h2>
+    <h2 class="text-center text-black fw-bold">Form Detail Wisata <?php echo htmlspecialchars($nama_wisata); ?></h2>
     <form class="pb-3" action="../controllers/pengelola_edit_wisata.php" method="post" enctype="multipart/form-data">
         <?php
         if (isset($_SESSION['berhasil'])) : ?>
@@ -71,41 +71,41 @@ if ($result_user->num_rows > 0) {
         <?php endif; ?>
         <input type="hidden" name="id_wisata" value="<?php echo htmlspecialchars($id_wisata); ?>">
         <div class="mb-2">
-            <label for="namaWisata" class="form-label">Nama Wisata</label>
-            <input type="text" class="form-control" id="namaWisata" name="namaWisata" value="<?php echo htmlspecialchars($nama_wisata); ?>" required>
+            <label for="namaWisata" class="form-label text-black">Nama Wisata</label>
+            <input type="text" class="form-control text-black" id="namaWisata" name="namaWisata" value="<?php echo htmlspecialchars($nama_wisata); ?>" required>
         </div>
         <div class="mb-2">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required><?php echo htmlspecialchars($deskripsi); ?></textarea>
+            <label for="deskripsi" class="form-label text-black">Deskripsi</label>
+            <textarea class="form-control text-black" id="deskripsi" name="deskripsi" rows="3" required><?php echo htmlspecialchars($deskripsi); ?></textarea>
         </div>
         <div class="mb-2">
-            <label for="alamat" class="form-label">Alamat</label>
-            <input type="text" class="form-control" id="alamat" name="alamat" value="<?php echo htmlspecialchars($alamat); ?>" required>
+            <label for="alamat" class="form-label text-black">Alamat</label>
+            <input type="text" class="form-control text-black" id="alamat" name="alamat" value="<?php echo htmlspecialchars($alamat); ?>" required>
         </div>
         <div class="mb-2">
-            <label for="harga_tiket" class="form-label">Harga Tiket</label>
-            <input type="text" class="form-control" id="harga_tiket" name="harga_tiket" value="<?php echo htmlspecialchars($harga_tiket); ?>" required>
+            <label for="harga_tiket" class="form-label text-black">Harga Tiket</label>
+            <input type="text" class="form-control text-black" id="harga_tiket" name="harga_tiket" value="<?php echo htmlspecialchars($harga_tiket); ?>" required>
         </div>
         <div class="mb-2">
-            <label for="jadwal" class="form-label">Jadwal</label>
-            <input type="text" class="form-control" id="jadwal" name="jadwal" value="<?php echo htmlspecialchars($jadwal); ?>" required>
+            <label for="jadwal" class="form-label text-black">Jadwal</label>
+            <input type="text" class="form-control text-black" id="jadwal" name="jadwal" value="<?php echo htmlspecialchars($jadwal); ?>" required>
         </div>
         <div class="mb-2">
-            <label for="koordinat" class="form-label">Koordinat</label>
-            <input type="text" class="form-control" id="koordinat" name="koordinat" value="<?php echo htmlspecialchars($koordinat); ?>" required>
+            <label for="koordinat" class="form-label text-black">Koordinat</label>
+            <input type="text" class="form-control text-black" id="koordinat" name="koordinat" value="<?php echo htmlspecialchars($koordinat); ?>" required>
         </div>
         <div class="mb-2">
-            <label for="link_maps" class="form-label">Link Maps</label>
-            <input type="text" class="form-control" id="link_maps" name="link_maps" value="<?php echo htmlspecialchars($link_maps); ?>" required>
+            <label for="link_maps" class="form-label text-black">Link Maps</label>
+            <input type="text" class="form-control text-black" id="link_maps" name="link_maps" value="<?php echo htmlspecialchars($link_maps); ?>" required>
         </div>
-        <div class="mb-2">
-            <label for="gambar" class="form-label">Gambar</label>
-            <input type="file" class="form-control" id="gambar" name="gambar[]" multiple accept="image/*">
+        <div class="mb-4">
+            <label for="gambar" class="form-label text-black">Gambar</label>
+            <input type="file" class="form-control text-black" id="gambar" name="gambar[]" multiple accept="image/*">
         </div>
-        <button type="submit" class="btn btn-primary">Perbarui</button>
+        <button type="submit" class="btn btn-info fw-bold">Perbarui</button>
     </form>
     <hr>
-    <h3 class="text-center">Gambar Wisata</h3>
+    <h3 class="text-center text-black fw-bold">Gambar Wisata</h3>
     <div class="row">
         <?php if (!empty($gambar_array)) : ?>
             <?php foreach ($gambar_array as $index => $img) : ?>
