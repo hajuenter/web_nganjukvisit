@@ -4,7 +4,7 @@
             <h1 class="text-info mb-3">
                 <i class="fa-solid fa-lock"></i> Password Baru
             </h1>
-            <form action="" method="post">
+            <form action="../controllers/" method="post">
                 <div class="mb-3">
                     <label for="new-password" class="form-label">
                         <i class="fa-solid fa-key"></i> Password Baru
