@@ -26,55 +26,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $alamat = $_POST['alamat'];
     $email = $_POST['email'];
 
-    // Process image upload
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['foto']['tmp_name'];
-        $fileName = $_FILES['foto']['name'];
-        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $allowedfileExtensions = ['jpg', 'jpeg', 'png'];
-
-        if (in_array($fileExtension, $allowedfileExtensions)) {
-            // Generate new file name
-            $newFileName = $id_user . '_' . time() . '.' . $fileExtension;
-            $uploadFileDir = '../public/gambar/';
-            $dest_path = $uploadFileDir . $newFileName;
-
-            // Move the uploaded file and update the database
-            if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                // Hapus gambar lama jika bukan avatar default
-                if (!empty($user['gambar']) && $user['gambar'] !== 'avatar_profile.jpg') {
-                    $oldFilePath = $uploadFileDir . $user['gambar'];
-                    if (file_exists($oldFilePath)) {
-                        unlink($oldFilePath); // Hapus gambar lama
-                    }
-                }
-
-                // Update gambar di database
-                $updateGambarQuery = "UPDATE user SET gambar = ? WHERE id_user = ?";
-                $stmt = $conn->prepare($updateGambarQuery);
-                $stmt->bind_param("si", $newFileName, $id_user);
-                $stmt->execute();
-                $urlGambar = "../public/gambar/" . $newFileName; // Update image URL
-            } else {
-                echo 'Error moving the uploaded file.';
-            }
-        } else {
-            echo 'Invalid file type. Only JPG, JPEG, and PNG are allowed.';
-        }
-    }
-
-    // Update user details in the database
-    $updateQuery = "UPDATE user SET nama = ?, role = ?, alamat = ?, email = ? WHERE id_user = ?";
-    $stmt = $conn->prepare($updateQuery);
-    $stmt->bind_param("ssssi", $name, $role, $alamat, $email, $id_user);
+    // Check if email already exists for a different user
+    $checkEmailQuery = "SELECT id_user FROM user WHERE email = ? AND id_user != ?";
+    $stmt = $conn->prepare($checkEmailQuery);
+    $stmt->bind_param("si", $email, $id_user);
     $stmt->execute();
+    $stmt->store_result();
 
-    // Fetch the updated user data
-    $user = fetchUserData($conn, $id_user);
+    if ($stmt->num_rows > 0) {
+        // echo 'Email sudah digunakan oleh pengguna lain. Silakan gunakan email yang berbeda.';
+        $_SESSION['profile_gagal'] = "Email sudah digunakan oleh pengguna lain. Silakan gunakan email yang berbeda.";
+    } else {
+        // Process image upload
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['foto']['tmp_name'];
+            $fileName = $_FILES['foto']['name'];
+            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+            $allowedfileExtensions = ['jpg', 'jpeg', 'png'];
 
-    $_SESSION['profile_update'] = "Profil berhasil diperbarui.";
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                // Generate new file name
+                $newFileName = $id_user . '_' . time() . '.' . $fileExtension;
+                $uploadFileDir = '../public/gambar/';
+                $dest_path = $uploadFileDir . $newFileName;
+
+                // Move the uploaded file and update the database
+                if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                    // Hapus gambar lama jika bukan avatar default
+                    if (!empty($user['gambar']) && $user['gambar'] !== 'avatar_profile.jpg') {
+                        $oldFilePath = $uploadFileDir . $user['gambar'];
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath); // Hapus gambar lama
+                        }
+                    }
+
+                    // Update gambar di database
+                    $updateGambarQuery = "UPDATE user SET gambar = ? WHERE id_user = ?";
+                    $stmt = $conn->prepare($updateGambarQuery);
+                    $stmt->bind_param("si", $newFileName, $id_user);
+                    $stmt->execute();
+                    $urlGambar = "../public/gambar/" . $newFileName; // Update image URL
+                } else {
+                    echo 'Error moving the uploaded file.';
+                }
+            } else {
+                echo 'Invalid file type. Only JPG, JPEG, and PNG are allowed.';
+            }
+        }
+
+        // Update user details in the database if email is unique
+        $updateQuery = "UPDATE user SET nama = ?, role = ?, alamat = ?, email = ? WHERE id_user = ?";
+        $stmt = $conn->prepare($updateQuery);
+        $stmt->bind_param("ssssi", $name, $role, $alamat, $email, $id_user);
+        $stmt->execute();
+
+        // Fetch the updated user data
+        $user = fetchUserData($conn, $id_user);
+
+        $_SESSION['profile_update'] = "Profil berhasil diperbarui.";
+    }
 }
 ?>
+
 
 <div class="container-fluid">
     <div class="container-xl px-4 mt-4">
@@ -85,6 +98,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php unset($_SESSION['profile_update']); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['profile_gagal'])): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= htmlspecialchars($_SESSION['profile_gagal']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['profile_gagal']); ?>
         <?php endif; ?>
 
         <hr class="mt-0 mb-2">

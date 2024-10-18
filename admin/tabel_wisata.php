@@ -111,8 +111,8 @@ if (!empty($search)) {
                                 echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
                                 echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
                                 echo "<td>
-                                <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fas fa-edit'></i> Edit</button> 
-                                <button class='btn btn-danger mt-lg-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-toggle='modal' data-target='#hapusModal'><i class='fas fa-trash-alt'></i> Hapus</button>
+                                <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fas fa-edit'></i></button> 
+                                <button class='btn btn-danger mt-lg-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-toggle='modal' data-target='#hapusModal'><i class='fas fa-trash-alt'></i></button>
                                 </td>";
                                 echo "</tr>";
                             }

@@ -104,10 +104,10 @@ if (!empty($search)) {
                                 echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;'></td>";
                                 echo "<td>
                                 <button class='btn btn-primary btn-edit mb-1 mb-lg-0' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
-                                <i class='fas fa-edit'></i> Edit
+                                <i class='fas fa-edit'></i>
                                 </button> 
                                 <button class='btn btn-danger' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-toggle='modal' data-target='#hapusModal'>
-                                <i class='fas fa-trash-alt'></i> Hapus
+                                <i class='fas fa-trash-alt'></i>
                                 </button>
                                 </td>";
                                 echo "</tr>";

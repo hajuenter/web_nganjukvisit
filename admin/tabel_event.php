@@ -64,6 +64,7 @@ if (!empty($search)) {
     <button class="btn btn-warning btn-md ms-2 mb-2" onclick="window.location.href='admin_event.php'" type="button">
         <i class="fas fa-sync-alt"></i> Refresh
     </button>
+
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -96,10 +97,10 @@ if (!empty($search)) {
                         echo "<td>" . htmlspecialchars($row['tanggal_event']) . "</td>";
                         echo "<td>
                                 <button class='btn btn-primary btn-edit mb-1 mb-lg-0' data-id='" . htmlspecialchars($row['id_event']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
-                                <i class='fas fa-edit'></i> Edit
+                                <i class='fas fa-edit'></i>
                                 </button> 
                                 <button class='btn btn-danger' data-id='" . htmlspecialchars($row['id_event']) . "' data-toggle='modal' data-target='#hapusModal'>
-                                <i class='fas fa-trash-alt'></i> Hapus
+                                <i class='fas fa-trash-alt'></i>
                                 </button>
                                 </td>";
                         echo "</tr>";

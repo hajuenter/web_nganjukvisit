@@ -5,7 +5,7 @@ $conn = $koneksi;
 
 $pengelolaQuery = "SELECT * FROM user WHERE role = 'user'";
 $result = mysqli_query($conn, $pengelolaQuery);
-$jumlahUser = mysqli_num_rows($result); // Count the number of rows
+$jumlahUser = mysqli_num_rows($result);
 ?>
 
 <div class="container-fluid">
@@ -15,6 +15,27 @@ $jumlahUser = mysqli_num_rows($result); // Count the number of rows
         <span class="badge me-3 badge-success py-2 px-3 rounded-pill d-inline">Jumlah Pengguna : <?= $jumlahUser ?></span>
     </div>
     <div class="table-responsive">
+        <!-- alert hapus -->
+        <?php
+        if (isset($_SESSION['message'])): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= $_SESSION['message']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['message']); // Hapus pesan setelah ditampilkan 
+            ?>
+        <?php endif; ?>
+
+        <?php
+        if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?= $_SESSION['error']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php unset($_SESSION['error']); // Hapus pesan setelah ditampilkan 
+            ?>
+        <?php endif; ?>
+
         <table class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
@@ -28,7 +49,7 @@ $jumlahUser = mysqli_num_rows($result); // Count the number of rows
             </thead>
             <tbody>
                 <?php
-                if (mysqli_num_rows($result) > 0) {
+                if ($jumlahUser > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo '<tr>';
                         echo '<td>' . htmlspecialchars($row['email']) . '</td>';
@@ -37,7 +58,7 @@ $jumlahUser = mysqli_num_rows($result); // Count the number of rows
                         echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
                         echo '<td><img src="' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
                         echo '<td>';
-                        echo '<button type="button" class="btn btn-link btn-sm btn-rounded">Hapus</button>';
+                        echo '<button type="button" class="btn btn-link btn-sm btn-rounded btn-hapus" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal">Hapus</button>';
                         echo '</td>';
                         echo '</tr>';
                     }
@@ -46,7 +67,45 @@ $jumlahUser = mysqli_num_rows($result); // Count the number of rows
                 }
                 ?>
             </tbody>
-            </tbody>
         </table>
     </div>
 </div>
+
+<!-- Modal Hapus -->
+<div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hapusModalLabel">Konfirmasi Hapus</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Apakah Anda yakin ingin menghapus data ini?</div>
+            <div class="modal-footer">
+                <form id="hapusForm" method="post" action="../controllers/hapus_user.php">
+                    <input type="hidden" name="id_user" id="id_user">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-danger" type="submit">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Setup event listeners for the delete buttons
+        const btnHapus = document.querySelectorAll('.btn-hapus');
+
+        btnHapus.forEach(button => {
+            button.addEventListener('click', function() {
+                // Ambil ID dari data-id tombol
+                const idUser = this.getAttribute('data-id');
+                // Set ID data pada field di formulir modal
+                const idUserField = document.getElementById('id_user');
+                idUserField.value = idUser;
+            });
+        });
+    });
+</script>

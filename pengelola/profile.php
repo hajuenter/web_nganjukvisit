@@ -25,7 +25,7 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
                     <div class="text-center">
-                        <img class="profile-user-img img-fluid img-circle" src="<?= htmlspecialchars($gambar_profil); ?>" alt="User profile picture">
+                        <img class="profile-user-img rounded-circle img-fluid" src="<?= htmlspecialchars($gambar_profil); ?>" alt="User profile picture">
                     </div>
                     <h3 class="profile-username text-center mt-2"><?= htmlspecialchars($nama); ?></h3>
                     <p class="text-muted text-center">Pengelola Wisata Nganjuk Visit</p>
@@ -33,12 +33,12 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
                         <li class="list-group-item mb-3">
                             <b>Role</b> <a class="float-end"><?= htmlspecialchars($role); ?></a>
                         </li>
-                        <form class="form-horizontal">
-                            <div class="mb-3 text-center">
-                                <label for="formFile" class="form-label">Unggah Foto Profil</label>
-                                <input class="form-control" type="file" id="formFile">
-                            </div>
                     </ul>
+                    <form class="form-horizontal" action="../controllers/pengelola_edit_profile.php" method="post" enctype="multipart/form-data">
+                        <div class="mb-3 text-center">
+                            <label for="formFile" class="form-label">Unggah Foto Profil</label>
+                            <input class="form-control" type="file" id="formFile" name="profile_picture" accept="image/*">
+                        </div>
                 </div>
             </div>
         </div>
@@ -52,23 +52,31 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
+                        <?php
+                        if (isset($_SESSION['profile_update'])) : ?>
+                            <div class="mt-2 alert alert-warning alert-dismissible fade show" role="alert">
+                                <?php echo $_SESSION['profile_update']; ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php unset($_SESSION['profile_update']); ?>
+                        <?php endif; ?>
                         <div class="tab-pane active" id="settings">
                             <div class="mb-3 row">
                                 <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="<?= htmlspecialchars($email) ?>">
+                                    <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="<?= htmlspecialchars($email) ?>">
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName" placeholder="Nama" value="<?= htmlspecialchars($nama) ?>">
+                                    <input type="text" class="form-control" id="inputName" name="name" placeholder="Nama" value="<?= htmlspecialchars($nama) ?>">
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="inputExperience" class="col-sm-2 col-form-label">Alamat</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="inputExperience" placeholder="Alamat"><?= htmlspecialchars($alamat); ?></textarea>
+                                    <textarea class="form-control" id="inputExperience" name="alamat" placeholder="Alamat"><?= htmlspecialchars($alamat); ?></textarea>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -76,11 +84,11 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </div>
