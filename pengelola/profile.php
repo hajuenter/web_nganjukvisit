@@ -25,7 +25,7 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
                     <div class="text-center">
-                        <img class="profile-user-img rounded-circle img-fluid" src="<?= htmlspecialchars($gambar_profil); ?>" alt="User profile picture">
+                        <img class="profile-user-img img-fluid w-100 img-thumbnail" style="max-width: 150px; height: auto;" src="<?= htmlspecialchars($gambar_profil); ?>" alt="User profile picture">
                     </div>
                     <h3 class="profile-username text-center mt-2"><?= htmlspecialchars($nama); ?></h3>
                     <p class="text-muted text-center">Pengelola Wisata Nganjuk Visit</p>
@@ -37,7 +37,7 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
                     <form class="form-horizontal" action="../controllers/pengelola_edit_profile.php" method="post" enctype="multipart/form-data">
                         <div class="mb-3 text-center">
                             <label for="formFile" class="form-label">Unggah Foto Profil</label>
-                            <input class="form-control" type="file" id="formFile" name="profile_picture" accept="image/*">
+                            <input class="form-control" type="file" id="formFile" name="foto" accept="image/*">
                         </div>
                 </div>
             </div>
