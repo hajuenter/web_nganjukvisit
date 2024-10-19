@@ -4,14 +4,14 @@ session_start();
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     // Jika belum login, redirect ke halaman login
-    header("Location: /nganjukvisitnew/login.php");
+    header("Location: /nganjukvisit/login.php");
     exit;
 }
 
 // Cek apakah pengguna memiliki role pengelola
 if ($_SESSION['role'] !== 'pengelola') {
     // Jika pengguna bukan pengelola, redirect ke halaman yang sesuai
-    header("Location: /nganjukvisitnew/login.php");
+    header("Location: /nganjukvisit/login.php");
     exit;
 }
 ?>

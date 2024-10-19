@@ -13,14 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validasi panjang password
         if (strlen($new_password) > 50) {
             $_SESSION['error_password'] = "Password tidak boleh lebih dari 50 karakter.";
-            header("Location: /nganjukvisitnew/lupa_password.php"); // Sesuaikan URL redirect jika perlu
+            header("Location: /nganjukvisit/lupa_password.php"); // Sesuaikan URL redirect jika perlu
             exit();
         }
 
         // Validasi pola password (kombinasi huruf dan angka)
         if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,50}$/', $new_password)) {
             $_SESSION['error_password'] = "Password harus mengandung huruf, angka, dan panjang antara 8 hingga 50 karakter.";
-            header("Location: /nganjukvisitnew/lupa_password.php"); // Sesuaikan URL redirect jika perlu
+            header("Location: /nganjukvisit/lupa_password.php"); // Sesuaikan URL redirect jika perlu
             exit();
         }
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['sukses_password'] = 'Password berhasil diperbarui, silahkan login kembali.';
                 unset($_SESSION['email']); // Hapus email dari session
                 unset($_SESSION['berhasil']);
-                header("Location: /nganjukvisitnew/login.php"); // Redirect ke halaman login
+                header("Location: /nganjukvisit/login.php"); // Redirect ke halaman login
                 exit();
             } else {
                 $_SESSION['error_password'] = 'Terjadi kesalahan saat memperbarui password. Silakan coba lagi.';

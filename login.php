@@ -5,10 +5,10 @@ session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     // Redirect berdasarkan role pengguna
     if ($_SESSION['role'] === 'admin') {
-        header("Location: /nganjukvisitnew/admin/index.php");
+        header("Location: /nganjukvisit/admin/index.php");
         exit;
     } elseif ($_SESSION['role'] === 'pengelola') {
-        header("Location: /nganjukvisitnew/pengelola/index.php");
+        header("Location: /nganjukvisit/pengelola/index.php");
         exit;
     }
 }

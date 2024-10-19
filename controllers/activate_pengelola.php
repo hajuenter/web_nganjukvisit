@@ -17,6 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Redirect kembali setelah memproses
-    header("Location: /nganjukvisitnew/admin/admin_pengelola.php"); // Ganti dengan URL halaman yang sesuai
+    header("Location: /nganjukvisit/admin/admin_pengelola.php"); // Ganti dengan URL halaman yang sesuai
     exit;
 }

@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($input_otp === $stored_otp && strtotime($expired_otp) > time()) {
             $_SESSION['berhasil'] = 'Kode OTP valid. Anda dapat melanjutkan ke proses selanjutnya.';
             unset($_SESSION['gagal']);
-            header("Location: /nganjukvisitnew/password_baru.php");
+            header("Location: /nganjukvisit/password_baru.php");
             exit();
         } else {
             $_SESSION['gagal'] = 'Kode OTP tidak valid atau sudah kedaluwarsa.';

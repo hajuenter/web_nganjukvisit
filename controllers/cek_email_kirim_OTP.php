@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
         // Jika role bukan admin atau pengelola, beri pesan error
         $_SESSION['gagal'] = 'Akses ditolak. Hanya admin atau pengelola yang diizinkan.';
         unset($_SESSION['berhasil']);
-        header("Location: /nganjukvisitnew/lupa_password.php");
+        header("Location: /nganjukvisit/lupa_password.php");
         exit();
     }
 
@@ -72,22 +72,22 @@ if ($result->num_rows > 0) {
             $mail->send();
             $_SESSION['berhasil'] = 'Email ditemukan dan kode OTP sudah dikirim ke email.';
             unset($_SESSION['gagal']);
-            header("Location: /nganjukvisitnew/lupa_password_otp.php");
+            header("Location: /nganjukvisit/lupa_password_otp.php");
         } catch (Exception $e) {
             $_SESSION['gagal'] = 'Terjadi kesalahan saat mengirim email. Silakan coba lagi. Error: ' . $mail->ErrorInfo;
             unset($_SESSION['berhasil']);
-            header("Location: /nganjukvisitnew/lupa_password.php");
+            header("Location: /nganjukvisit/lupa_password.php");
         }
     } else {
         $_SESSION['gagal'] = 'Terjadi kesalahan saat memperbarui data OTP.';
         unset($_SESSION['berhasil']);
-        header("Location: /nganjukvisitnew/lupa_password.php");
+        header("Location: /nganjukvisit/lupa_password.php");
     }
 } else {
     // Email tidak ditemukan, beri tahu pengguna
     $_SESSION['gagal'] = 'Email tidak ditemukan. Silakan coba lagi.';
     unset($_SESSION['berhasil']);
-    header("Location: /nganjukvisitnew/lupa_password.php");
+    header("Location: /nganjukvisit/lupa_password.php");
 }
 
 // Tutup koneksi

@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Cek status akun
             if ($row['status'] == 'inactive') {
                 $_SESSION['error_status'] = "Status akun Anda masih non aktif!";
-                header("Location: /nganjukvisitnew/login.php");
+                header("Location: /nganjukvisit/login.php");
                 exit;
             } else {
                 // Jika password benar, simpan informasi pengguna ke session
@@ -34,25 +34,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Cek role pengguna dan redirect ke halaman sesuai
                 if ($row['role'] == 'admin') {
-                    header("Location: /nganjukvisitnew/admin/index.php");
+                    header("Location: /nganjukvisit/admin/index.php");
                 } elseif ($row['role'] == 'pengelola') {
-                    header("Location: /nganjukvisitnew/pengelola/index.php");
+                    header("Location: /nganjukvisit/pengelola/index.php");
                 } else {
                     $_SESSION['error'] = "Role pengguna tidak valid!";
-                    header("Location: /nganjukvisitnew/login.php");
+                    header("Location: /nganjukvisit/login.php");
                 }
                 exit;
             }
         } else {
             // Jika password salah
             $_SESSION['error'] = "Password salah!";
-            header("Location: /nganjukvisitnew/login.php");
+            header("Location: /nganjukvisit/login.php");
             exit;
         }
     } else {
         // Jika email tidak ditemukan
         $_SESSION['error'] = "Email tidak ditemukan!";
-        header("Location: /nganjukvisitnew/login.php");
+        header("Location: /nganjukvisit/login.php");
         exit;
     }
 }
