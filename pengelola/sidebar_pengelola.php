@@ -20,9 +20,12 @@
        <div class="sidebar-heading mt-5">
            Pengelola Wisata
        </div>
-
+       <?php
+        // Cek apakah halaman saat ini adalah ../pengelola/index.php
+        $isActive = (basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['REQUEST_URI'], 'pengelola/index.php') !== false) ? 'active' : '';
+        ?>
        <!-- Nav Item - Pages Collapse Menu -->
-       <li class="nav-item active">
+       <li class="nav-item <?= $isActive ?>">
            <a class="nav-link" href="index.php">
                <i class="fas fa-fw fa-map-signs"></i>
                <span>Wisata Nganjuk Visit</span>
