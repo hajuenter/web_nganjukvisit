@@ -25,7 +25,7 @@ $urlGambar = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar'] : "
 // Menangani pengiriman form untuk memperbarui profil dan mengunggah gambar
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
-    $role = "pengelola";
+    $role = "admin";
     $alamat = $_POST['alamat'];
     $email = $_POST['email'];
 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $_SESSION['profile_gagal'] = "Email sudah digunakan oleh pengguna lain.";
-        header("Location: ../pengelola/pengelola_profile.php");
+        header("Location: ../admin/admin_profile.php");
         exit();
     }
 
@@ -90,6 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mengatur pesan berhasil dan mengarahkan ulang
     $_SESSION['profile_update'] = "Profil berhasil diperbarui.";
-    header("Location: ../pengelola/pengelola_profile.php");
+    header("Location: ../admin/admin_profile.php");
     exit();
 }

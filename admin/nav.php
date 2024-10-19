@@ -1,12 +1,9 @@
 <?php
-// Pastikan nama pengguna sudah diset dalam session
+include("../koneksi.php");
 if (!isset($_SESSION['nama'])) {
     echo "Nama pengguna tidak ditemukan.";
     exit;
 }
-?>
-<?php
-include("../koneksi.php");
 
 $conn = $koneksi;
 $id_user = $_SESSION['user_id'];

@@ -54,11 +54,19 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
                     <div class="tab-content">
                         <?php
                         if (isset($_SESSION['profile_update'])) : ?>
-                            <div class="mt-2 alert alert-warning alert-dismissible fade show" role="alert">
+                            <div class="mt-2 alert alert-success alert-dismissible fade show" role="alert">
                                 <?php echo $_SESSION['profile_update']; ?>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <?php unset($_SESSION['profile_update']); ?>
+                        <?php endif; ?>
+                        <?php
+                        if (isset($_SESSION['profile_gagal'])) : ?>
+                            <div class="mt-2 alert alert-warning alert-dismissible fade show" role="alert">
+                                <?php echo $_SESSION['profile_gagal']; ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php unset($_SESSION['profile_gagal']); ?>
                         <?php endif; ?>
                         <div class="tab-pane active" id="settings">
                             <div class="mb-3 row">

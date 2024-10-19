@@ -1,93 +1,22 @@
 <?php
-include("../koneksi.php");
 $conn = $koneksi;
-
 $id_user = $_SESSION['user_id'];
 
-// Fetch user data from the database
-function fetchUserData($conn, $id_user)
-{
-    $mysqlTampil = "SELECT * FROM user WHERE id_user = ?";
-    $stmt = $conn->prepare($mysqlTampil);
-    $stmt->bind_param("i", $id_user);
-    $stmt->execute();
-    return $stmt->get_result()->fetch_assoc();
-}
+$sql = "SELECT email, nama, role, alamat, gambar FROM user WHERE id_user = ?";
+$stm = $conn->prepare($sql);
+$stm->bind_param("i", $id_user);
+$stm->execute();
+$result = $stm->get_result();
+$user = $result->fetch_assoc();
 
-$user = fetchUserData($conn, $id_user);
+$email = $user['email'];
+$nama = $user['nama'];
+$role = $user['role'];
+$alamat = $user['alamat'];
+// Ganti gambar default jika pengguna belum memiliki gambar
+$gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar'] : "../public/gambar/avatar_profile.jpg";
 
-// Set the profile picture URL
-$urlGambar = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar'] : "../public/gambar/avatar_profile.jpg";
-
-// Handle form submission for updating profile and uploading image
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $role = $_POST['role'];
-    $alamat = $_POST['alamat'];
-    $email = $_POST['email'];
-
-    // Check if email already exists for a different user
-    $checkEmailQuery = "SELECT id_user FROM user WHERE email = ? AND id_user != ?";
-    $stmt = $conn->prepare($checkEmailQuery);
-    $stmt->bind_param("si", $email, $id_user);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        // echo 'Email sudah digunakan oleh pengguna lain. Silakan gunakan email yang berbeda.';
-        $_SESSION['profile_gagal'] = "Email sudah digunakan oleh pengguna lain. Silakan gunakan email yang berbeda.";
-    } else {
-        // Process image upload
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-            $fileTmpPath = $_FILES['foto']['tmp_name'];
-            $fileName = $_FILES['foto']['name'];
-            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-            $allowedfileExtensions = ['jpg', 'jpeg', 'png'];
-
-            if (in_array($fileExtension, $allowedfileExtensions)) {
-                // Generate new file name
-                $newFileName = $id_user . '_' . time() . '.' . $fileExtension;
-                $uploadFileDir = '../public/gambar/';
-                $dest_path = $uploadFileDir . $newFileName;
-
-                // Move the uploaded file and update the database
-                if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                    // Hapus gambar lama jika bukan avatar default
-                    if (!empty($user['gambar']) && $user['gambar'] !== 'avatar_profile.jpg') {
-                        $oldFilePath = $uploadFileDir . $user['gambar'];
-                        if (file_exists($oldFilePath)) {
-                            unlink($oldFilePath); // Hapus gambar lama
-                        }
-                    }
-
-                    // Update gambar di database
-                    $updateGambarQuery = "UPDATE user SET gambar = ? WHERE id_user = ?";
-                    $stmt = $conn->prepare($updateGambarQuery);
-                    $stmt->bind_param("si", $newFileName, $id_user);
-                    $stmt->execute();
-                    $urlGambar = "../public/gambar/" . $newFileName; // Update image URL
-                } else {
-                    echo 'Error moving the uploaded file.';
-                }
-            } else {
-                echo 'Invalid file type. Only JPG, JPEG, and PNG are allowed.';
-            }
-        }
-
-        // Update user details in the database if email is unique
-        $updateQuery = "UPDATE user SET nama = ?, role = ?, alamat = ?, email = ? WHERE id_user = ?";
-        $stmt = $conn->prepare($updateQuery);
-        $stmt->bind_param("ssssi", $name, $role, $alamat, $email, $id_user);
-        $stmt->execute();
-
-        // Fetch the updated user data
-        $user = fetchUserData($conn, $id_user);
-
-        $_SESSION['profile_update'] = "Profil berhasil diperbarui.";
-    }
-}
 ?>
-
 
 <div class="container-fluid">
     <div class="container-xl px-4 mt-4">
@@ -101,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <?php if (isset($_SESSION['profile_gagal'])): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <?= htmlspecialchars($_SESSION['profile_gagal']); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -115,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card-header">Foto Profil</div>
                     <div class="card-body text-center mb-2">
                         <img class="img-account-profile img-fluid rounded-circle w-100"
-                            src="<?= htmlspecialchars($urlGambar) ?>"
+                            src="<?= htmlspecialchars($gambar_profil) ?>"
                             alt="Foto Profil" style="max-width: 200px; height: auto;">
                         <div class="small font-italic text-muted mb-4">JPG atau PNG</div>
                     </div>
@@ -125,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="card mb-4">
                     <div class="card-header">Detail Akun</div>
                     <div class="card-body">
-                        <form method="post" enctype="multipart/form-data">
+                        <form method="post" action="../controllers/edit_profile.php" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label class="small mb-1" id="inputFoto">Upload Gambar Baru</label>
                                 <input type="file" name="foto" class="form-control mb-3" accept="image/*">
