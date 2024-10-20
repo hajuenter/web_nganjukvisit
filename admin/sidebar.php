@@ -86,6 +86,17 @@
             <i class="fas fa-fw fa-ticket-alt"></i>
             <span>Booking dan Tiket</span></a>
     </li>
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Laporan
+    </div>
+
+    <!-- Nav Item - Charts -->
+    <li class="nav-item">
+        <a class="nav-link" href="admin_laporan_tiket.php">
+            <i class="fas fa-fw fa-chart-bar"></i>
+            <span>Laporan Data Tiket</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

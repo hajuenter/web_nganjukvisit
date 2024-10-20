@@ -1,3 +1,3 @@
 <div class="container-fluid">
-    <h2>haloo tiket boking</h2>
+    <h2>haloo laporan tiket</h2>
 </div>
