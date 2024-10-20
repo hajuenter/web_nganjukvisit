@@ -54,7 +54,7 @@ session_start();
                             <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Cek Email</button>
                         </div>
                         <div class="input-group">
-                            <button class="btn btn-lg btn-info w-100 fs-6" onclick="window.location.href='login.php';">Batal</button>
+                            <button class="btn btn-lg btn-success w-100 fs-6" onclick="window.location.href='login.php';">Batal</button>
                         </div>
                     </form>
                 </div>

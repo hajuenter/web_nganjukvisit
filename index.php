@@ -332,7 +332,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 showCursor: true,
                 cursorChar: '|',
                 preStringTyped: (arrayPos) => {
-                    const colors = ['text-danger', 'text-success', 'text-info'];
+                    const colors = ['text-primary', 'text-success', 'text-info'];
                     const element = document.getElementById('demo');
 
                     // Menghapus semua class warna sebelumnya
