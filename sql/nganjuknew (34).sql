@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Okt 2024 pada 16.59
+-- Waktu pembuatan: 20 Okt 2024 pada 10.24
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -51,6 +51,13 @@ CREATE TABLE `detail_kuliner` (
   `gambar` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `detail_kuliner`
+--
+
+INSERT INTO `detail_kuliner` (`id_kuliner`, `nama_kuliner`, `id_user`, `deskripsi`, `harga`, `gambar`) VALUES
+(21, 'sate', 9, 'ayam di bakar', '30000', 'Screenshot (7).png,Screenshot (12).png,Screenshot (19).png');
+
 -- --------------------------------------------------------
 
 --
@@ -68,6 +75,13 @@ CREATE TABLE `detail_penginapan` (
   `telepon` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `detail_penginapan`
+--
+
+INSERT INTO `detail_penginapan` (`id_penginapan`, `nama_penginapan`, `id_user`, `deskripsi`, `harga`, `lokasi`, `gambar`, `telepon`) VALUES
+(5, 'Hotel Nganjuk', 9, 'Ini adalah hotel yang halal di Nganjuk', '50000', 'Guyangan', 'IMG_20180820_215510.jpg,IMG_20180823_070816.jpg,IMG_20180823_135115.jpg', '0182917381');
+
 -- --------------------------------------------------------
 
 --
@@ -84,15 +98,18 @@ CREATE TABLE `detail_wisata` (
   `jadwal` varchar(255) NOT NULL,
   `gambar` text NOT NULL,
   `koordinat` varchar(255) NOT NULL,
-  `link_maps` varchar(255) NOT NULL
+  `link_maps` varchar(255) NOT NULL,
+  `id_pengelola` int(12) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `detail_wisata`
 --
 
-INSERT INTO `detail_wisata` (`id_wisata`, `nama_wisata`, `id_user`, `deskripsi`, `alamat`, `harga_tiket`, `jadwal`, `gambar`, `koordinat`, `link_maps`) VALUES
-(21, 'Roro Kuning Nganjuk Tes', 9, 'ini adalah wisata yang ada di nganjuk', 'nganjuk sawahan', '12000', '121', '', '12232', 'https://maps.app.goo.gl/7cf8TZzykJcJnCr86');
+INSERT INTO `detail_wisata` (`id_wisata`, `nama_wisata`, `id_user`, `deskripsi`, `alamat`, `harga_tiket`, `jadwal`, `gambar`, `koordinat`, `link_maps`, `id_pengelola`) VALUES
+(21, 'Roro Kuning Nganjuk', 9, 'ini adalah wisata yang ada di nganjuk', 'nganjuk sawahan', '12000', '121', '670e8d5b68270.png,670fb8d63ded9.png', '12232', 'https://maps.app.goo.gl/7cf8TZzykJcJnCr86', 21),
+(22, 'Sedudo', 9, 'Pesona Nganjuk', 'nganjuk sawahan', '20000', '12', '670fb9c55e724.png,670fb9c55e953.png,670fb9dd7a07c.png,670fb9dd7a2eb.png', 'sss', 'https://maps.app.goo.gl/vbtbTSRUYFAi4ZeE7', 25),
+(23, 'singokromo', 9, 'bagus', 'sebelum jembatan', '12000', '12-32', '670fbf548416b.png,670fbf54843af.png,670fbf54845d7.png,670fbf54847e7.png', 'qwdq', 'https://maps.app.goo.gl/vbtbTSRUYFAi4ZeE7', 26);
 
 -- --------------------------------------------------------
 
@@ -106,6 +123,13 @@ CREATE TABLE `fav_kuliner` (
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `fav_kuliner`
+--
+
+INSERT INTO `fav_kuliner` (`id_fav`, `id_kuliner`, `id_user`) VALUES
+(1, 21, 9);
+
 -- --------------------------------------------------------
 
 --
@@ -117,6 +141,13 @@ CREATE TABLE `fav_penginapan` (
   `id_penginapan` int(11) NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `fav_penginapan`
+--
+
+INSERT INTO `fav_penginapan` (`id_fav`, `id_penginapan`, `id_user`) VALUES
+(2, 5, 9);
 
 -- --------------------------------------------------------
 
@@ -130,6 +161,34 @@ CREATE TABLE `fav_wisata` (
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `fav_wisata`
+--
+
+INSERT INTO `fav_wisata` (`id_fav`, `id_wisata`, `id_user`) VALUES
+(2, 22, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `riwayat_transaksi_tiket_wisata`
+--
+
+CREATE TABLE `riwayat_transaksi_tiket_wisata` (
+  `id_transaksi` int(12) NOT NULL,
+  `nama_wisata` varchar(200) NOT NULL,
+  `jumlah_tiket` int(12) NOT NULL,
+  `harga_tiket` int(12) NOT NULL,
+  `total` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `riwayat_transaksi_tiket_wisata`
+--
+
+INSERT INTO `riwayat_transaksi_tiket_wisata` (`id_transaksi`, `nama_wisata`, `jumlah_tiket`, `harga_tiket`, `total`) VALUES
+(1, 'Roro Kuning Nganjuk', 3, 12000, 36000);
+
 -- --------------------------------------------------------
 
 --
@@ -139,14 +198,43 @@ CREATE TABLE `fav_wisata` (
 CREATE TABLE `tiket_wisata` (
   `id_tiket` int(11) NOT NULL,
   `id_wisata` int(11) NOT NULL,
-  `harga_tiket` int(11) NOT NULL,
   `nama_wisata` varchar(200) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL,
-  `bayar` int(11) NOT NULL,
+  `id_pengelola_wisata` int(11) NOT NULL,
+  `harga_tiket` int(12) NOT NULL,
+  `jumlah_tiket` int(11) NOT NULL,
   `total` int(12) NOT NULL,
-  `kembalian` int(11) NOT NULL
+  `bayar` int(12) NOT NULL,
+  `kembalian` int(11) NOT NULL,
+  `no_wa` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `tiket_wisata`
+--
+
+INSERT INTO `tiket_wisata` (`id_tiket`, `id_wisata`, `nama_wisata`, `id_user`, `id_pengelola_wisata`, `harga_tiket`, `jumlah_tiket`, `total`, `bayar`, `kembalian`, `no_wa`) VALUES
+(2, 21, 'Roro Kuning Nganjuk', 33, 21, 12000, 3, 36000, 40000, 4000, '123456789');
+
+--
+-- Trigger `tiket_wisata`
+--
+DELIMITER $$
+CREATE TRIGGER `after_insert_tiket_wisata` AFTER INSERT ON `tiket_wisata` FOR EACH ROW BEGIN
+    INSERT INTO riwayat_transaksi_tiket_wisata (
+        nama_wisata, 
+        jumlah_tiket, 
+        harga_tiket, 
+        total
+    ) VALUES (
+        NEW.nama_wisata, 
+        NEW.jumlah_tiket, 
+        NEW.harga_tiket, 
+        NEW.total
+    );
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -226,13 +314,14 @@ INSERT INTO `user` (`id_user`, `email`, `nama`, `role`, `password`, `alamat`, `g
 (6, 'esvanilla63@gmail.com', 'bahrul', 'admin', '$2y$10$8r7M1SakdsOYEUqFKc1ck.s0U6MCHpeRdrpB8oo.6jjx8SIoje1tG', 'hhhh', NULL, '70076637', '2024-09-15 15:46:21', 'active', NULL, ''),
 (7, 'r882357@gmail.com', 'Ratna Indah Anggraini ', 'admin', '$2y$10$Lb/n7Z6sMzMrjdcZSb3jweu76/NS/tXpa7q6ZT/XEkFHcSvJxY1UC', 'ked', NULL, '17056642', '2024-09-18 05:54:28', 'active', NULL, ''),
 (8, 'riandafaturahman@gmail.com', 'Rianda', 'admin', '$2y$10$UXKqMEL14aAHhJ3aScq2/eppHN/mqTMpgY4QsBibT3dLeSjSC892u', 'jl', NULL, '77123080', '2024-09-20 04:51:05', 'active', NULL, ''),
-(9, 'bahrulahmad@gmail.com', 'bahrul testing', 'admin', '$2y$10$7AcxgYJwWdyHwhTTbGwJq.DnTKSIRBb.TDlK9s8qGdDWvY.5C1CbC', 'Nganjuk sini aja', '9_1727792888.jpeg', NULL, NULL, 'active', NULL, ''),
+(9, 'bahrulahmad@gmail.com', 'bahrul testing', 'admin', '$2y$10$7AcxgYJwWdyHwhTTbGwJq.DnTKSIRBb.TDlK9s8qGdDWvY.5C1CbC', 'Nganjuk sini aja', '9_1729345424.jpg', NULL, NULL, 'active', NULL, ''),
 (12, 'amardjidan@gmail.com', 'amar', 'admin', '$2y$10$cb5uBupsKXMjAUC8wZtC..VsYOjHlGmv.RYHb2d6gWzK/kD075ILm', 'tanjunganom', NULL, '14232161', '2024-09-24 10:06:52', 'active', NULL, ''),
-(20, 'esvanilla63@gmail.com', 'ess', 'pengelola', '$2y$10$N9Fvd57/ry0WqffbvEey1eo3zxU8DVFkzZEwU2LmMEt1eL5iIGN/m', 'yahahh', '67015879b5175.png', NULL, NULL, 'active', '21', ''),
-(21, 'eskuwut1945@gmail.com', 'hehehe', 'pengelola', '$2y$10$OCwf4I2Kf6o9pd1VYAVk.OZ2kSdT1LTwaDSVYCrO9lbvEJHxiKQOC', 'adban', '670159dacb250.png', NULL, NULL, 'active', '21', ''),
+(21, 'eskuwut1945@gmail.com', 'okeoke bagus', 'pengelola', '$2y$10$bjJFyxBXQ4rRrdOL5t8I0OAwg49mnSBlhIo4LMu/dy2zGRdHd3njC', 'jauhh disanaaa\r\n', '21_1729344014.jpg', '86875398', '2024-10-17 17:54:41', 'active', '21', '123456789'),
 (22, 'tespengelola@gmail.com', 'pengelola', 'pengelola', '$2y$10$SVlj6ms7Y7rlThPeNsy6WuadAAB6/msDgOlbUgjFfsL4MoQQCtZ8e', 'hahaha', '670164b4564fe.png', NULL, NULL, 'inactive', '21', ''),
-(23, 'user@gmail.com', 'bahrul tes api', 'user', 'user12345', 'sini', NULL, NULL, NULL, 'active', NULL, ''),
-(24, 'tesbroo@gmail.com', 'testing lagi', 'pengelola', '$2y$10$FAZu24O4B6nG.asGM9EmQeO4rxonmNhYi7ooPoUqmAVzUxweNSEjO', 'qwertyuiop', NULL, NULL, NULL, 'inactive', NULL, '123456789111');
+(24, 'tesbroo@gmail.com', 'testing lagi', 'pengelola', '$2y$10$FAZu24O4B6nG.asGM9EmQeO4rxonmNhYi7ooPoUqmAVzUxweNSEjO', 'qwertyuiop', NULL, NULL, NULL, 'inactive', NULL, '123456789111'),
+(25, 'sedudo@gmail.com', 'halo gais', 'pengelola', '$2y$10$zrbYICVcAEmp1X3PP5n1HuGEz2I2EIGPPn5dfXYenrmjs7L0Etwx.', 'hh', '6709318f037be.png', NULL, NULL, 'active', '22', ''),
+(26, 'singokromo@gmail.com', 'singokromo', 'pengelola', '$2y$10$SZ7VjSVuwJiPjSCYei7rSuuQLXO6SUE/P/Qhlsymug3HnpW8ZpUYW', 'jauh disana', '670fbf1f0e27d.png', NULL, NULL, 'active', '23', ''),
+(33, 'user@gmail.com', 'user', 'user', 'user12345', 'alamat user', NULL, NULL, NULL, 'active', NULL, '');
 
 --
 -- Indexes for dumped tables
@@ -291,13 +380,18 @@ ALTER TABLE `fav_wisata`
   ADD KEY `fav_user_wisata` (`id_user`);
 
 --
+-- Indeks untuk tabel `riwayat_transaksi_tiket_wisata`
+--
+ALTER TABLE `riwayat_transaksi_tiket_wisata`
+  ADD PRIMARY KEY (`id_transaksi`);
+
+--
 -- Indeks untuk tabel `tiket_wisata`
 --
 ALTER TABLE `tiket_wisata`
   ADD PRIMARY KEY (`id_tiket`),
   ADD KEY `tiket_wisata` (`id_wisata`),
-  ADD KEY `user_tiket` (`id_user`),
-  ADD KEY `harga_tiket_wisata` (`harga_tiket`);
+  ADD KEY `user_tiket` (`id_user`);
 
 --
 -- Indeks untuk tabel `ulasan_kuliner`
@@ -337,49 +431,55 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_event`
 --
 ALTER TABLE `detail_event`
-  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kuliner`
 --
 ALTER TABLE `detail_kuliner`
-  MODIFY `id_kuliner` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_kuliner` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penginapan`
 --
 ALTER TABLE `detail_penginapan`
-  MODIFY `id_penginapan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_penginapan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_wisata`
 --
 ALTER TABLE `detail_wisata`
-  MODIFY `id_wisata` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_wisata` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `fav_kuliner`
 --
 ALTER TABLE `fav_kuliner`
-  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `fav_penginapan`
 --
 ALTER TABLE `fav_penginapan`
-  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `fav_wisata`
 --
 ALTER TABLE `fav_wisata`
-  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `riwayat_transaksi_tiket_wisata`
+--
+ALTER TABLE `riwayat_transaksi_tiket_wisata`
+  MODIFY `id_transaksi` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tiket_wisata`
 --
 ALTER TABLE `tiket_wisata`
-  MODIFY `id_tiket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_tiket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `ulasan_kuliner`
@@ -403,7 +503,7 @@ ALTER TABLE `ulasan_wisata`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
