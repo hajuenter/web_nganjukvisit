@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Okt 2024 pada 10.24
+-- Waktu pembuatan: 20 Okt 2024 pada 17.42
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -302,7 +302,7 @@ CREATE TABLE `user` (
   `expired_otp` datetime DEFAULT NULL,
   `status` enum('active','inactive') NOT NULL DEFAULT 'active',
   `ket_wisata` varchar(200) DEFAULT NULL,
-  `no_hp` varchar(50) NOT NULL
+  `no_hp` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -321,7 +321,10 @@ INSERT INTO `user` (`id_user`, `email`, `nama`, `role`, `password`, `alamat`, `g
 (24, 'tesbroo@gmail.com', 'testing lagi', 'pengelola', '$2y$10$FAZu24O4B6nG.asGM9EmQeO4rxonmNhYi7ooPoUqmAVzUxweNSEjO', 'qwertyuiop', NULL, NULL, NULL, 'inactive', NULL, '123456789111'),
 (25, 'sedudo@gmail.com', 'halo gais', 'pengelola', '$2y$10$zrbYICVcAEmp1X3PP5n1HuGEz2I2EIGPPn5dfXYenrmjs7L0Etwx.', 'hh', '6709318f037be.png', NULL, NULL, 'active', '22', ''),
 (26, 'singokromo@gmail.com', 'singokromo', 'pengelola', '$2y$10$SZ7VjSVuwJiPjSCYei7rSuuQLXO6SUE/P/Qhlsymug3HnpW8ZpUYW', 'jauh disana', '670fbf1f0e27d.png', NULL, NULL, 'active', '23', ''),
-(33, 'user@gmail.com', 'user', 'user', 'user12345', 'alamat user', NULL, NULL, NULL, 'active', NULL, '');
+(33, 'user@gmail.com', 'user', 'user', 'user12345', 'alamat user', NULL, NULL, NULL, 'active', NULL, ''),
+(34, 'user123@gmail.com', 'usertesAPI', 'user', '$2y$10$4fd42fkI3MiK81a2RJbBcOdcghOEEecmfecfHpKh62uSV4gBqGHxu', 'tesalamatuserya', NULL, NULL, NULL, 'active', NULL, NULL),
+(35, 'user12345@gmail.com', 'tes api user bro', 'user', '$2y$10$6CMffVkMnu.BSlWEI2f4Qeu1Eh/nnVvHADehqrpy6mtPUPvy03WFi', 'alamat baru api', NULL, NULL, NULL, 'active', NULL, NULL),
+(36, 'user123456789@gmail.com', 'tes api user terakhir put lagi', 'user', '$2y$10$SsUCL14XAVTR5Ej6zAjnpeB33WpSrFMSpvSlrxVW2nNVOda/eiPiO', 'alamat baru api terakhir patch', NULL, NULL, NULL, 'active', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -503,7 +506,7 @@ ALTER TABLE `ulasan_wisata`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
