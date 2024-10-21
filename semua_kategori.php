@@ -22,23 +22,28 @@
     <!-- Title -->
     <div class="row mb-4">
         <div class="col-lg-8 mx-auto text-center">
-            <h2 class="fs-1">Terpopuler di Kota Nganjuk</h2>
-            <p class="mb-0">Beragam Kuliner, Wisata, Penginapan yang ada di Mganjuk</p>
+            <h2 class="fs-1" data-aos="zoom-in"
+                data-aos-duration="2000">Terpopuler di Kota Nganjuk</h2>
+            <p class="mb-0" data-aos="zoom-in"
+                data-aos-duration="2500">Beragam Kuliner, Wisata, Penginapan yang ada di Nganjuk</p>
         </div>
     </div>
 
     <!-- Tabs all -->
     <ul class="nav nav-pills justify-content-center mb-4 px-2 d-flex flex-wrap gap-3" id="course-pills-tab" role="tablist">
         <!-- Tab item kuliner -->
-        <li class="nav-item text-center" role="presentation">
+        <li class="nav-item text-center" data-aos="zoom-in"
+            data-aos-duration="2100" role="presentation">
             <button class="nav-link mb-2 mb-md-0 active bg-primary" id="course-pills-tab-1" data-bg="bg-primary" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1" aria-selected="true">Kuliner</button>
         </li>
         <!-- Tab item wisata -->
-        <li class="nav-item text-center" role="presentation">
+        <li class="nav-item text-center" data-aos="zoom-in"
+            data-aos-duration="2200" role="presentation">
             <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-2" data-bg="bg-success" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-2" type="button" role="tab" aria-controls="course-pills-tabs-2" aria-selected="false">Wisata</button>
         </li>
         <!-- Tab item hotel -->
-        <li class="nav-item text-center" role="presentation">
+        <li class="nav-item text-center" data-aos="zoom-in"
+            data-aos-duration="2300" role="presentation">
             <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-3" data-bg="bg-warning" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-3" type="button" role="tab" aria-controls="course-pills-tabs-3" aria-selected="false">Hotel</button>
         </li>
     </ul>
@@ -77,8 +82,9 @@
                         $gambarArray = array_filter(explode(',', $row['gambar']));
                         $carouselId = "kulinerSlider-" . $row['id_kuliner']; // ID unik untuk setiap slider
                         ?>
-                        <div class="col-sm-6 col-lg-4 col-xl-3">
-                            <div class="card shadow h-100">
+                        <div class="col-sm-6 col-lg-4 col-xl-3" data-aos="zoom-in"
+                            data-aos-duration="2600">
+                            <div class="card bg-light shadow h-100 hvr-grow">
                                 <div id="<?php echo $carouselId; ?>" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner">
                                         <?php foreach ($gambarArray as $index => $gambar): ?>
@@ -100,10 +106,7 @@
                                     <h5 class="card-title fw-normal">
                                         <a class="text-black text-decoration-none">Nama : <?php echo htmlspecialchars($row['nama_kuliner']); ?></a>
                                     </h5>
-                                    <p class="mb-2 text-truncate-2">Deskripsi : <?php echo htmlspecialchars($row['deskripsi']); ?></p>
-                                </div>
-                                <div class="card-footer pt-0 pb-3">
-                                    <hr>
+                                    <p class="mb-2 text-black text-truncate-2">Deskripsi : <?php echo htmlspecialchars($row['deskripsi']); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -146,8 +149,9 @@
                         $gambarArray = array_filter(explode(',', $row['gambar']));
                         $carouselId = "carousel-" . $row['id_wisata']; // Pastikan id unik untuk setiap slider
                         ?>
-                        <div class="col-sm-6 col-lg-6 col-xl-6">
-                            <div class="card shadow h-100">
+                        <div class="col-sm-6 col-lg-6 col-xl-6" data-aos="zoom-in"
+                            data-aos-duration="2600">
+                            <div class="card shadow h-100 hvr-grow">
                                 <div id="<?php echo $carouselId; ?>" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner">
                                         <?php foreach ($gambarArray as $index => $gambar): ?>
@@ -165,17 +169,14 @@
                                         <span class="visually-hidden">Next</span>
                                     </button>
                                 </div>
-                                <div class="card-body pb-0">
+                                <div class="card-body bg-light pb-2">
                                     <h5 class="card-title fw-normal">
                                         <a href="#" class="text-black text-decoration-none">Nama Wisata : <?php echo htmlspecialchars($row['nama_wisata']); ?></a>
                                     </h5>
-                                    <p class="text-truncate-2 mb-2 text-justify">Deskripsi : <?php echo htmlspecialchars($row['deskripsi']); ?></p>
+                                    <p class="text-truncate-2 text-black mb-2 text-justify">Deskripsi : <?php echo htmlspecialchars($row['deskripsi']); ?></p>
                                     <ul class="list-inline mb-0">
-                                        <li class="list-inline-item ms-0 h6 fw-light mb-0">Alamat : <?php echo htmlspecialchars($row['alamat']); ?></li>
+                                        <li class="list-inline-item text-black ms-0 h6 fw-light mb-0">Alamat : <?php echo htmlspecialchars($row['alamat']); ?></li>
                                     </ul>
-                                </div>
-                                <div class="card-footer pt-0 pb-3">
-                                    <hr>
                                 </div>
                             </div>
                         </div>
@@ -218,8 +219,9 @@
                         $gambarArray = array_filter(explode(',', $row['gambar']));
                         $carouselId = "hotelSlider-" . $row['id_penginapan']; // ID unik untuk setiap slider
                         ?>
-                        <div class="col-sm-6 col-lg-4 col-xl-3">
-                            <div class="card shadow h-100">
+                        <div class="col-sm-6 col-lg-4 col-xl-3" data-aos="zoom-in"
+                            data-aos-duration="2600">
+                            <div class="card shadow h-100 hvr-grow">
                                 <div id="<?php echo $carouselId; ?>" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner">
                                         <?php foreach ($gambarArray as $index => $gambar): ?>
@@ -237,15 +239,12 @@
                                         <span class="visually-hidden">Next</span>
                                     </button>
                                 </div>
-                                <div class="card-body pb-0">
+                                <div class="card-body pb-2 bg-light">
                                     <h5 class="card-title fw-normal">
                                         <a class="text-black text-decoration-none">Nama : <?php echo htmlspecialchars($row['nama_penginapan']); ?></a>
                                     </h5>
-                                    <p class="mb-2 text-truncate-2">Deskripsi : <?php echo htmlspecialchars($row['deskripsi']); ?></p>
-                                    <p class="mb-2 text-truncate-2">Alamat : <?php echo htmlspecialchars($row['lokasi']); ?></p>
-                                </div>
-                                <div class="card-footer pt-0 pb-3">
-                                    <hr>
+                                    <p class="mb-2 text-black text-truncate-2">Deskripsi : <?php echo htmlspecialchars($row['deskripsi']); ?></p>
+                                    <p class="mb-2 text-black text-truncate-2">Alamat : <?php echo htmlspecialchars($row['lokasi']); ?></p>
                                 </div>
                             </div>
                         </div>

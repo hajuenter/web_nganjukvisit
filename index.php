@@ -27,49 +27,79 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/padding/padding.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/hover-min.css">
+    <style>
+        .text-custom {
+            color: #0C3924;
+        }
+
+        .text-custom-bold {
+            color: #0C3924;
+            font-weight: bold;
+        }
+
+        .floating-full {
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body>
-<!-- navbar -->
-<nav class="navbar navbar-expand-lg bg-white shadow-sm z-3 fixed-top" style="z-index: 1050;">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="./img/logo_nav.png" alt="logo" class="ms-lg-5 img-fluid">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link ms-lg-5" aria-current="page" href="#home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-lg-3" aria-current="page" href="#kategori">Kategori</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="wisata_nganjuk.php">Wisata</a></li>
-                        <li><a class="dropdown-item" href="kuliner_nganjuk.php">Kuliner</a></li>
-                        <li><a class="dropdown-item" href="hotel_nganjuk.php">Penginapan</a></li>
-                        <li><a class="dropdown-item" href="event_nganjuk.php">Event</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ms-lg-3" aria-current="page" href="#tentang_kami">Tentang Kami</a>
-                </li>
-            </ul>
-            <div class="d-flex">
-                <a href="login.php" class="btn me-lg-5 btn-outline-primary mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Login</a>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm z-3 fixed-top" style="z-index: 1050;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="./img/logo_nav.png" alt="logo" class="ms-lg-5 img-fluid">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link ms-lg-5" aria-current="page" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ms-lg-3" aria-current="page" href="#kategori">Kategori</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="wisata_nganjuk.php">Wisata</a></li>
+                            <li><a class="dropdown-item" href="kuliner_nganjuk.php">Kuliner</a></li>
+                            <li><a class="dropdown-item" href="hotel_nganjuk.php">Penginapan</a></li>
+                            <li><a class="dropdown-item" href="event_nganjuk.php">Event</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ms-lg-3" aria-current="page" href="#tentang_kami">Tentang Kami</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.php" class="btn me-lg-5 btn-outline-primary mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Login</a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
-<!-- navbar end -->
+    </nav>
+    <!-- navbar end -->
 
     <!-- header -->
-    <header id="home" class="pt-5 z-1 container-fluid pb-5">
+    <header id="home" class="pt-5 z-1 container-fluid bg-white pb-5">
         <div class="container-fluid overflow-hidden">
             <section class="pt-4 mt-3">
                 <div class="row">
@@ -83,10 +113,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <p class="text-center pt-lg-3" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
                             Nganjuk Visit memberikan pengalaman yang pastinya keren dan tak terlupakan dengan keindahan dan keistimewaan kota Nganjuk.
                         </p>
-                        <img src="./img/app_mobile.png" alt="app" class="img-fluid d-block mx-auto mt-lg-5 mt-1" style="max-width: 300px;">
+                        <img src="./img/app_mobile.png" alt="app" class="img-fluid hvr-bob d-block mx-auto mt-lg-5 mt-1" style="max-width: 300px;">
                     </div>
                     <div class="col-lg-6 mt-2 pt-2 mt-lg-4" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
-                        <img src="./img/Group 46.png" class="img-fluid" alt="nav-header" style="max-width: 100%;">
+                        <img src="./img/Group 46.png" class="img-fluid floating-full" alt="nav-header" style="max-width: 100%;">
                     </div>
                 </div>
             </section>
@@ -95,7 +125,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- header end -->
 
     <!-- sesi kategori -->
-    <section id="kategori" class="mt-lg-2 pt-lg-2 bg-info pb-5">
+    <section id="kategori" class="mt-lg-2 pt-lg-2 bg-light pb-5">
         <div class="container-fluid overflow-hidden mt-5 pb-5">
             <div class="row shadow justify-content-center mx-3 bg-white rounded-3 pb-4 mt-3 mb-2 mx-lg-5 mx-lg-5 px-lg-5">
                 <h1 class="text-center mt-5 pt-5" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
@@ -104,7 +134,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <div class="container">
                         <div class="row g-3 mb-4">
                             <!-- item event -->
-                            <div class="col-sm-6 col-lg-3" data-aos="fade-right" data-aos-duration="700" data-aos-delay="600" data-aos-offset="100" data-aos-easing="ease-in-sine">
+                            <div class="col-sm-6 col-lg-3 hvr-bob" data-aos="fade-right" data-aos-duration="700" data-aos-delay="600" data-aos-offset="100" data-aos-easing="ease-in-sine">
                                 <a href="event_nganjuk.php" class="text-decoration-none">
                                     <div class="d-flex justify-content-start align-items-center p-4 bg-warning bg-opacity-50 rounded-3">
                                         <span class="display-6 lh-1 text-warning mb-0">
@@ -124,7 +154,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                             <!-- item event end -->
 
                             <!-- item hotel -->
-                            <div class="col-sm-6 col-lg-3" data-aos="fade-right" data-aos-duration="500" data-aos-delay="500" data-aos-offset="100" data-aos-easing="ease-in-sine">
+                            <div class="col-sm-6 col-lg-3 hvr-bob" data-aos="fade-right" data-aos-duration="500" data-aos-delay="500" data-aos-offset="100" data-aos-easing="ease-in-sine">
                                 <a href="hotel_nganjuk.php" class="text-decoration-none">
                                     <div class="d-flex justify-content-center align-items-center p-4 bg-success bg-opacity-50 rounded-3">
                                         <span class="display-6 lh-1 text-blue mb-0">
@@ -171,7 +201,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                             <!-- item hotel end -->
 
                             <!-- item kuliner -->
-                            <div class="col-sm-6 col-lg-3" data-aos="fade-left" data-aos-duration="500" data-aos-delay="500" data-aos-offset="100" data-aos-easing="ease-in-sine">
+                            <div class="col-sm-6 col-lg-3 hvr-bob" data-aos="fade-left" data-aos-duration="500" data-aos-delay="500" data-aos-offset="100" data-aos-easing="ease-in-sine">
                                 <a href="kuliner_nganjuk.php" class="text-decoration-none">
                                     <div class="d-flex justify-content-center align-items-center p-4 bg-danger bg-opacity-50 rounded-3">
                                         <span class="display-6 lh-1 text-purple mb-0">
@@ -203,7 +233,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                             <!-- item kuliner end -->
 
                             <!-- item wisata -->
-                            <div class="col-sm-6 col-lg-3" data-aos="fade-left" data-aos-duration="700" data-aos-delay="600" data-aos-offset="100" data-aos-easing="ease-in-sine">
+                            <div class="col-sm-6 col-lg-3 hvr-bob" data-aos="fade-left" data-aos-duration="700" data-aos-delay="600" data-aos-offset="100" data-aos-easing="ease-in-sine">
                                 <a href="wisata_nganjuk.php" class="text-decoration-none">
                                     <div class="d-flex justify-content-center align-items-center p-4 bg-primary bg-opacity-50 rounded-3">
                                         <span class="display-6 lh-1 text-primary mb-0">
@@ -242,10 +272,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- sesi kategori end -->
 
     <!-- Sesi Tentang Kami -->
-    <section id="tentang_kami" class="pb-2 pt-5 bg-light">
-        <div class="container-fluid overflow-x-hidden pb-2 pt-3">
-            <div class="row justify-content-center mt-5 mb-5">
-                <h1 class="text-center text-stroke display-4">NGANJUK VISIT</h1>
+    <section id="tentang_kami" class="pb-2 pt-5 bg-white px-lg-3">
+        <div class="container-fluid pb-2 pt-3">
+            <div class="row justify-content-center mt-5 mb-5" data-aos="fade-up"
+                data-aos-duration="2000">
+                <h1 class="text-center text-custom display-4">NGANJUK VISIT</h1>
                 <!-- <div class="col-12 pt-5 d-flex justify-content-center">
                     <img src="./img/logo_nav.png" alt="Nganjuk Visit Logo" class="img-fluid" style="max-width: 200px;">
                 </div> -->
@@ -253,11 +284,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
             <!-- Keindahan Wisata Kota Nganjuk -->
             <div class="row align-items-center mb-5">
-                <div class="col-lg-6 order-lg-1 order-1 text-center">
-                    <img src="./img/index-aaa.png" alt="Keindahan Wisata Kota Nganjuk" class="img-fluid rounded shadow" style="max-width: 100%;">
+                <div class="col-lg-6 order-lg-1 order-1 text-center" data-aos="fade-up"
+                    data-aos-duration="2000">
+                    <img src="./img/index-aaa.png" alt="Keindahan Wisata Kota Nganjuk" class="img-fluid rounded shadow hvr-bob" style="max-width: 100%;">
                 </div>
-                <div class="col-lg-6 order-lg-2 order-2">
-                    <h2 class="text-stroke text-lg-start text-center mt-3 mt-lg-0">Keindahan Wisata Kota Nganjuk</h2>
+                <div class="col-lg-6 order-lg-2 order-2" data-aos="fade-up"
+                    data-aos-duration="2000">
+                    <h2 class="text-custom-bold text-lg-start text-center mt-3 mt-lg-0">Keindahan Wisata Kota Nganjuk</h2>
                     <p class="fs-5 text-lg-start text-center">
                         Kota Nganjuk, dikenal sebagai Kota Angin, menawarkan beragam destinasi wisata alam yang menakjubkan. Dari pesona Air Terjun Sedudo yang memukau,
                         hingga panorama alam perbukitan Wilis yang memanjakan mata. Nikmati suasana sejuk dan asri yang membuat Anda betah berlama-lama di setiap sudut
@@ -268,11 +301,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
             <!-- Kuliner Khas Nganjuk -->
             <div class="row align-items-center mb-5">
-                <div class="col-lg-6 order-lg-2 order-1 text-center">
-                    <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="img-fluid rounded shadow" style="max-width: 100%;">
+                <div class="col-lg-6 order-lg-2 order-1 text-center" data-aos="fade-up"
+                    data-aos-duration="2000">
+                    <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="hvr-bob img-fluid rounded shadow" style="max-width: 100%;">
                 </div>
-                <div class="col-lg-6 order-lg-1 order-2">
-                    <h2 class="text-stroke text-center text-lg-start mt-3 mt-lg-0">Kuliner Khas Nganjuk</h2>
+                <div class="col-lg-6 order-lg-1 order-2" data-aos="fade-up"
+                    data-aos-duration="2000">
+                    <h2 class="text-custom-bold text-center text-lg-start mt-3 mt-lg-0">Kuliner Khas Nganjuk</h2>
                     <p class="fs-5 text-center text-lg-start">
                         Nganjuk juga kaya akan cita rasa kuliner tradisional yang menggugah selera. Cobalah Nasi Pecel Tumpang yang legendaris,
                         atau Manisan Mangga yang segar dan lezat. Setiap gigitan dari kuliner khas Nganjuk membawa Anda ke dalam pengalaman kuliner
@@ -283,11 +318,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
             <!-- Penginapan Nyaman di Kota Nganjuk -->
             <div class="row align-items-center mb-5">
-                <div class="col-lg-6 order-lg-1 order-1 text-center">
-                    <img src="./img/index-ccc.png" alt="Penginapan di Nganjuk" class="img-fluid rounded shadow" style="max-width: 100%;">
+                <div class="col-lg-6 order-lg-1 order-1 text-center" data-aos="fade-up"
+                    data-aos-duration="2000">
+                    <img src="./img/index-ccc.png" alt="Penginapan di Nganjuk" class="hvr-bob img-fluid rounded shadow" style="max-width: 100%;">
                 </div>
-                <div class="col-lg-6 order-lg-2 order-2">
-                    <h2 class="text-stroke text-center text-lg-start mt-3 mt-lg-0">Penginapan Nyaman di Kota Nganjuk</h2>
+                <div class="col-lg-6 order-lg-2 order-2" data-aos="fade-up"
+                    data-aos-duration="2000">
+                    <h2 class="text-custom-bold text-center text-lg-start mt-3 mt-lg-0">Penginapan Nyaman di Kota Nganjuk</h2>
                     <p class="fs-5 text-center text-lg-start">
                         Temukan penginapan yang nyaman di Nganjuk, mulai dari hotel berbintang hingga homestay dengan suasana rumah yang ramah.
                         Setiap penginapan menawarkan fasilitas lengkap dengan pelayanan yang hangat, memastikan perjalanan Anda semakin nyaman

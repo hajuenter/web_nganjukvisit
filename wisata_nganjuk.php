@@ -24,30 +24,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wisata Nganjuk Visit</title>
+    <title>Nganjuk Visit</title>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-    <style>
-        body {
-            background: linear-gradient(-45deg, #FFE0B2, #FFCCBC, #B2DFDB, #FFF9C4);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            height: 100vh;
-        }
-
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -90,8 +68,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     </nav>
     <!-- navbar end -->
 
-    <div class="container mb-3" style="margin-top: 8rem;">
-        <div class="row g-5">
+    <div class="container pb-lg-3 pb-2 bg-light" style="margin-top: 7.5rem;">
+        <div class="row g-2 g-lg-3">
             <?php foreach ($wisata_data as $wisata): ?>
                 <?php
                 // Pisahkan gambar berdasarkan koma
@@ -100,7 +78,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 ?>
 
                 <!-- Card untuk setiap id_wisata -->
-                <div class="col-lg-6 col-md-6 mb-1 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="card shadow-lg border-0 h-100" style="background-color: #f5f5f5; border-radius: 15px; overflow: hidden;">
                         <!-- Slider Gambar -->
                         <div id="wisataSlider<?= $id_wisata ?>" class="carousel slide" data-bs-ride="carousel">
