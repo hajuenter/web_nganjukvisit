@@ -33,7 +33,7 @@ if (isset($_POST['id_kuliner'])) {
             </div>
             <div class="mb-3">
                 <label for="gambar" class="form-label">Gambar Wisata</label>
-                <input type="file" class="form-control" id="gambar" name="gambar[]" multiple>
+                <input type="file" class="form-control" id="gambar" name="gambar[]" multiple accept="image/*">
             </div>
         </form>
         ';

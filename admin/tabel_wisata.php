@@ -80,7 +80,7 @@ if (!empty($search)) {
                             <th>Deskripsi</th>
                             <th>Alamat</th>
                             <th>Harga Tiket</th>
-                            <th>Jadwal Buka Tutup</th>
+                            <th class="pe-5">Jadwal Buka Tutup Wisata</th>
                             <th>Gambar</th>
                             <th>Koordinat</th>
                             <th>Maps</th>
@@ -97,12 +97,20 @@ if (!empty($search)) {
                                 echo "<td>" . htmlspecialchars($row['deskripsi']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['alamat']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['harga_tiket']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['jadwal']) . "</td>";
+                                echo "<td>";
+                                // Memisahkan jadwal berdasarkan koma
+                                $jadwal_array = explode(',', $row['jadwal']);
+
+                                // Tampilkan jadwal dalam list-inline
+                                echo "<ul class='list-inline'>";
+                                foreach ($jadwal_array as $jadwal_hari) {
+                                    echo "<li class='list-inline-item me-0'>" . htmlspecialchars(trim($jadwal_hari)) . "</li>";
+                                }
+                                echo "</ul>";
+                                echo "</td>";
 
                                 // Ambil gambar dan pisahkan nama file yang dipisahkan koma menjadi array
                                 $gambar_array = explode(',', $row['gambar']);
-
-                                // Pilih satu gambar secara acak dari array
                                 $gambar_acak = $gambar_array[array_rand($gambar_array)];
 
                                 // Tampilkan gambar acak
@@ -111,13 +119,13 @@ if (!empty($search)) {
                                 echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
                                 echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
                                 echo "<td>
-                                <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fas fa-edit'></i></button> 
-                                <button class='btn btn-danger mt-lg-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-toggle='modal' data-target='#hapusModal'><i class='fas fa-trash-alt'></i></button>
-                                </td>";
+                            <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fas fa-edit'></i></button> 
+                            <button class='btn btn-danger mt-lg-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-toggle='modal' data-target='#hapusModal'><i class='fas fa-trash-alt'></i></button>
+                            </td>";
                                 echo "</tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='9'>Tidak ada data ditemukan</td></tr>";
+                            echo "<tr><td colspan='10'>Tidak ada data ditemukan</td></tr>";
                         }
                         ?>
                     </tbody>
@@ -130,7 +138,7 @@ if (!empty($search)) {
 
 <!-- Modal edit -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Wisata</h1>
@@ -149,7 +157,7 @@ if (!empty($search)) {
 
 <!-- Modal Tambah wisata -->
 <div class="modal fade" id="modalTambahWisata" tabindex="-1" aria-labelledby="modalTambahWisataLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTambahWisataLabel">Tambah Data Wisata</h5>
@@ -173,9 +181,28 @@ if (!empty($search)) {
                         <label for="harga_tiket" class="form-label">Harga Tiket</label>
                         <input type="number" class="form-control" id="harga_tiket" name="harga_tiket" required>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="jadwal" class="form-label">Jadwal</label>
                         <input type="text" class="form-control" id="jadwal" name="jadwal" required>
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="jadwal" class="form-label">Jadwal Buka-Tutup</label>
+                        <div>
+                            <label>Senin: </label>
+                            <input type="time" name="buka_senin"> - <input type="time" name="tutup_senin"><br>
+                            <label>Selasa: </label>
+                            <input type="time" name="buka_selasa"> - <input type="time" name="tutup_selasa"><br>
+                            <label>Rabu: </label>
+                            <input type="time" name="buka_rabu"> - <input type="time" name="tutup_rabu"><br>
+                            <label>Kamis: </label>
+                            <input type="time" name="buka_kamis"> - <input type="time" name="tutup_kamis"><br>
+                            <label>Jumat: </label>
+                            <input type="time" name="buka_jumat"> - <input type="time" name="tutup_jumat"><br>
+                            <label>Sabtu: </label>
+                            <input type="time" name="buka_sabtu"> - <input type="time" name="tutup_sabtu"><br>
+                            <label>Minggu: </label>
+                            <input type="time" name="buka_minggu"> - <input type="time" name="tutup_minggu">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
@@ -217,10 +244,6 @@ if (!empty($search)) {
         </div>
     </div>
 </div>
-
-
-
-
 
 
 <!-- JQuery dan Ajax untuk mengambil data -->

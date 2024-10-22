@@ -21,6 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $row = $result->fetch_assoc();
     $gambar_lama = trim($row['gambar'], ','); // Hapus koma di awal dan akhir
 
+    // Ambil data jadwal dari POST
+    $jadwal = $_POST['jadwal'];
+
+    // Format jadwal menjadi string yang diinginkan
+    $jadwal_string = '';
+    foreach ($jadwal as $hari => $jam) {
+        $jam_buka = isset($jam['buka']) ? $jam['buka'] : '';
+        $jam_tutup = isset($jam['tutup']) ? $jam['tutup'] : '';
+        $jadwal_string .= "$hari: $jam_buka-$jam_tutup, ";
+    }
+    $jadwal_string = rtrim($jadwal_string, ', ');
+
     // Variabel untuk nama file gambar baru
     $gambar_baru = '';
     if (isset($_FILES['gambar'])) {
@@ -52,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Update data di database
     $sql = "UPDATE detail_wisata SET nama_wisata = ?, deskripsi = ?, alamat = ?, harga_tiket = ?, jadwal = ?, gambar = ?, koordinat = ?, link_maps = ? WHERE id_wisata = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssssssi', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal, $gambar_final, $koordinat, $link_maps, $id_wisata);
+    $stmt->bind_param('ssssssssi', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal_string, $gambar_final, $koordinat, $link_maps, $id_wisata);
 
     if ($stmt->execute()) {
         header("Location: ../admin/admin_wisata.php?update=success");

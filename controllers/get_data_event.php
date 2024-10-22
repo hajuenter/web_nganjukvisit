@@ -29,7 +29,7 @@ if (isset($_POST['id_event'])) {
             </div>
             <div class="mb-3">
                 <label for="gambar" class="form-label">Gambar Event</label>
-                <input type="file" class="form-control" id="gambar" name="gambar[]" multiple>
+                <input type="file" class="form-control" id="gambar" name="gambar[]" multiple accept="image/*">
             </div>
             <div class="mb-3">
                 <label for="tanggal_event" class="form-label">Tanggal Event</label>

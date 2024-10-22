@@ -48,9 +48,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Hapus koma di awal dan di akhir dari string gambar
         $gambar_string = trim($gambar_string, ',');
 
+        // Ambil jadwal buka-tutup dari form dan gabungkan menjadi string
+        $jadwal = "Senin: " . $_POST['buka_senin'] . "-" . $_POST['tutup_senin'] . ", " .
+            "Selasa: " . $_POST['buka_selasa'] . "-" . $_POST['tutup_selasa'] . ", " .
+            "Rabu: " . $_POST['buka_rabu'] . "-" . $_POST['tutup_rabu'] . ", " .
+            "Kamis: " . $_POST['buka_kamis'] . "-" . $_POST['tutup_kamis'] . ", " .
+            "Jumat: " . $_POST['buka_jumat'] . "-" . $_POST['tutup_jumat'] . ", " .
+            "Sabtu: " . $_POST['buka_sabtu'] . "-" . $_POST['tutup_sabtu'] . ", " .
+            "Minggu: " . $_POST['buka_minggu'] . "-" . $_POST['tutup_minggu'];
+
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_wisata (nama_wisata, deskripsi, alamat, harga_tiket, jadwal, gambar, koordinat, link_maps, id_user) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sssssssss', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal, $gambar_string, $koordinat, $link_maps, $id_user);
 
