@@ -1,6 +1,17 @@
 <?php
 session_start();
 include("koneksi.php");
+// Cek apakah pengguna sudah login
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    // Redirect berdasarkan role pengguna
+    if ($_SESSION['role'] === 'admin') {
+        header("Location: /nganjukvisit/admin/index.php");
+        exit;
+    } elseif ($_SESSION['role'] === 'pengelola') {
+        header("Location: /nganjukvisit/pengelola/index.php");
+        exit;
+    }
+}
 
 $conn = $koneksi;
 

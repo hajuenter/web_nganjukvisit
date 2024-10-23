@@ -26,7 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: /nganjukvisit/login.php");
                 exit;
             } else {
-                // Jika password benar, simpan informasi pengguna ke session
+                // Cek jika yang login adalah pengelola dan ket_wisata-nya kosong atau null
+                if ($row['role'] == 'pengelola' && (is_null($row['ket_wisata']) || $row['ket_wisata'] == '')) {
+                    $_SESSION['error'] = "Akun pengelola Anda belum memiliki wisata yang terdaftar!";
+                    header("Location: /nganjukvisit/login.php");
+                    exit;
+                }
+
+                // Jika password benar dan role valid, simpan informasi pengguna ke session
                 $_SESSION['user_id'] = $row['id_user'];
                 $_SESSION['nama'] = $row['nama'];
                 $_SESSION['logged_in'] = true;
@@ -56,3 +63,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 }
+?>
