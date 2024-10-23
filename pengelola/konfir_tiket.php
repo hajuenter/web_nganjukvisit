@@ -1,5 +1,6 @@
-<div class="container-fluid mb-3">
-    <h2>Menu Tiket Wisata Nganjuk Visit</h2>
+<div class="container-fluid">
+    <h1 class="text-center text-black fw-bold">Menu Pengelola Tiket Wisata Nganjuk Visit</h1>
+    <hr>
 
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -23,5 +24,4 @@
             </tbody>
         </table>
     </div>
-
 </div>

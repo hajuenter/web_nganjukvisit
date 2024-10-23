@@ -16,19 +16,40 @@
        <!-- Divider -->
        <hr class="sidebar-divider">
 
-       <!-- Heading -->
        <div class="sidebar-heading mt-5">
            Pengelola Wisata
        </div>
+
        <?php
-        // Cek apakah halaman saat ini adalah ../pengelola/index.php
-        $isActive = (basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['REQUEST_URI'], 'pengelola/index.php') !== false) ? 'active' : '';
+        // Mendapatkan nama file saat ini
+        $currentPage = basename($_SERVER['PHP_SELF']);
+
+        // Fungsi untuk mengecek apakah halaman saat ini aktif
+        function isActive($page)
+        {
+            global $currentPage;
+            return $currentPage === $page ? 'active' : '';
+        }
         ?>
-       <!-- Nav Item - Pages Collapse Menu -->
-       <li class="nav-item <?= $isActive ?>">
+
+       <!-- Nav Item - Wisata Nganjuk Visit -->
+       <li class="nav-item <?= isActive('index.php') ?>">
            <a class="nav-link" href="index.php">
                <i class="fas fa-fw fa-map-signs"></i>
                <span>Wisata Nganjuk Visit</span>
+           </a>
+       </li>
+
+       <!-- Heading -->
+       <div class="sidebar-heading mt-3">
+           Pengelola Tiket Wisata
+       </div>
+
+       <!-- Nav Item - Tiket Wisata Nganjuk Visit -->
+       <li class="nav-item <?= isActive('pengelola_konfir_tiket.php') ?>">
+           <a class="nav-link" href="pengelola_konfir_tiket.php">
+               <i class="fas fa-fw fas fa-tags"></i>
+               <span>Tiket Wisata</span>
            </a>
        </li>
 
