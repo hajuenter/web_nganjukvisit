@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <h1 class="text-center text-black fw-bold">Menu Pengelola Tiket Wisata Nganjuk Visit</h1>
+    <h1 class="text-center text-black fw-bold">Menu Konfirmasi Pembelian Tiket Wisata</h1>
     <hr>
 
     <div class="table-responsive">
