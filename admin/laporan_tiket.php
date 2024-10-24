@@ -19,6 +19,7 @@ $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai 
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
+                    <th>Id Riwayat Transaksi</th>
                     <th>Id Detail Tiket</th>
                     <th>Nama Wisata</th>
                     <th>Jumlah Tiket</th>
@@ -31,6 +32,7 @@ $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai 
                 <?php if ($riwayat): ?>
                     <?php foreach ($riwayat as $row): ?>
                         <tr>
+                            <td><?php echo htmlspecialchars($row['id_transaksi']); ?></td>
                             <td><?php echo htmlspecialchars($row['id_detail_tiket']); ?></td>
                             <td><?php echo htmlspecialchars($row['nama_wisata']); ?></td>
                             <td><?php echo htmlspecialchars($row['jumlah_tiket']); ?></td>
