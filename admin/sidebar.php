@@ -84,7 +84,7 @@
     <li class="nav-item">
         <a class="nav-link" href="admin_boking_tiket.php">
             <i class="fas fa-fw fa-ticket-alt"></i>
-            <span>Booking dan Tiket</span></a>
+            <span>Tiket Wisata</span></a>
     </li>
     <!-- Heading -->
     <div class="sidebar-heading">
@@ -95,7 +95,7 @@
     <li class="nav-item">
         <a class="nav-link" href="admin_laporan_tiket.php">
             <i class="fas fa-fw fa-chart-bar"></i>
-            <span>Laporan Data Tiket</span></a>
+            <span>Laporan Data Tiket Wisata</span></a>
     </li>
 
     <!-- Divider -->

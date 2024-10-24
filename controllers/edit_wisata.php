@@ -21,10 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $row = $result->fetch_assoc();
     $gambar_lama = trim($row['gambar'], ','); // Hapus koma di awal dan akhir
 
-    // Ambil data jadwal dari POST
+    // Ambil data jadwal dari POST dan format jadwal
     $jadwal = $_POST['jadwal'];
-
-    // Format jadwal menjadi string yang diinginkan
     $jadwal_string = '';
     foreach ($jadwal as $hari => $jam) {
         $jam_buka = isset($jam['buka']) ? $jam['buka'] : '';
@@ -33,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $jadwal_string = rtrim($jadwal_string, ', ');
 
-    // Variabel untuk nama file gambar baru
+    // Proses gambar baru jika ada
     $gambar_baru = '';
     if (isset($_FILES['gambar'])) {
         $gambar_baru_array = [];
@@ -42,31 +40,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $target_dir = "../public/gambar/";
             $target_file = $target_dir . basename($nama_gambar_baru);
 
-            // Pindahkan file gambar ke folder target
             if (move_uploaded_file($gambar_tmp, $target_file)) {
                 $gambar_baru_array[] = $nama_gambar_baru;
             }
         }
-        $gambar_baru = implode(',', $gambar_baru_array); // Gabungkan gambar baru jadi satu string
-        $gambar_baru = trim($gambar_baru, ','); // Hapus koma di awal dan akhir
+        $gambar_baru = implode(',', $gambar_baru_array);
+        $gambar_baru = trim($gambar_baru, ',');
     }
 
     // Gabungkan gambar lama dan gambar baru
-    if (!empty($gambar_baru)) {
-        $gambar_final = $gambar_lama ? $gambar_lama . ',' . $gambar_baru : $gambar_baru;
-    } else {
-        $gambar_final = $gambar_lama;
-    }
-
-    // Hapus koma di awal dan akhir dari gambar_final
+    $gambar_final = !empty($gambar_baru) ? ($gambar_lama ? $gambar_lama . ',' . $gambar_baru : $gambar_baru) : $gambar_lama;
     $gambar_final = trim($gambar_final, ',');
 
-    // Update data di database
+    // Update data di tabel detail_wisata
     $sql = "UPDATE detail_wisata SET nama_wisata = ?, deskripsi = ?, alamat = ?, harga_tiket = ?, jadwal = ?, gambar = ?, koordinat = ?, link_maps = ? WHERE id_wisata = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ssssssssi', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal_string, $gambar_final, $koordinat, $link_maps, $id_wisata);
 
     if ($stmt->execute()) {
+        // Cek apakah id_wisata memiliki tiket di tabel tiket_wisata
+        $sql_check_tiket = "SELECT COUNT(*) AS jumlah_tiket FROM tiket_wisata WHERE id_wisata = ?";
+        $stmt_check_tiket = $conn->prepare($sql_check_tiket);
+        $stmt_check_tiket->bind_param('i', $id_wisata);
+        $stmt_check_tiket->execute();
+        $result_check_tiket = $stmt_check_tiket->get_result();
+        $row_check_tiket = $result_check_tiket->fetch_assoc();
+
+        if ($row_check_tiket['jumlah_tiket'] > 0) {
+            // Update nama_wisata dan harga_tiket di tabel tiket_wisata jika ada tiket
+            $sql_update_tiket = "UPDATE tiket_wisata SET nama_wisata = ?, harga_tiket = ? WHERE id_wisata = ?";
+            $stmt_update_tiket = $conn->prepare($sql_update_tiket);
+            $stmt_update_tiket->bind_param('sdi', $nama_wisata, $harga_tiket, $id_wisata);
+            $stmt_update_tiket->execute();
+            $stmt_update_tiket->close();
+        }
+
         header("Location: ../admin/admin_wisata.php?update=success");
         exit();
     } else {
