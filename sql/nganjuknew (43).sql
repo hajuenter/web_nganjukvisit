@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Okt 2024 pada 12.37
+-- Waktu pembuatan: 24 Okt 2024 pada 16.47
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -96,9 +96,17 @@ CREATE TABLE `detail_tiket` (
   `harga` varchar(12) NOT NULL,
   `jumlah` int(12) NOT NULL,
   `total` int(12) NOT NULL,
+  `bayar` int(12) NOT NULL,
   `kembalian` int(12) NOT NULL,
-  `status` enum('berhasil','gagal') NOT NULL
+  `status` enum('berhasil','gagal','diproses') NOT NULL DEFAULT 'diproses'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `detail_tiket`
+--
+
+INSERT INTO `detail_tiket` (`id_detail_tiket`, `id_tiket`, `id_user`, `id_wisata`, `harga`, `jumlah`, `total`, `bayar`, `kembalian`, `status`) VALUES
+(2, 11, 9, 32, '40000', 2, 80000, 80000, 20000, 'gagal');
 
 -- --------------------------------------------------------
 
@@ -126,7 +134,7 @@ CREATE TABLE `detail_wisata` (
 --
 
 INSERT INTO `detail_wisata` (`id_wisata`, `nama_wisata`, `id_user`, `deskripsi`, `alamat`, `harga_tiket`, `jadwal`, `gambar`, `koordinat`, `link_maps`, `id_pengelola`, `no_hp_pengelola`) VALUES
-(32, 'tes coba lagi', 9, 'tesss', 'tessssss', '30000', 'senin: 08:45-20:31, selasa: 09:40-21:40, rabu: 09:40-21:40, kamis: 09:40-21:40, jumat: 09:40-21:40, sabtu: 09:40-21:40, minggu: -', '671863582d8f9.jpg', '2343', 'https://maps.app.goo.gl/8ZYXSXJ7FcKShH3a9', 37, '11111111111');
+(32, 'tes coba haha', 9, 'tesss', 'tessssss', '40000', 'senin: 08:45-20:31, selasa: 09:40-21:40, rabu: 09:40-21:40, kamis: 09:40-21:40, jumat: 09:40-21:40, sabtu: 09:40-21:40, minggu: -', '671863582d8f9.jpg', '2343', 'https://maps.app.goo.gl/8ZYXSXJ7FcKShH3a9', 37, '11111111111');
 
 -- --------------------------------------------------------
 
@@ -194,6 +202,16 @@ CREATE TABLE `riwayat_transaksi_tiket_wisata` (
   `status` enum('berhasil','gagal') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `riwayat_transaksi_tiket_wisata`
+--
+
+INSERT INTO `riwayat_transaksi_tiket_wisata` (`id_transaksi`, `id_detail_tiket`, `nama_wisata`, `jumlah_tiket`, `harga_tiket`, `total`, `status`) VALUES
+(6, 2, 'tes coba haha', 2, 40000, 80000, 'berhasil'),
+(7, 2, 'tes coba haha', 2, 40000, 80000, 'berhasil'),
+(8, 2, 'tes coba haha', 2, 40000, 80000, 'berhasil'),
+(9, 2, 'tes coba haha', 2, 40000, 80000, 'gagal');
+
 -- --------------------------------------------------------
 
 --
@@ -213,7 +231,7 @@ CREATE TABLE `tiket_wisata` (
 --
 
 INSERT INTO `tiket_wisata` (`id_tiket`, `id_wisata`, `nama_wisata`, `id_user`, `harga_tiket`) VALUES
-(10, 32, 'tes coba lagi', 9, 30000);
+(11, 32, 'tes coba haha', 9, 40000);
 
 -- --------------------------------------------------------
 
@@ -439,7 +457,7 @@ ALTER TABLE `detail_penginapan`
 -- AUTO_INCREMENT untuk tabel `detail_tiket`
 --
 ALTER TABLE `detail_tiket`
-  MODIFY `id_detail_tiket` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail_tiket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_wisata`
@@ -469,13 +487,13 @@ ALTER TABLE `fav_wisata`
 -- AUTO_INCREMENT untuk tabel `riwayat_transaksi_tiket_wisata`
 --
 ALTER TABLE `riwayat_transaksi_tiket_wisata`
-  MODIFY `id_transaksi` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_transaksi` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `tiket_wisata`
 --
 ALTER TABLE `tiket_wisata`
-  MODIFY `id_tiket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_tiket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `ulasan_kuliner`
