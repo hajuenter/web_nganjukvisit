@@ -29,7 +29,8 @@ if ($requestMethod === "GET") {
                 'gambar' => $detail_wisata['gambar'],
                 'koordinat' => $detail_wisata['koordinat'],
                 'link_maps' => $detail_wisata['link_maps'],
-                'id_pengelola' => $detail_wisata['id_pengelola']
+                'id_pengelola' => $detail_wisata['id_pengelola'],
+                'no_hp_pengelola' => $detail_wisata['no_hp_pengelola']
             ];
         }
 
