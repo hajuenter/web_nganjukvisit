@@ -104,11 +104,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <section class="pt-4 mt-3">
                 <div class="row">
                     <div class="col-lg-6 mt-lg-5 pt-lg-5 pt-2" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
-                        <h1 class="text-center pt-3 pt-lg-0 fw-bold text-stroke ">
-                            Selamat Datang Di
+                        <h1 class="text-center pt-3 pt-lg-0 fw-bold">
+                            Selamat Datang Di Kota
                         </h1>
                         <h1 class="text-center fw-bold">
-                            Kota <span class="text-primary" id="demo"></span>
+                            <span class="text-primary" id="demo"></span>
                         </h1>
                         <p class="text-center pt-lg-3" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
                             Nganjuk Visit memberikan pengalaman yang pastinya keren dan tak terlupakan dengan keindahan dan keistimewaan kota Nganjuk.

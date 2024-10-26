@@ -43,10 +43,9 @@ $resultWisata = $stmWisata->get_result();
             <?php unset($_SESSION['gagal']); ?>
         </div>
     <?php endif; ?>
-    
+
     <button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#tambahTiketModal">
-        Tambah Tiket Wisata
-    </button>
+        <i class="far fa-plus-square"></i> Tambah Tiket Wisata</button>
 
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -70,9 +69,11 @@ $resultWisata = $stmWisata->get_result();
                             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal"
                                 data-id="<?php echo $row['id_tiket']; ?>"
                                 data-nama="<?php echo $row['nama_wisata']; ?>"
-                                data-harga="<?php echo $row['harga_tiket']; ?>">Edit</button>
+                                data-harga="<?php echo $row['harga_tiket']; ?>"><i class="far fa-edit"></i>
+                            </button>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                data-id="<?php echo $row['id_tiket']; ?>">Hapus</button>
+                                data-id="<?php echo $row['id_tiket']; ?>"><i class="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 <?php endwhile; ?>
