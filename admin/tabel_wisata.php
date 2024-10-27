@@ -8,11 +8,20 @@ $search = isset($_GET['search_query']) ? $_GET['search_query'] : '';
 
 // Query untuk menampilkan data (dengan atau tanpa pencarian)
 if (!empty($search)) {
-    // Pencarian berdasarkan id_wisata atau nama_wisata
-    $sql = "SELECT * FROM detail_wisata WHERE id_wisata LIKE ? OR nama_wisata LIKE ?";
+    // Pencarian berdasarkan id_wisata, nama_wisata, deskripsi, alamat, harga_tiket, koordinat, link_maps, id_pengelola, atau no_hp_pengelola
+    $sql = "SELECT * FROM detail_wisata 
+            WHERE id_wisata LIKE ? 
+            OR nama_wisata LIKE ? 
+            OR deskripsi LIKE ? 
+            OR alamat LIKE ? 
+            OR harga_tiket LIKE ? 
+            OR koordinat LIKE ? 
+            OR link_maps LIKE ? 
+            OR id_pengelola LIKE ? 
+            OR no_hp_pengelola LIKE ?";
     $stmt = $conn->prepare($sql);
     $search_param = "%" . $search . "%";
-    $stmt->bind_param("ss", $search_param, $search_param);
+    $stmt->bind_param("sssssssss", $search_param, $search_param, $search_param, $search_param, $search_param, $search_param, $search_param, $search_param, $search_param);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
@@ -21,6 +30,7 @@ if (!empty($search)) {
     $result = $conn->query($sql);
 }
 ?>
+
 
 <div class="container-fluid">
     <!-- alert edit -->
