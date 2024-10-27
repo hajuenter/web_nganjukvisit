@@ -203,7 +203,7 @@ if (!empty($search)) {
 </div>
 
 <!-- JQuery dan Ajax untuk mengambil data -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../js/jquery-3.7.1.min.js"></script>
 
 <!-- script ketika alert di close url kembali ke semula -->
 <script>

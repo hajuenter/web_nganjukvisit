@@ -66,7 +66,7 @@ $resultWisata = $stmWisata->get_result();
                         <td><?php echo htmlspecialchars($row['nama_wisata']); ?></td>
                         <td><?php echo htmlspecialchars($row['harga_tiket']); ?></td>
                         <td>
-                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal"
+                            <button class="btn btn-warning mb-1 mb-lg-0" data-bs-toggle="modal" data-bs-target="#editModal"
                                 data-id="<?php echo $row['id_tiket']; ?>"
                                 data-nama="<?php echo $row['nama_wisata']; ?>"
                                 data-harga="<?php echo $row['harga_tiket']; ?>"><i class="far fa-edit"></i>

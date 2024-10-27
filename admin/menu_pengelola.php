@@ -105,7 +105,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                             <option value="">Pilih Wisata</option>
                             <?php
                             // Query untuk mengambil id_wisata dan nama_wisata
-                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata");
+                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata WHERE id_pengelola IS NULL OR id_pengelola = ''");
 
                             // Loop untuk membuat pilihan dropdown
                             while ($row = mysqli_fetch_assoc($result)) {
@@ -160,7 +160,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                             include("../koneksi.php");
 
                             // Query untuk mengambil id_wisata dan nama_wisata
-                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata");
+                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata WHERE id_pengelola IS NULL OR id_pengelola = ''");
 
                             // Loop melalui hasil query dan buat opsi dropdown
                             while ($row = mysqli_fetch_assoc($result)) {
@@ -203,9 +203,18 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                                 echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
                                 echo '<td>' . htmlspecialchars($row['status']) . '</td>';
                                 echo '<td> 
-                                <button class="btn btn-success" onclick="showConfirmModal(' . htmlspecialchars($row['id_user']) . ')">
-                                <i class="fas fa-check"></i> Aktifkan
-                                </button>
+                                    <form action="../controllers/activate_pengelola.php" method="POST" style="display: inline;">
+                                        <input type="hidden" name="user_id" value="' . htmlspecialchars($row['id_user']) . '">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </form>
+                                     <form action="../controllers/tolak_pengelola.php" method="POST" style="display: inline;">
+                                    <input type="hidden" name="id_user" value="' . htmlspecialchars($row['id_user']) . '">
+                                    <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-times"></i>
+                                    </button>
+                                    </form>
                                 </td>';
                                 echo '</tr>';
                             }
@@ -215,23 +224,6 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         ?>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Konfirmasi pengelola -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Aktivasi</h5>
-            </div>
-            <div class="modal-body">
-                Apakah Anda yakin ingin mengaktifkan pengguna dengan ID <span id="userIdDisplay"></span>?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="confirmButton">Aktifkan</button>
             </div>
         </div>
     </div>
@@ -258,39 +250,6 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
         </div>
     </div>
 </div>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-
-<script>
-    let userIdToActivate;
-
-    function showConfirmModal(userId) {
-        userIdToActivate = userId; // Simpan ID pengguna
-        document.getElementById('userIdDisplay').innerText = userId; // Tampilkan ID pengguna di modal
-        const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
-        modal.show(); // Tampilkan modal
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        // Menambahkan penanganan event untuk confirmButton
-        document.getElementById('confirmButton').addEventListener('click', function() {
-            if (userIdToActivate) {
-                // Buat form untuk mengirimkan ID pengguna
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '../controllers/activate_pengelola.php'; // Ubah URL sesuai kebutuhan
-
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'user_id';
-                input.value = userIdToActivate;
-
-                form.appendChild(input);
-                document.body.appendChild(form);
-                form.submit(); // Kirim form
-            }
-        });
-    });
-</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

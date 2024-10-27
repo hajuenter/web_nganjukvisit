@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Eksekusi query
     if ($stmt->execute()) {
-        $_SESSION['success'] = "Registrasi berhasil! Silakan login.";
+        $_SESSION['success'] = "Registrasi berhasil! Silakan tunggu konfirmasi dan login.";
         header("Location: /nganjukvisit/register.php");
         exit;
     } else {

@@ -78,8 +78,10 @@ if ($requestMethod === 'POST') {
                         'alamat' => $user['alamat'],
                         'gambar' => $user['gambar'],
                         'kode_otp' => $user['kode_otp'],
-                        'expired_otp' => $user['expired_otp'], 
-                        'status' => $user['status']
+                        'expired_otp' => $user['expired_otp'],
+                        'status' => $user['status'],
+                        'token' => $user['token'],
+                        'expired_token' => $user['expired_token']
                     ]
                 ]);
             } else {

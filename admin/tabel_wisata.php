@@ -247,7 +247,7 @@ if (!empty($search)) {
 
 
 <!-- JQuery dan Ajax untuk mengambil data -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../js/jquery-3.7.1.min.js"></script>
 
 <!-- ambil data untuk edit -->
 <script>

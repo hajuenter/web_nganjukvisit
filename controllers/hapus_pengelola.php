@@ -27,6 +27,20 @@ if (isset($_POST['id_user'])) {
         exit();
     }
 
+    // Query untuk mengupdate detail_wisata dan mengatur id_pengelola dan no_hp_pengelola menjadi NULL
+    $updateWisataQuery = "UPDATE detail_wisata SET id_pengelola = NULL, no_hp_pengelola = NULL WHERE id_pengelola = ?";
+    if ($stmtUpdate = mysqli_prepare($koneksi, $updateWisataQuery)) {
+        mysqli_stmt_bind_param($stmtUpdate, "i", $id_user);
+
+        // Eksekusi query
+        mysqli_stmt_execute($stmtUpdate);
+        mysqli_stmt_close($stmtUpdate);
+    } else {
+        $_SESSION['error_konfir'] = "Gagal memperbarui detail wisata.";
+        header("Location: ../admin/admin_pengelola.php");
+        exit();
+    }
+
     // Buat query untuk menghapus pengelola berdasarkan ID
     $hapusQuery = "DELETE FROM user WHERE id_user = ?";
     if ($stmt = mysqli_prepare($koneksi, $hapusQuery)) {
@@ -49,7 +63,6 @@ if (isset($_POST['id_user'])) {
     }
 } else {
     // Jika ID tidak diberikan
-    session_start();
     $_SESSION['error_konfir'] = "ID pengelola tidak ditemukan.";
 }
 
