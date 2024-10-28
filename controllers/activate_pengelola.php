@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
-
+include("../base_url.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_POST['user_id'];
 
@@ -17,6 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Redirect kembali setelah memproses
-    header("Location: /nganjukvisit/admin/admin_pengelola.php"); // Ganti dengan URL halaman yang sesuai
+    header("Location:" . BASE_URL . "/admin/admin_pengelola.php"); // Ganti dengan URL halaman yang sesuai
     exit;
 }

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
+include("../base_url.php");
 
 $conn = $koneksi;
 
@@ -44,6 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['error_konfir'] = 'Pengelola tidak ditemukan atau tidak memiliki nomor HP.';
     }
 
-    header('Location: ../admin/admin_pengelola.php');
+    header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
     exit();
 }

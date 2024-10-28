@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
+require_once '../base_url.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ambil data dari form login
@@ -23,13 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Cek status akun
             if ($row['status'] == 'inactive') {
                 $_SESSION['error_status'] = "Status akun Anda masih non aktif!";
-                header("Location: /nganjukvisit/login.php");
+                header("Location:" . BASE_URL . "/login.php");
                 exit;
             } else {
                 // Cek jika yang login adalah pengelola dan ket_wisata-nya kosong atau null
                 if ($row['role'] == 'pengelola' && (is_null($row['ket_wisata']) || $row['ket_wisata'] == '')) {
                     $_SESSION['error'] = "Akun pengelola Anda belum memiliki wisata yang terdaftar!";
-                    header("Location: /nganjukvisit/login.php");
+                    header("Location:" . BASE_URL . "/login.php");
                     exit;
                 }
 
@@ -41,26 +42,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Cek role pengguna dan redirect ke halaman sesuai
                 if ($row['role'] == 'admin') {
-                    header("Location: /nganjukvisit/admin/index.php");
+                    header("Location: " . BASE_URL . "/admin/index.php");
                 } elseif ($row['role'] == 'pengelola') {
-                    header("Location: /nganjukvisit/pengelola/index.php");
+                    header("Location: " . BASE_URL . "/pengelola/index.php");
                 } else {
                     $_SESSION['error'] = "Role pengguna tidak valid!";
-                    header("Location: /nganjukvisit/login.php");
+                    header("Location:" . BASE_URL . "/login.php");
                 }
                 exit;
             }
         } else {
             // Jika password salah
             $_SESSION['error'] = "Password salah!";
-            header("Location: /nganjukvisit/login.php");
+            header("Location:" . BASE_URL . "/login.php");
             exit;
         }
     } else {
         // Jika email tidak ditemukan
         $_SESSION['error'] = "Email tidak ditemukan!";
-        header("Location: /nganjukvisit/login.php");
+        header("Location:" . BASE_URL . "/login.php");
         exit;
     }
 }
-?>

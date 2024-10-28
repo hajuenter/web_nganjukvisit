@@ -1,6 +1,7 @@
 <?php
 session_start(); // Pastikan session dimulai
 include("../koneksi.php");
+include("../base_url.php");
 
 $conn = $koneksi;
 
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmtInsert->execute()) {
         $_SESSION['bagus'] = "Tiket berhasil di tambahkan!";
-        header('Location: ../admin/admin_boking_tiket.php');
+        header("Location:" . BASE_URL . "/admin/admin_boking_tiket.php");
     } else {
         echo "Error: " . $stmtInsert->error; // Tampilkan pesan error
         exit();

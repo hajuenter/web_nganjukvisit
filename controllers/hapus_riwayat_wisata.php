@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
+include("../base_url.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_transaksi = $_POST['id_transaksi'] ?? '';
@@ -13,20 +14,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             $_SESSION['win'] = "Riwsayat berhasil di hapus!";
-            header('Location: ../admin/admin_laporan_tiket.php'); // Redirect ke halaman awal dengan status success
+            header("Location:" . BASE_URL . "/admin/admin_laporan_tiket.php"); // Redirect ke halaman awal dengan status success
             exit();
         } else {
             $_SESSION['lose'] = "Riwsayat gagal di hapus!";
-            header('Location: ../admin/admin_laporan_tiket.php'); // Redirect ke halaman awal dengan status error
+            header("Location:" . BASE_URL . "/admin/admin_laporan_tiket.php"); // Redirect ke halaman awal dengan status error
             exit();
         }
     } else {
         $_SESSION['lose'] = "Error ya!";
-        header('Location: ../admin/admin_laporan_tiket.php'); // Redirect ke halaman awal jika ID tidak valid
+        header("Location:" . BASE_URL . "/admin/admin_laporan_tiket.php"); // Redirect ke halaman awal jika ID tidak valid
         exit();
     }
 } else {
     $_SESSION['lose'] = "Error fatal ya!";
-    header('Location: ../admin/admin_laporan_tiket.php'); // Redirect jika bukan metode POST
+    header("Location:" . BASE_URL . "/admin/admin_laporan_tiket.php"); // Redirect jika bukan metode POST
     exit();
 }

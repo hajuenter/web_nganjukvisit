@@ -1,8 +1,7 @@
 <?php
 session_start();
-// Include file koneksi database
 include("../koneksi.php");
-
+include("../base_url.php");
 $conn = $koneksi;
 
 // Cek apakah form telah disubmit
@@ -17,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validasi panjang password dan kombinasi huruf dan angka
     if (strlen($password) < 8 || strlen($password) > 50 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/[0-9]/', $password)) {
         $_SESSION['error_konfir'] = "Password harus memiliki panjang minimal 8 karakter, maksimal 50 karakter, dan harus mengandung huruf dan angka.";
-        header("Location: ../admin/admin_pengelola.php");
+        header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
         exit();
     }
 
@@ -32,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Jika email sudah terdaftar
             $_SESSION['error_konfir'] = "Email sudah digunakan. Silakan gunakan email lain.";
             mysqli_stmt_close($stmt_check); // Tutup $stmt_check setelah digunakan
-            header("Location: ../admin/admin_pengelola.php");
+            header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
             exit();
         }
 
@@ -71,28 +70,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (mysqli_stmt_execute($stmt)) {
                         $_SESSION['success_konfir'] = "Pengelola berhasil ditambahkan.";
                         mysqli_stmt_close($stmt); // Tutup statement $stmt setelah digunakan
-                        header("Location: ../admin/admin_pengelola.php");
+                        header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
                         exit();
                     } else {
                         $_SESSION['error_konfir'] = "Gagal menambahkan pengelola.";
                         mysqli_stmt_close($stmt); // Tutup $stmt di sini juga untuk mencegah kebocoran
-                        header("Location: ../admin/admin_pengelola.php");
+                        header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
                         exit();
                     }
                 }
             } else {
                 $_SESSION['error_konfir'] = "Gagal mengupload gambar.";
-                header("Location: ../admin/admin_pengelola.php");
+                header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
                 exit();
             }
         } else {
             $_SESSION['error_konfir'] = "Jenis file gambar tidak valid. Hanya jpg, jpeg, dan png yang diperbolehkan.";
-            header("Location: ../admin/admin_pengelola.php");
+            header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
             exit();
         }
     } else {
         $_SESSION['error_konfir'] = "Harap upload gambar yang valid.";
-        header("Location: ../admin/admin_pengelola.php");
+        header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
         exit();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
+include("../base_url.php");
 
 $conn = $koneksi;
 
@@ -36,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_user'])) {
         $_SESSION['error'] = "User tidak ditemukan.";
     }
 
-    header("Location: ../admin/admin_user.php");
+    header("Location:" . BASE_URL . "/admin/admin_user.php");
     exit();
 }
-?>

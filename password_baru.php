@@ -1,14 +1,15 @@
 <?php
 session_start();
 include("koneksi.php");
+include("./base_url.php");
 // Cek apakah pengguna sudah login
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     // Redirect berdasarkan role pengguna
     if ($_SESSION['role'] === 'admin') {
-        header("Location: /nganjukvisit/admin/index.php");
+        header("Location:" . BASE_URL . "/admin/index.php");
         exit;
     } elseif ($_SESSION['role'] === 'pengelola') {
-        header("Location: /nganjukvisit/pengelola/index.php");
+        header("Location:" . BASE_URL . "/pengelola/index.php");
         exit;
     }
 }
@@ -24,14 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validasi panjang password
         if (strlen($new_password) > 50) {
             $_SESSION['error_password'] = "Password tidak boleh lebih dari 50 karakter.";
-            header("Location: /nganjukvisit/lupa_password.php"); // Sesuaikan URL redirect jika perlu
+            header("Location:" . BASE_URL . "/lupa_password.php"); // Sesuaikan URL redirect jika perlu
             exit();
         }
 
         // Validasi pola password (kombinasi huruf dan angka)
         if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,50}$/', $new_password)) {
             $_SESSION['error_password'] = "Password harus mengandung huruf, angka, dan panjang antara 8 hingga 50 karakter.";
-            header("Location: /nganjukvisit/lupa_password.php"); // Sesuaikan URL redirect jika perlu
+            header("Location:" . BASE_URL . "/lupa_password.php"); // Sesuaikan URL redirect jika perlu
             exit();
         }
 
@@ -48,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['sukses_password'] = 'Password berhasil diperbarui, silahkan login kembali.';
                 unset($_SESSION['email']); // Hapus email dari session
                 unset($_SESSION['berhasil']);
-                header("Location: /nganjukvisit/login.php"); // Redirect ke halaman login
+                header("Location:" . BASE_URL . "/login.php"); // Redirect ke halaman login
                 exit();
             } else {
                 $_SESSION['error_password'] = 'Terjadi kesalahan saat memperbarui password. Silakan coba lagi.';

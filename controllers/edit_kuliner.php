@@ -1,5 +1,6 @@
 <?php
 include("../koneksi.php");
+include("../base_url.php");
 $conn = $koneksi;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -56,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('ssssi', $nama_kuliner, $deskripsi, $harga, $gambar_string, $id_kuliner);
 
     if ($stmt->execute()) {
-        header("Location: ../admin/admin_kuliner.php?update=success");
+        header("Location:" . BASE_URL . "/admin/admin_kuliner.php?update=success");
         exit();
     } else {
         echo "Error: " . $conn->error;
@@ -66,4 +67,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $conn->close();
-?>

@@ -1,5 +1,6 @@
 <?php
 include("../koneksi.php");
+include("../base_url.php");
 $conn = $koneksi;
 
 if (isset($_POST['id_wisata'])) {
@@ -40,7 +41,7 @@ if (isset($_POST['id_wisata'])) {
         $stmt_delete->bind_param('i', $id_wisata);
 
         if ($stmt_delete->execute()) {
-            header("Location: ../admin/admin_wisata.php?delete=success");
+            header("Location:" . BASE_URL . "/admin/admin_wisata.php?delete=success");
             exit();
         } else {
             echo "Error: " . $conn->error;

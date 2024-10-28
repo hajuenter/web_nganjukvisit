@@ -1,15 +1,15 @@
 <?php
 session_start();
 include("koneksi.php");
-
+include("./base_url.php");
 // Cek apakah pengguna sudah login
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     // Redirect berdasarkan role pengguna
     if ($_SESSION['role'] === 'admin') {
-        header("Location: /nganjukvisit/admin/index.php");
+        header("Location:" . BASE_URL . "/admin/index.php");
         exit;
     } elseif ($_SESSION['role'] === 'pengelola') {
-        header("Location: /nganjukvisit/pengelola/index.php");
+        header("Location:" . BASE_URL . "/pengelola/index.php");
         exit;
     }
 }
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($input_otp === $stored_otp && strtotime($expired_otp) > time()) {
             $_SESSION['berhasil'] = 'Kode OTP valid. Anda dapat melanjutkan ke proses selanjutnya.';
             unset($_SESSION['gagal']);
-            header("Location: /nganjukvisit/password_baru.php");
+            header("Location:" . BASE_URL . "/password_baru.php");
             exit();
         } else {
             $_SESSION['gagal'] = 'Kode OTP tidak valid atau sudah kedaluwarsa.';

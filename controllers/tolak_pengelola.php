@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
+require_once '../base_url.php';
 
 if (isset($_POST['id_user'])) {
     $id_user = $_POST['id_user'];
@@ -20,10 +21,10 @@ if (isset($_POST['id_user'])) {
     $koneksi->close();
 
     // Redirect kembali ke halaman sebelumnya
-    header("Location: ../admin/admin_pengelola.php");
+    header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
     exit();
 } else {
     $_SESSION['error_konfir'] = "ID pengguna tidak ditemukan.";
-    header("Location: ../admin/admin_pengelola.php");
+    header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
     exit();
 }

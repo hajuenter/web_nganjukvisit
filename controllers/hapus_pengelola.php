@@ -2,6 +2,7 @@
 // Mulai session untuk menampilkan pesan
 session_start();
 include("../koneksi.php"); // Pastikan Anda sudah menghubungkan ke database
+include("../base_url.php");
 
 // Cek apakah id_user ada dalam POST
 if (isset($_POST['id_user'])) {
@@ -23,7 +24,7 @@ if (isset($_POST['id_user'])) {
         }
     } else {
         $_SESSION['error_konfir'] = "Gagal mengambil gambar pengguna.";
-        header("Location: ../admin/admin_pengelola.php");
+        header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
         exit();
     }
 
@@ -37,7 +38,7 @@ if (isset($_POST['id_user'])) {
         mysqli_stmt_close($stmtUpdate);
     } else {
         $_SESSION['error_konfir'] = "Gagal memperbarui detail wisata.";
-        header("Location: ../admin/admin_pengelola.php");
+        header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
         exit();
     }
 
@@ -67,7 +68,7 @@ if (isset($_POST['id_user'])) {
 }
 
 // Redirect kembali ke halaman admin_pengelola.php
-header("Location: ../admin/admin_pengelola.php");
+header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
 exit();
 
 // Tutup koneksi

@@ -1,5 +1,6 @@
 <?php
 include("../koneksi.php");
+include("../base_url.php");
 $conn = $koneksi;
 
 // Memulai sesi untuk mendapatkan ID pengguna
@@ -38,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $_SESSION['profile_gagal'] = "Email sudah digunakan oleh pengguna lain.";
-        header("Location: ../pengelola/pengelola_profile.php");
+        header("Location:" . BASE_URL . "/pengelola/pengelola_profile.php");
         exit();
     }
 
@@ -90,6 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mengatur pesan berhasil dan mengarahkan ulang
     $_SESSION['profile_update'] = "Profil berhasil diperbarui.";
-    header("Location: ../pengelola/pengelola_profile.php");
+    header("Location:" . BASE_URL . "/pengelola/pengelola_profile.php");
     exit();
 }

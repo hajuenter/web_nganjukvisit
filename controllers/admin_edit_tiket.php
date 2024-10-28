@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
-
+include("../base_url.php");
 $conn = $koneksi;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -24,14 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmtUpdateDetailWisata->execute()) {
             $_SESSION['bagus'] = "Tiket berhasil di perbarui!";
-            header('Location: ../admin/admin_boking_tiket.php');
+            header("Location:" . BASE_URL . "/admin/admin_boking_tiket.php");
         } else {
             $_SESSION['gagal'] = "Tiket tidak berhasil di perbarui!";
-            header('Location: ../admin/admin_boking_tiket.php');
+            header("Location:" . BASE_URL . "/admin/admin_boking_tiket.php");
         }
     } else {
         $_SESSION['gagal'] = "Error brooo!";
-        header('Location: ../admin/admin_boking_tiket.php');
+        header("Location:" . BASE_URL . "/admin/admin_boking_tiket.php");
     }
 
     exit();

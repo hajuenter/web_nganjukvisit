@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
+include("../base_url.php");
 
 $conn = $koneksi;
 
@@ -81,12 +82,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt_update->execute()) {
         // Redirect ke halaman sukses atau tampilkan pesan sukses
         $_SESSION['berhasil'] = "Data wisata berhasil diperbarui.";
-        header("Location: ../pengelola/index.php");
+        header("Location:" . BASE_URL . "/pengelola/index.php");
         exit();
     } else {
         // Tampilkan pesan error jika update gagal
         $_SESSION['gagal'] = "Terjadi kesalahan saat memperbarui data wisata.";
-        header("Location: ../pengelola/index.php");
+        header("Location:" . BASE_URL . "/pengelola/index.php");
         exit();
     }
 }

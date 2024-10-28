@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
+include("../base_url.php");
 $conn = $koneksi;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             // Redirect ke halaman admin dengan pesan sukses
-            header("Location: ../admin/admin_kuliner.php?tambah=success");
+            header("Location:" . BASE_URL . "/admin/admin_kuliner.php?tambah=success");
             exit();
         } else {
             echo "Error: " . $conn->error;
@@ -62,4 +63,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $conn->close();
-?>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php"); // Koneksi database
-
+include("../base_url.php");
 $conn = $koneksi;
 
 // Proses update status dan simpan ke riwayat
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $stmt->execute();
 
         $_SESSION['berhasil'] = "Pembayaran tiket berhasil dikonfirmasi";
-        header("Location: ../pengelola/pengelola_konfir_tiket.php");
+        header("Location:" . BASE_URL . "/pengelola/pengelola_konfir_tiket.php");
         exit();
     } else {
         $_SESSION['error'] = "Detail tiket tidak ditemukan.";

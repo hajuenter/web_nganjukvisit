@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
-
+include("../base_url.php");
 $conn = $koneksi;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmtDelete->execute()) {
         $_SESSION['bagus'] = "Tiket berhasil di hapus!";
-        header('Location: ../admin/admin_boking_tiket.php');
+        header("Location:" . BASE_URL . "/admin/admin_boking_tiket.php");
     } else {
         $_SESSION['gagal'] = "Tiket gagal di hapus!";
-        header('Location: ../admin/admin_boking_tiket.php');
+        header("Location:" . BASE_URL . "/admin/admin_boking_tiket.php");
     }
 
     exit();

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../koneksi.php");
+include("../base_url.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_wisata = $_POST['id_wisata'];
@@ -56,5 +57,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Redirect kembali ke halaman sebelumnya
-header("Location: ../pengelola/index.php");
+header("Location:" . BASE_URL . "/pengelola/index.php");
 exit();

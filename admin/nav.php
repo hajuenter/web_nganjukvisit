@@ -1,21 +1,19 @@
 <?php
 include("../koneksi.php");
-if (!isset($_SESSION['nama'])) {
-    echo "Nama pengguna tidak ditemukan.";
-    exit;
-}
+
 
 $conn = $koneksi;
 $id_user = $_SESSION['user_id'];
 
 // Ambil data pengguna dari database
-$sql = "SELECT gambar FROM user WHERE id_user = ?";
+$sql = "SELECT nama, gambar FROM user WHERE id_user = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_user);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
+$nama_ya = $user['nama'];
 // Ganti gambar default jika pengguna belum memiliki gambar
 $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar'] : "../public/gambar/avatar_profile.jpg";
 
@@ -40,7 +38,7 @@ $gambar_profil .= '?v=' . time();
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= htmlspecialchars($_SESSION['nama']); ?></span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= htmlspecialchars($nama_ya); ?></span>
                 <!-- Gambar Profil di Navbar -->
                 <img id="profileNavImage" class="img-profile rounded-circle" src="<?= htmlspecialchars($gambar_profil); ?>" alt="Foto Profil">
             </a>

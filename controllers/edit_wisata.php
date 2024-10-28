@@ -1,5 +1,6 @@
 <?php
 include("../koneksi.php");
+include("../base_url.php");
 $conn = $koneksi;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_update_tiket->close();
         }
 
-        header("Location: ../admin/admin_wisata.php?update=success");
+        header("Location:" . BASE_URL . "/admin/admin_wisata.php?update=success");
         exit();
     } else {
         echo "Error: " . $conn->error;

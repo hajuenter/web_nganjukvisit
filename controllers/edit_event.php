@@ -1,5 +1,6 @@
 <?php
 include("../koneksi.php");
+include("../base_url.php");
 $conn = $koneksi;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param('ssssi', $nama, $deskripsi_event, $gambar_string, $tanggal_event, $id_event);
 
     if ($stmt->execute()) {
-        header("Location: ../admin/admin_event.php?update=success");
+        header("Location:" . BASE_URL . "/admin/admin_event.php?update=success");
         exit();
     } else {
         echo "Error: " . $conn->error;

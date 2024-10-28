@@ -1,14 +1,14 @@
 <?php
 session_start();
-
+include("./base_url.php");
 // Cek apakah pengguna sudah login
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     // Redirect berdasarkan role pengguna
     if ($_SESSION['role'] === 'admin') {
-        header("Location: /nganjukvisit/admin/index.php");
+        header("Location:" . BASE_URL . "/admin/index.php");
         exit;
     } elseif ($_SESSION['role'] === 'pengelola') {
-        header("Location: /nganjukvisit/pengelola/index.php");
+        header("Location:" . BASE_URL . "/pengelola/index.php");
         exit;
     }
 }
@@ -66,7 +66,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <div class="header-text mt-3 mb-2">
                         <h2>Login</h2>
                         <p class="mb-4">Selamat datang di Destinasi wisata Nganjuk</p>
-                        
+
                         <!-- Pesan Sukses Password -->
                         <?php if (isset($_SESSION['sukses_password'])): ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">

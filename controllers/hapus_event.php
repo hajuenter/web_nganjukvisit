@@ -1,6 +1,6 @@
 <?php
 include("../koneksi.php");
-
+include("../base_url.php");
 $conn = $koneksi;
 
 if (!isset($conn)) {
@@ -38,7 +38,7 @@ if (isset($_POST['id_event'])) {
         $stmt_delete->bind_param('i', $id_event);
 
         if ($stmt_delete->execute()) {
-            header("Location: ../admin/admin_event.php?delete=success");
+            header("Location:" . BASE_URL . "/admin/admin_event.php?delete=success");
             exit();
         } else {
             echo "Error: " . $conn->error;
