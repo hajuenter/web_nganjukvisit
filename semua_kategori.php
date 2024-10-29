@@ -39,12 +39,12 @@
         <!-- Tab item wisata -->
         <li class="nav-item text-center" data-aos="zoom-in"
             data-aos-duration="2200" role="presentation">
-            <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-2" data-bg="bg-success" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-2" type="button" role="tab" aria-controls="course-pills-tabs-2" aria-selected="false">Wisata</button>
+            <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-2" data-bg="bg-primary" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-2" type="button" role="tab" aria-controls="course-pills-tabs-2" aria-selected="false">Wisata</button>
         </li>
         <!-- Tab item hotel -->
         <li class="nav-item text-center" data-aos="zoom-in"
             data-aos-duration="2300" role="presentation">
-            <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-3" data-bg="bg-warning" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-3" type="button" role="tab" aria-controls="course-pills-tabs-3" aria-selected="false">Hotel</button>
+            <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-3" data-bg="bg-primary" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-3" type="button" role="tab" aria-controls="course-pills-tabs-3" aria-selected="false">Hotel</button>
         </li>
     </ul>
     <!-- Tabs all end -->
@@ -260,15 +260,15 @@
 </div>
 
 <script>
-    document.querySelectorAll('.nav-link').forEach(button => {
-        button.addEventListener('shown.bs.tab', function() {
-            // Hapus semua kelas bg-* dari tombol tab
-            document.querySelectorAll('.nav-link').forEach(btn => {
-                btn.classList.remove('bg-primary', 'bg-success', 'bg-warning');
+    document.querySelectorAll('.nav-pills .nav-link').forEach(button => {
+        button.addEventListener('click', function() {
+            // Hapus bg-primary dari semua tombol
+            document.querySelectorAll('.nav-pills .nav-link').forEach(btn => {
+                btn.classList.remove('bg-primary');
             });
 
-            // Tambahkan kelas bg-* sesuai dengan data-bg dari tombol yang aktif
-            this.classList.add(this.getAttribute('data-bg'));
+            // Tambahkan bg-primary ke tombol yang diklik
+            this.classList.add('bg-primary');
         });
     });
 </script>

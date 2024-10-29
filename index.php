@@ -29,6 +29,46 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/hover-min.css">
     <style>
+        /* Styling tombol scroll to top */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99;
+            border: 2px solid black;
+            padding: 12px;
+            border-radius: 50%;
+            background-color: white;
+            color: black;
+            font-size: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        /* Hover effect tetap sama */
+        #scrollTopBtn:hover {
+            background-color: black;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Penyesuaian untuk layar mobile */
+        @media (max-width: 768px) {
+            #scrollTopBtn {
+                width: 40px;
+                /* Sesuaikan ukuran pada layar kecil */
+                height: 40px;
+                bottom: 15px;
+                /* Sesuaikan posisi */
+                right: 15px;
+            }
+        }
+
         .text-custom {
             color: #0C3924;
         }
@@ -72,22 +112,22 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link ms-lg-5" aria-current="page" href="#home">Home</a>
+                        <a class="nav-link ms-lg-5 fw-semibold" aria-current="page" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ms-lg-3" aria-current="page" href="#kategori">Kategori</a>
+                        <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="#kategori">Kategori</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
+                        <a class="nav-link fw-semibold dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="wisata_nganjuk.php">Wisata</a></li>
-                            <li><a class="dropdown-item" href="kuliner_nganjuk.php">Kuliner</a></li>
-                            <li><a class="dropdown-item" href="hotel_nganjuk.php">Penginapan</a></li>
-                            <li><a class="dropdown-item" href="event_nganjuk.php">Event</a></li>
+                            <li><a class="dropdown-item fw-semibold" href="wisata_nganjuk.php">Wisata</a></li>
+                            <li><a class="dropdown-item fw-semibold" href="kuliner_nganjuk.php">Kuliner</a></li>
+                            <li><a class="dropdown-item fw-semibold" href="hotel_nganjuk.php">Penginapan</a></li>
+                            <li><a class="dropdown-item fw-semibold" href="event_nganjuk.php">Event</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ms-lg-3" aria-current="page" href="#tentang_kami">Tentang Kami</a>
+                        <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="#tentang_kami">Tentang Kami</a>
                     </li>
                 </ul>
                 <div class="d-flex">
@@ -125,8 +165,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- header end -->
 
     <!-- sesi kategori -->
-    <section id="kategori" class="mt-lg-2 pt-lg-2 bg-light pb-5">
-        <div class="container-fluid overflow-hidden mt-5 pb-5">
+    <section id="kategori" class="mt-lg-2 pt-lg-2 bg-primary pb-5">
+        <div class="container-fluid bg-primary overflow-hidden mt-5 pb-5">
             <div class="row shadow justify-content-center mx-3 bg-white rounded-3 pb-4 mt-3 mb-2 mx-lg-5 mx-lg-5 px-lg-5">
                 <h1 class="text-center mt-5 pt-5" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
                 <section class="py-0 py-xl-3">
@@ -284,12 +324,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
             <!-- Keindahan Wisata Kota Nganjuk -->
             <div class="row align-items-center mb-5">
-                <div class="col-lg-6 order-lg-1 order-1 text-center" data-aos="fade-up"
-                    data-aos-duration="2000">
+                <div class="col-lg-6 order-lg-1 order-1 text-center" data-aos="fade-up" data-aos-duration="2000">
                     <img src="./img/index-aaa.png" alt="Keindahan Wisata Kota Nganjuk" class="img-fluid rounded shadow hvr-bob" style="max-width: 100%;">
                 </div>
-                <div class="col-lg-6 order-lg-2 order-2" data-aos="fade-up"
-                    data-aos-duration="2000">
+                <div class="col-lg-6 order-lg-2 order-2" data-aos="fade-up" data-aos-duration="2000">
                     <h2 class="text-custom-bold text-lg-start text-center mt-3 mt-lg-0">Keindahan Wisata Kota Nganjuk</h2>
                     <p class="fs-5 text-lg-start text-center">
                         Kota Nganjuk, dikenal sebagai Kota Angin, menawarkan beragam destinasi wisata alam yang menakjubkan. Dari pesona Air Terjun Sedudo yang memukau,
@@ -332,6 +370,23 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     </p>
                 </div>
             </div>
+
+            <div class="row align-items-center mb-5 pb-lg-5">
+                <div class="col-lg-6 order-lg-2 order-1 text-center" data-aos="fade-up"
+                    data-aos-duration="2000">
+                    <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="hvr-bob img-fluid rounded shadow" style="max-width: 100%;">
+                </div>
+                <div class="col-lg-6 order-lg-1 order-2" data-aos="fade-up"
+                    data-aos-duration="2000">
+                    <h2 class="text-custom-bold text-center text-lg-start mt-3 mt-lg-0">Kuliner Khas Nganjuk</h2>
+                    <p class="fs-5 text-center text-lg-start">
+                        Nganjuk juga kaya akan cita rasa kuliner tradisional yang menggugah selera. Cobalah Nasi Pecel Tumpang yang legendaris,
+                        atau Manisan Mangga yang segar dan lezat. Setiap gigitan dari kuliner khas Nganjuk membawa Anda ke dalam pengalaman kuliner
+                        yang autentik dan penuh kehangatan.
+                    </p>
+                </div>
+            </div>
+
         </div>
     </section>
     <!-- Sesi Tentang Kami End -->
@@ -340,6 +395,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- footer -->
     <?php include("footer.php"); ?>
     <!-- footer end -->
+
+    <!-- Tombol Scroll to Top -->
+    <button id="scrollTopBtn" class="btn btn-dark">
+        <svg class="mx-auto" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M12 5L5 12M12 5l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
 
     <!-- script jquery cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -381,6 +443,40 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             };
 
             new Typed("#demo", options);
+        });
+    </script>
+    <script>
+        // Tampilkan tombol jika user scroll lebih dari 100px
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 100) {
+                $('#scrollTopBtn').fadeIn();
+            } else {
+                $('#scrollTopBtn').fadeOut();
+            }
+        });
+
+        // Smooth scroll ke atas saat tombol diklik
+        $("#scrollTopBtn").click(function() {
+            $("html, body").animate({
+                scrollTop: 0
+            }, "slow");
+            return false;
+        });
+
+        // Seleksi tombol Scroll to Top
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        // Event listener untuk mengembalikan warna tombol setelah klik
+        scrollTopBtn.addEventListener("click", function() {
+            // Ubah warna tombol kembali ke warna awal
+            scrollTopBtn.style.backgroundColor = "white";
+            scrollTopBtn.style.color = "black";
+
+            // Arahkan halaman ke atas
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
         });
     </script>
 
