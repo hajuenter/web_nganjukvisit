@@ -6,10 +6,11 @@ $conn = $koneksi;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ambil data dari form
     $id_penginapan = $_POST['id_penginapan'];
-    $nama_penginapan = $_POST['nama_penginapan'];
-    $deskripsi = $_POST['deskripsi'];
-    $harga = $_POST['harga'];
-    $lokasi = $_POST['lokasi'];
+    $nama_penginapan = htmlspecialchars($_POST['nama_penginapan']);
+    $deskripsi = htmlspecialchars($_POST['deskripsi']);
+    $harga = htmlspecialchars($_POST['harga']);
+    $lokasi = htmlspecialchars($_POST['lokasi']);
+    $telepon = htmlspecialchars($_POST['telepon']);
 
     // Variabel untuk nama file gambar
     $gambar_files = $_FILES['gambar']['name'];
@@ -36,12 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target_dir = "../public/gambar/";
 
         foreach ($gambar_files as $key => $gambar) {
-            $target_file = $target_dir . basename($gambar);
+            // Buat nama file unik
+            $unique_name = uniqid() . '_' . basename($gambar);
+            $target_file = $target_dir . $unique_name;
 
             // Pindahkan file gambar ke folder target
             if (move_uploaded_file($gambar_tmp[$key], $target_file)) {
                 // Jika file berhasil diunggah, tambahkan nama file ke array
-                $gambar_array[] = $gambar;
+                $gambar_array[] = $unique_name; // Simpan nama file unik
             } else {
                 echo "Error: Gagal mengunggah gambar.";
                 exit();
@@ -51,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Gabungkan semua nama gambar menjadi string untuk disimpan di database, dan pastikan tidak ada koma di awal/akhir
     $gambar_string = trim(implode(',', $gambar_array), ',');
-    $telepon = $_POST['telepon'];
 
     // Update data penginapan dengan gambar baru dan gambar lama
     $sql = "UPDATE detail_penginapan SET nama_penginapan = ?, deskripsi = ?, harga = ?, lokasi = ?, gambar = ?, telepon = ? WHERE id_penginapan = ?";

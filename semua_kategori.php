@@ -82,8 +82,7 @@
                         $gambarArray = array_filter(explode(',', $row['gambar']));
                         $carouselId = "kulinerSlider-" . $row['id_kuliner']; // ID unik untuk setiap slider
                         ?>
-                        <div class="col-sm-6 col-lg-4 col-xl-3" data-aos="zoom-in"
-                            data-aos-duration="2600">
+                        <div class="col-sm-6 col-lg-6">
                             <div class="card bg-light shadow h-100 hvr-grow">
                                 <div id="<?php echo $carouselId; ?>" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner">
@@ -149,8 +148,7 @@
                         $gambarArray = array_filter(explode(',', $row['gambar']));
                         $carouselId = "carousel-" . $row['id_wisata']; // Pastikan id unik untuk setiap slider
                         ?>
-                        <div class="col-sm-6 col-lg-6 col-xl-6" data-aos="zoom-in"
-                            data-aos-duration="2600">
+                        <div class="col-sm-6 col-lg-6">
                             <div class="card shadow h-100 hvr-grow">
                                 <div id="<?php echo $carouselId; ?>" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner">
@@ -182,7 +180,7 @@
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <div class="col-12">Tidak ada data</div>
+                    <div class="col-12">Tidak ada data wisata yang difavoritkan.</div>
                 <?php endif; ?>
             </div>
         </div>
@@ -219,8 +217,7 @@
                         $gambarArray = array_filter(explode(',', $row['gambar']));
                         $carouselId = "hotelSlider-" . $row['id_penginapan']; // ID unik untuk setiap slider
                         ?>
-                        <div class="col-sm-6 col-lg-4 col-xl-3" data-aos="zoom-in"
-                            data-aos-duration="2600">
+                        <div class="col-sm-6 col-lg-6">
                             <div class="card shadow h-100 hvr-grow">
                                 <div id="<?php echo $carouselId; ?>" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner">
@@ -250,7 +247,7 @@
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <div class="col-12">Tidak ada data hotel yang tersedia.</div>
+                    <div class="col-12">Tidak ada data hotel yang difavoritkan.</div>
                 <?php endif; ?>
             </div>
         </div>

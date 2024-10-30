@@ -6,9 +6,9 @@ $conn = $koneksi;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ambil data dari form
     $id_kuliner = $_POST['id_kuliner'];
-    $nama_kuliner = $_POST['nama_kuliner'];
-    $deskripsi = $_POST['deskripsi'];
-    $harga = $_POST['harga'];
+    $nama_kuliner = htmlspecialchars($_POST['nama_kuliner']);
+    $deskripsi = htmlspecialchars($_POST['deskripsi']);
+    $harga = htmlspecialchars($_POST['harga']);
 
     // Variabel untuk nama file gambar
     $gambar_files = $_FILES['gambar']['name'];
@@ -35,12 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target_dir = "../public/gambar/";
 
         foreach ($gambar_files as $key => $gambar) {
-            $target_file = $target_dir . basename($gambar);
+            // Buat nama file unik
+            $unique_name = uniqid() . '_' . basename($gambar);
+            $target_file = $target_dir . $unique_name;
 
             // Pindahkan file gambar ke folder target
             if (move_uploaded_file($gambar_tmp[$key], $target_file)) {
                 // Jika file berhasil diunggah, tambahkan nama file ke array
-                $gambar_array[] = $gambar; // Menambahkan gambar baru
+                $gambar_array[] = $unique_name; // Simpan nama file unik
             } else {
                 echo "Error: Gagal mengunggah gambar.";
                 exit();

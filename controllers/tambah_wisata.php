@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $deskripsi = $_POST['deskripsi'];
     $alamat = $_POST['alamat'];
     $harga_tiket = $_POST['harga_tiket'];
-    $jadwal = $_POST['jadwal'];
     $koordinat = $_POST['koordinat'];
     $link_maps = $_POST['link_maps'];
     $id_user = $_SESSION['user_id']; // Ambil user_id dari session
@@ -33,8 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Loop untuk menghandle multiple files
         foreach ($gambar as $key => $value) {
-            $target_file = $target_dir . basename($value);
-            $target_files[] = $value; // Hanya simpan nama file saja di array
+            // Buat nama file yang unik
+            $unique_name = uniqid() . '_' . basename($value); // menambahkan ID unik ke nama file
+            $target_file = $target_dir . $unique_name;
+            $target_files[] = $unique_name; // Simpan nama file unik ke array
 
             // Pindahkan file gambar ke folder target
             if (!move_uploaded_file($gambar_tmp[$key], $target_file)) {
@@ -44,23 +45,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma
-        $gambar_string = implode(',', $target_files);
-
-        // Hapus koma di awal dan di akhir dari string gambar
-        $gambar_string = trim($gambar_string, ',');
+        $gambar_string = trim(implode(',', $target_files), ',');
 
         // Ambil jadwal buka-tutup dari form dan gabungkan menjadi string
         $jadwal = "Senin: " . $_POST['buka_senin'] . "-" . $_POST['tutup_senin'] . ", " .
-            "Selasa: " . $_POST['buka_selasa'] . "-" . $_POST['tutup_selasa'] . ", " .
-            "Rabu: " . $_POST['buka_rabu'] . "-" . $_POST['tutup_rabu'] . ", " .
-            "Kamis: " . $_POST['buka_kamis'] . "-" . $_POST['tutup_kamis'] . ", " .
-            "Jumat: " . $_POST['buka_jumat'] . "-" . $_POST['tutup_jumat'] . ", " .
-            "Sabtu: " . $_POST['buka_sabtu'] . "-" . $_POST['tutup_sabtu'] . ", " .
-            "Minggu: " . $_POST['buka_minggu'] . "-" . $_POST['tutup_minggu'];
+                  "Selasa: " . $_POST['buka_selasa'] . "-" . $_POST['tutup_selasa'] . ", " .
+                  "Rabu: " . $_POST['buka_rabu'] . "-" . $_POST['tutup_rabu'] . ", " .
+                  "Kamis: " . $_POST['buka_kamis'] . "-" . $_POST['tutup_kamis'] . ", " .
+                  "Jumat: " . $_POST['buka_jumat'] . "-" . $_POST['tutup_jumat'] . ", " .
+                  "Sabtu: " . $_POST['buka_sabtu'] . "-" . $_POST['tutup_sabtu'] . ", " .
+                  "Minggu: " . $_POST['buka_minggu'] . "-" . $_POST['tutup_minggu'];
 
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_wisata (nama_wisata, deskripsi, alamat, harga_tiket, jadwal, gambar, koordinat, link_maps, id_user) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sssssssss', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal, $gambar_string, $koordinat, $link_maps, $id_user);
 

@@ -107,8 +107,8 @@ if (!empty($search)) {
 
                                 // Tampilkan gambar acak
                                 echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;'></td>";
-                                echo "<td>
-                                <button class='btn btn-primary btn-edit mb-1 mb-lg-0' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
+                                echo "<td class='d-flex flex-column'>
+                                <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
                                 <i class='fas fa-edit'></i>
                                 </button> 
                                 <button class='btn btn-danger' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-toggle='modal' data-target='#hapusModal'>

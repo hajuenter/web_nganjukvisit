@@ -5,13 +5,12 @@ $conn = $koneksi;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_wisata = $_POST['id_wisata'];
-    $nama_wisata = $_POST['nama_wisata'];
-    $deskripsi = $_POST['deskripsi'];
-    $alamat = $_POST['alamat'];
-    $harga_tiket = $_POST['harga_tiket'];
-    $jadwal = $_POST['jadwal'];
-    $koordinat = $_POST['koordinat'];
-    $link_maps = $_POST['link_maps'];
+    $nama_wisata = htmlspecialchars($_POST['nama_wisata']);
+    $deskripsi = htmlspecialchars($_POST['deskripsi']);
+    $alamat = htmlspecialchars($_POST['alamat']);
+    $harga_tiket = htmlspecialchars($_POST['harga_tiket']);
+    $koordinat = htmlspecialchars($_POST['koordinat']);
+    $link_maps = htmlspecialchars($_POST['link_maps']);
 
     // Dapatkan gambar lama dari database
     $sql_get_gambar = "SELECT gambar FROM detail_wisata WHERE id_wisata = ?";
@@ -23,26 +22,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gambar_lama = trim($row['gambar'], ','); // Hapus koma di awal dan akhir
 
     // Ambil data jadwal dari POST dan format jadwal
-    $jadwal = $_POST['jadwal'];
-    $jadwal_string = '';
-    foreach ($jadwal as $hari => $jam) {
-        $jam_buka = isset($jam['buka']) ? $jam['buka'] : '';
-        $jam_tutup = isset($jam['tutup']) ? $jam['tutup'] : '';
-        $jadwal_string .= "$hari: $jam_buka-$jam_tutup, ";
+    $jadwal = [];
+    foreach ($_POST['jadwal'] as $hari => $jam) {
+        $jam_buka = isset($jam['buka']) ? htmlspecialchars($jam['buka']) : '';
+        $jam_tutup = isset($jam['tutup']) ? htmlspecialchars($jam['tutup']) : '';
+        $jadwal[$hari] = "$jam_buka-$jam_tutup";
     }
-    $jadwal_string = rtrim($jadwal_string, ', ');
+    $jadwal_string = implode(', ', array_map(function ($hari, $jam) {
+        return "$hari: $jam";
+    }, array_keys($jadwal), $jadwal));
 
     // Proses gambar baru jika ada
     $gambar_baru = '';
-    if (isset($_FILES['gambar'])) {
+    if (isset($_FILES['gambar']) && !empty($_FILES['gambar']['name'][0])) {
         $gambar_baru_array = [];
         foreach ($_FILES['gambar']['name'] as $key => $nama_gambar_baru) {
             $gambar_tmp = $_FILES['gambar']['tmp_name'][$key];
             $target_dir = "../public/gambar/";
-            $target_file = $target_dir . basename($nama_gambar_baru);
+            $unique_name = uniqid() . '_' . basename($nama_gambar_baru); // Nama file unik
+            $target_file = $target_dir . $unique_name;
 
             if (move_uploaded_file($gambar_tmp, $target_file)) {
-                $gambar_baru_array[] = $nama_gambar_baru;
+                $gambar_baru_array[] = $unique_name; // Simpan nama file unik
             }
         }
         $gambar_baru = implode(',', $gambar_baru_array);

@@ -73,9 +73,9 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         echo '<td>' . htmlspecialchars($row['status']) . '</td>';
                         echo '<td>' . htmlspecialchars($row['ket_wisata']) . '</td>';
                         echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
-                        echo '<td>';
-                        echo '<button class="btn btn-danger" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal"><i class="fas fa-trash-alt"></i> Hapus</button>';
-                        echo '<button class="btn btn-info mt-lg-1" data-id="' . htmlspecialchars($row['id_user']) . '" data-bs-toggle="modal" data-bs-target="#modalSetWisata" onclick="setPengelolaId(' . htmlspecialchars($row['id_user']) . ')"><i class="fas fa-map-marker-alt"></i> Set Wisata</button>';
+                        echo '<td class="d-flex flex-column">';
+                        echo '<button class="btn btn-danger mb-1" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal"><i class="fas fa-trash-alt"></i> Hapus</button>';
+                        echo '<button class="btn btn-info" data-id="' . htmlspecialchars($row['id_user']) . '" data-bs-toggle="modal" data-bs-target="#modalSetWisata" onclick="setPengelolaId(' . htmlspecialchars($row['id_user']) . ')"><i class="fas fa-map-marker-alt"></i> Set Wisata</button>';
                         echo '</td>';
                         echo '</tr>';
                     }

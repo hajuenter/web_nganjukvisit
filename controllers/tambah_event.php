@@ -28,8 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Loop untuk menghandle multiple files
         foreach ($gambar as $key => $value) {
-            $target_file = $target_dir . basename($value);
-            $target_files[] = $value; // Hanya simpan nama file saja di array
+            // Buat nama file yang unik
+            $unique_name = uniqid() . '_' . basename($value); // menambahkan ID unik ke nama file
+            $target_file = $target_dir . $unique_name;
+            $target_files[] = $unique_name; // Simpan nama file unik ke array
 
             // Pindahkan file gambar ke folder target
             if (!move_uploaded_file($gambar_tmp[$key], $target_file)) {

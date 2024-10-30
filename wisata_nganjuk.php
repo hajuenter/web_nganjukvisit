@@ -16,19 +16,20 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 }
 
 $conn = $koneksi;
+// Query untuk mengambil data dari tabel detail_wisata
+$query = "SELECT id_wisata, nama_wisata, alamat, harga_tiket, jadwal, deskripsi, gambar FROM detail_wisata";
+$result = mysqli_query($conn, $query);
 
-// // Ambil semua data dari tabel detail_wisata
-// $query = "SELECT id_wisata, nama_wisata, alamat, harga_tiket, jadwal, deskripsi, gambar FROM detail_wisata";
-// $result = mysqli_query($conn, $query);
+$wisata_data = [];
 
-// $wisata_data = [];
+// Masukkan data ke dalam array
+while ($row = mysqli_fetch_assoc($result)) {
+    // Hapus koma di awal dan di akhir dari string gambar
+    $row['gambar'] = trim($row['gambar'], ',');
+    $wisata_data[] = $row;
+}
 
-// // Masukkan data ke dalam array
-// while ($row = mysqli_fetch_assoc($result)) {
-//     // Hapus koma di awal dan di akhir dari string gambar
-//     $row['gambar'] = trim($row['gambar'], ',');
-//     $wisata_data[] = $row;
-// }
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -125,39 +126,52 @@ $conn = $koneksi;
     <div class="container my-5" style="padding-top: 3.8rem;">
         <h2 class="text-center mb-4">Wisata Nganjuk</h2>
         <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <img src="https://via.placeholder.com/1280x720" class="card-img-top" alt="Kuliner 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Kuliner 1</h5>
-                        <p class="card-text">Deskripsi singkat mengenai kuliner ini. Citarasa yang khas dan unik dari Nganjuk.</p>
-                        <a href="#" class="btn btn-primary">Detail</a>
+            <?php foreach ($wisata_data as $wisata):
+                $gambarList = explode(',', $wisata['gambar']); // Memisahkan string gambar menjadi array
+            ?>
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="card shadow-sm">
+                        <div id="carousel-<?php echo $wisata['id_wisata']; ?>" class="carousel slide" data-bs-ride="carousel">
+                            <!-- Indicators -->
+                            <div class="carousel-indicators">
+                                <?php foreach ($gambarList as $index => $gambar): ?>
+                                    <button type="button" data-bs-target="#carousel-<?php echo $wisata['id_wisata']; ?>" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index === 0 ? 'active' : ''; ?>" aria-current="true" aria-label="Slide <?php echo $index + 1; ?>"></button>
+                                <?php endforeach; ?>
+                            </div>
+
+                            <!-- Slides -->
+                            <div class="carousel-inner">
+                                <?php foreach ($gambarList as $index => $gambar): ?>
+                                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                        <img src="./public/gambar/<?php echo $gambar; ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($wisata['nama_wisata']); ?>">
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+
+                            <!-- Controls -->
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?php echo $wisata['id_wisata']; ?>" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel-<?php echo $wisata['id_wisata']; ?>" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo htmlspecialchars($wisata['nama_wisata']); ?></h5>
+                            <p class="card-text"><?php echo htmlspecialchars($wisata['deskripsi']); ?></p>
+                            <p><strong>Alamat:</strong> <?php echo htmlspecialchars($wisata['alamat']); ?></p>
+                            <p><strong>Harga Tiket:</strong> <?php echo htmlspecialchars($wisata['harga_tiket']); ?></p>
+                            <p><strong>Jadwal:</strong> <?php echo htmlspecialchars($wisata['jadwal']); ?></p>
+                            <a href="#" class="btn btn-primary">Detail</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <img src="https://via.placeholder.com/1280x720" class="card-img-top" alt="Kuliner 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Kuliner 2</h5>
-                        <p class="card-text">Deskripsi singkat mengenai kuliner ini. Sajian nikmat yang menggugah selera.</p>
-                        <a href="#" class="btn btn-primary">Detail</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <img src="https://via.placeholder.com/1280x720" class="card-img-top" alt="Kuliner 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Kuliner 3</h5>
-                        <p class="card-text">Deskripsi singkat mengenai kuliner ini. Cocok dinikmati bersama keluarga.</p>
-                        <a href="#" class="btn btn-primary">Detail</a>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
-
 
     <!-- Tombol Scroll to Top -->
     <button id="scrollTopBtn" class="btn btn-dark">
