@@ -40,6 +40,8 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuliner Nganjuk Visit</title>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="./style/hover-min.css">
     <style>
         /* Styling tombol scroll to top */
         #scrollTopBtn {
@@ -60,13 +62,6 @@ $conn->close();
             font-size: 20px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
             transition: opacity 0.3s, transform 0.3s;
-        }
-
-        /* Hover effect tetap sama */
-        #scrollTopBtn:hover {
-            background-color: black;
-            color: white;
-            transform: scale(1.1);
         }
 
         /* Penyesuaian untuk layar mobile */
@@ -124,13 +119,17 @@ $conn->close();
     <!-- navbar end -->
 
     <div class="container my-5" style="padding-top: 3.8rem;">
-        <h2 class="text-center mb-4">Kuliner Nganjuk</h2>
+        <h2 class="text-center fw-bold mb-4" data-aos="fade-zoom-in"
+            data-aos-easing="ease-in-back"
+            data-aos-delay="200"
+            data-aos-offset="0">Kuliner Nganjuk</h2>
         <div class="row g-4">
             <?php foreach ($kuliner_data as $kuliner):
                 $gambarList = explode(',', $kuliner['gambar']); // Memisahkan string gambar menjadi array
             ?>
-                <div class="col-md-4" data-aos="fade-up">
-                    <div class="card shadow-sm">
+                <div class="col-md-4" data-aos="fade-up"
+                    data-aos-duration="1500">
+                    <div class="card hvr-grow shadow-sm">
                         <div id="carousel-kuliner-<?php echo $kuliner['id_kuliner']; ?>" class="carousel slide" data-bs-ride="carousel">
                             <!-- Indicators -->
                             <div class="carousel-indicators">
@@ -177,7 +176,48 @@ $conn->close();
             <path d="M12 19V5M12 5L5 12M12 5l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </button>
+    <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- script aos -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <!-- script aos end -->
+    <script>
+        // Tampilkan tombol jika user scroll lebih dari 100px
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 100) {
+                $('#scrollTopBtn').fadeIn();
+            } else {
+                $('#scrollTopBtn').fadeOut();
+            }
+        });
+
+        // Smooth scroll ke atas saat tombol diklik
+        $("#scrollTopBtn").click(function() {
+            $("html, body").animate({
+                scrollTop: 0
+            }, "slow");
+            return false;
+        });
+
+        // Seleksi tombol Scroll to Top
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        // Event listener untuk mengembalikan warna tombol setelah klik
+        scrollTopBtn.addEventListener("click", function() {
+            // Ubah warna tombol kembali ke warna awal
+            scrollTopBtn.style.backgroundColor = "white";
+            scrollTopBtn.style.color = "black";
+
+            // Arahkan halaman ke atas
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -52,8 +52,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
         /* Hover effect tetap sama */
         #scrollTopBtn:hover {
-            background-color: black;
-            color: white;
             transform: scale(1.1);
         }
 
@@ -168,7 +166,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <section id="kategori" class="mt-lg-2 pt-lg-2 bg-primary pb-5">
         <div class="container-fluid bg-primary overflow-hidden mt-5 pb-5">
             <div class="row shadow justify-content-center mx-3 bg-white rounded-3 pb-4 mt-3 mb-2 mx-lg-5 mx-lg-5 px-lg-5">
-                <h1 class="text-center mt-5 pt-5" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
+                <h1 class="text-center pt-5" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
                 <section class="py-0 py-xl-3">
                     <!-- container -->
                     <div class="container">

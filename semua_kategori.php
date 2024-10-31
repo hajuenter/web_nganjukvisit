@@ -23,9 +23,9 @@
     <div class="row mb-4">
         <div class="col-lg-8 mx-auto text-center">
             <h2 class="fs-1" data-aos="zoom-in"
-                data-aos-duration="2000">Terpopuler di Kota Nganjuk</h2>
+                data-aos-duration="1000">Terpopuler di Kota Nganjuk</h2>
             <p class="mb-0" data-aos="zoom-in"
-                data-aos-duration="2500">Beragam Kuliner, Wisata, Penginapan yang ada di Nganjuk</p>
+                data-aos-duration="1500">Beragam Kuliner, Wisata, Penginapan yang ada di Nganjuk</p>
         </div>
     </div>
 
@@ -33,17 +33,17 @@
     <ul class="nav nav-pills justify-content-center mb-4 px-2 d-flex flex-wrap gap-3" id="course-pills-tab" role="tablist">
         <!-- Tab item kuliner -->
         <li class="nav-item text-center" data-aos="zoom-in"
-            data-aos-duration="2100" role="presentation">
+            data-aos-duration="2000" role="presentation">
             <button class="nav-link mb-2 mb-md-0 active bg-primary" id="course-pills-tab-1" data-bg="bg-primary" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-1" type="button" role="tab" aria-controls="course-pills-tabs-1" aria-selected="true">Kuliner</button>
         </li>
         <!-- Tab item wisata -->
         <li class="nav-item text-center" data-aos="zoom-in"
-            data-aos-duration="2200" role="presentation">
+            data-aos-duration="2000" role="presentation">
             <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-2" data-bg="bg-primary" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-2" type="button" role="tab" aria-controls="course-pills-tabs-2" aria-selected="false">Wisata</button>
         </li>
         <!-- Tab item hotel -->
         <li class="nav-item text-center" data-aos="zoom-in"
-            data-aos-duration="2300" role="presentation">
+            data-aos-duration="2000" role="presentation">
             <button class="nav-link mb-2 mb-md-0" id="course-pills-tab-3" data-bg="bg-primary" data-bs-toggle="pill" data-bs-target="#course-pills-tabs-3" type="button" role="tab" aria-controls="course-pills-tabs-3" aria-selected="false">Hotel</button>
         </li>
     </ul>
@@ -254,7 +254,7 @@
         <!-- Content hotel end -->
 
     </div> <!-- Tabs isi content all end -->
-</div>
+</div> <!-- Container end -->
 
 <script>
     document.querySelectorAll('.nav-pills .nav-link').forEach(button => {
