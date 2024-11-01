@@ -58,7 +58,9 @@ $jumlahUser = mysqli_num_rows($result);
                         echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
                         echo '<td><img src="' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
                         echo '<td>';
-                        echo '<button type="button" class="btn btn-link btn-sm btn-rounded btn-hapus" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal">Hapus</button>';
+                        echo '<button type="button" class="btn btn-danger btn-sm btn-rounded btn-hapus" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal">
+                        <i class="fas fa-trash"></i>
+                       </button>';
                         echo '</td>';
                         echo '</tr>';
                     }

@@ -107,7 +107,7 @@ $conn->close();
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-semibold ms-lg-3" aria-current="page" href="index.php#tentang_kami">Tentang Kami</a>
+                        <a class="nav-link fw-semibold ms-lg-3" aria-current="page" href="index.php#tentang_kami">About Nganjuk</a>
                     </li>
                 </ul>
                 <div class="d-flex">

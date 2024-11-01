@@ -28,6 +28,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/hover-min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@1,300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <style>
         /* Styling tombol scroll to top */
         #scrollTopBtn {
@@ -125,7 +128,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="#tentang_kami">Tentang Kami</a>
+                        <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="#tentang_kami">About Nganjuk</a>
                     </li>
                 </ul>
                 <div class="d-flex">
@@ -142,10 +145,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <section class="pt-4 mt-3">
                 <div class="row">
                     <div class="col-lg-6 mt-lg-5 pt-lg-5 pt-2" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
-                        <h1 class="text-center pt-3 pt-lg-0 fw-bold">
+                        <h1 class="text-center pt-3 pt-lg-0 fw-bold" style="font-family: 'Playwrite GB S', sans-serif;">
                             Selamat Datang Di Kota
                         </h1>
-                        <h1 class="text-center fw-bold">
+                        <h1 class="text-center fw-bold mt-lg-3 mt-1" style="font-family: 'Playwrite GB S', sans-serif;">
                             <span class="text-primary" id="demo"></span>
                         </h1>
                         <p class="text-center pt-lg-3" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
@@ -166,7 +169,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <section id="kategori" class="mt-lg-2 pt-lg-2 bg-primary pb-5">
         <div class="container-fluid bg-primary overflow-hidden mt-5 pb-5">
             <div class="row shadow justify-content-center mx-3 bg-white rounded-3 pb-4 mt-3 mb-2 mx-lg-5 mx-lg-5 px-lg-5">
-                <h1 class="text-center pt-5" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
+                <h1 class="text-center pt-4" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
                 <section class="py-0 py-xl-3">
                     <!-- container -->
                     <div class="container">
@@ -310,8 +313,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- sesi kategori end -->
 
     <!-- Sesi Tentang Kami -->
-    <section id="tentang_kami" class="pb-2 pt-5 bg-white px-lg-3">
-        <div class="container-fluid pb-2 pt-3">
+    <section id="tentang_kami" class="pb-2 pt-1 bg-white px-lg-3">
+        <div class="container-fluid pb-2 pt-5">
             <div class="row justify-content-center mt-5 mb-5" data-aos="fade-up"
                 data-aos-duration="2000">
                 <h1 class="text-center text-custom display-4">NGANJUK VISIT</h1>

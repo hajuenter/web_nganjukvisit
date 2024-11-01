@@ -22,6 +22,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+    <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="./style/register.css">
     <title>Login Nganjuk Visit</title>
 </head>
@@ -66,6 +67,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     <div class="header-text mb-4">
                         <h2>Daftar</h2>
                         <p>Masukkan data sesuai dengan ketentuan</p>
+                        <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#ketentuanModal">Baca ketentuan
+                            <i class="fas fa-info-circle"></i>
+                        </button>
                     </div>
                     <form action="controllers/prosesregister.php" method="post">
                         <!-- Email -->
@@ -119,11 +123,33 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <!-- box kanan end -->
         </div>
         <!-- Register container end -->
+
+        <div class="modal fade" id="ketentuanModal" tabindex="-1" aria-labelledby="ketentuanModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ketentuanModalLabel">Syarat dan Ketentuan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-danger">*<small class="text-black">Isi semua kolom</small></p>
+                        <p class="text-danger">*<small class="text-black">Email harus menggunakan domain @gmail.com</small></p>
+                        <p class="text-danger">*<small class="text-black">Password harus mengandung huruf dan angka</small></p>
+                        <p class="text-danger">*<small class="text-black">Password harus mimilike panjang antara 8 hingga 50 karakter</small></p>
+                        <p class="text-danger">*<small class="text-black">Nama harus memiliki antara 4 hingga 50 karakter</small></p>
+                        <p class="text-danger">*<small class="text-black">Nomor HP harus terdiri dari 10 hingga 15 digit angka</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Ketentuan end -->
     </div>
     <!-- Register end -->
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 
