@@ -8,9 +8,23 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 include('../koneksi.php');
 $conn = $koneksi;
 
+// Menentukan tanggal awal dan akhir dari parameter GET
+$tanggal_awal = isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : null;
+$tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : null;
+
 // Query untuk mengambil data laporan dari tabel `riwayat_transaksi_tiket_wisata`
-$query = "SELECT * FROM riwayat_transaksi_tiket_wisata";
-$result = $conn->query($query);
+// Jika tanggal awal dan tanggal akhir disediakan, gunakan query yang memfilter berdasarkan tanggal
+if ($tanggal_awal && $tanggal_akhir) {
+    $query = "SELECT * FROM riwayat_transaksi_tiket_wisata WHERE tanggal_transaksi BETWEEN ? AND ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ss", $tanggal_awal, $tanggal_akhir); // Bind tanggal awal dan akhir
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    // Jika tidak ada filter tanggal, ambil semua data
+    $query = "SELECT * FROM riwayat_transaksi_tiket_wisata";
+    $result = $conn->query($query);
+}
 
 if (!$result) {
     die("Query gagal: " . $conn->error);
@@ -46,7 +60,7 @@ while ($row = $result->fetch_assoc()) {
 $writer = new Xlsx($spreadsheet);
 
 // Set nama file
-$fileName = 'Laporan_Riwayat_Transaksi_Tiket_Wisata.xlsx';
+$fileName = 'Laporan_Transaksi_Tiket_Wisata.xlsx';
 
 // Mengirim header HTTP agar file terdownload
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

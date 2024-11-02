@@ -39,6 +39,7 @@ $jumlahUser = mysqli_num_rows($result);
         <table class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
+                    <th>Id User</th>
                     <th>Email</th>
                     <th>Nama</th>
                     <th>Role</th>
@@ -52,6 +53,7 @@ $jumlahUser = mysqli_num_rows($result);
                 if ($jumlahUser > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo '<tr>';
+                        echo '<td>' . htmlspecialchars($row['id_user']) . '</td>';
                         echo '<td>' . htmlspecialchars($row['email']) . '</td>';
                         echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
                         echo '<td><span class="badge badge-info rounded-pill d-inline">' . htmlspecialchars($row['role']) . '</span></td>';

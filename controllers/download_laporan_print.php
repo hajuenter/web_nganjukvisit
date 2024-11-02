@@ -3,11 +3,25 @@ include('../koneksi.php'); // Koneksi ke database
 
 $conn = $koneksi;
 
-// Mengambil data riwayat transaksi tiket wisata
-$sqlq = "SELECT * FROM riwayat_transaksi_tiket_wisata";
-$stm = $conn->prepare($sqlq);
-$stm->execute();
-$result = $stm->get_result(); // Mengambil hasil query
+// Mengambil tanggal awal dan akhir dari parameter GET
+$tanggal_awal = isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : null;
+$tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : null;
+
+// Query untuk mengambil data riwayat transaksi tiket wisata
+if ($tanggal_awal && $tanggal_akhir) {
+    // Jika tanggal awal dan tanggal akhir disediakan, gunakan query yang memfilter berdasarkan tanggal
+    $sqlq = "SELECT * FROM riwayat_transaksi_tiket_wisata WHERE tanggal_transaksi BETWEEN ? AND ?";
+    $stm = $conn->prepare($sqlq);
+    $stm->bind_param("ss", $tanggal_awal, $tanggal_akhir); // Bind tanggal awal dan akhir
+    $stm->execute();
+    $result = $stm->get_result(); // Mengambil hasil query
+} else {
+    // Jika tidak ada filter tanggal, ambil semua data
+    $sqlq = "SELECT * FROM riwayat_transaksi_tiket_wisata";
+    $stm = $conn->prepare($sqlq);
+    $stm->execute();
+    $result = $stm->get_result(); // Mengambil hasil query
+}
 
 $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai array
 ?>
@@ -59,6 +73,7 @@ $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai 
                     <th>Jumlah Tiket</th>
                     <th>Harga Tiket</th>
                     <th>Total</th>
+                    <th>Tanggal</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -72,12 +87,13 @@ $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai 
                             <td><?php echo htmlspecialchars($row['jumlah_tiket']); ?></td>
                             <td><?php echo htmlspecialchars($row['harga_tiket']); ?></td>
                             <td><?php echo htmlspecialchars($row['total']); ?></td>
+                            <td><?php echo htmlspecialchars($row['tanggal_transaksi']); ?></td>
                             <td><?php echo htmlspecialchars($row['status']); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7" class="text-center">Tidak ada data tersedia</td>
+                        <td colspan="8" class="text-center">Tidak ada data tersedia</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

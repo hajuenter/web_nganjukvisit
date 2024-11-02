@@ -51,6 +51,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
         <table class="table align-middle mb-lg-5 mb-2 bg-white">
             <thead class="bg-light">
                 <tr>
+                    <th>Id Pengelola</th>
                     <th>Email</th>
                     <th>Nama</th>
                     <th>Role</th>
@@ -66,6 +67,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                 if ($jumlahPengelolaActive > 0) {
                     while ($row = mysqli_fetch_assoc($resultActive)) {
                         echo '<tr>';
+                        echo '<td>' . htmlspecialchars($row['id_user']) . '</td>';
                         echo '<td>' . htmlspecialchars($row['email']) . '</td>';
                         echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
                         echo '<td><span class="badge badge-success rounded-pill py-2 px-3 d-inline">Pengelola</span></td>';

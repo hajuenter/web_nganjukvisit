@@ -2,17 +2,31 @@
 $_SESSION['print_token'] = bin2hex(random_bytes(32)); // Membuat token
 
 include("../koneksi.php"); // Koneksi database
-
 $conn = $koneksi;
 
-// Mengambil data riwayat transaksi tiket wisata
+// Cek apakah ada input tanggal
+$tanggal_awal = isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : null;
+$tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : null;
+
+// Query untuk mengambil data dengan filter tanggal
 $sqlq = "SELECT * FROM riwayat_transaksi_tiket_wisata";
+$params = [];
+
+if ($tanggal_awal && $tanggal_akhir) {
+    $sqlq .= " WHERE tanggal_transaksi BETWEEN ? AND ?";
+    $params[] = $tanggal_awal;
+    $params[] = $tanggal_akhir;
+}
+
 $stm = $conn->prepare($sqlq);
+if ($params) {
+    $stm->bind_param("ss", ...$params);
+}
 $stm->execute();
 $result = $stm->get_result(); // Mengambil hasil query
-
 $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai array
 ?>
+
 
 <div class="container-fluid mb-3">
     <h2 class="mb-2">Menu Tiket Laporan Wisata Nganjuk Visit</h2>
@@ -35,10 +49,30 @@ $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai 
     <?php endif; ?>
 
     <div class="mb-2">
-        <button class="btn btn-primary mb-1 mb-lg-0" onclick="window.location.href='../controllers/download_laporan_pdf.php'"><i class="fas fa-file-pdf"> Download PDF</i></button>
-        <button class="btn btn-primary mb-1 mb-lg-0" onclick="window.location.href='../controllers/download_laporan_excel.php'"><i class="fas fa-file-excel"> Download Excel</i></button>
-        <button class="btn btn-primary mb-1 mb-lg-0" onclick="window.location.href='../controllers/download_laporan_csv.php'"><i class="fas fa-file-csv"> Download CSV</i></button>
-        <button class="btn btn-primary mb-1 mb-lg-0" onclick="window.open('../controllers/download_laporan_print.php?token=<?php echo $_SESSION['print_token']; ?>', '_blank');"><i class="fas fa-print"></i> Print</button>
+        <form method="GET">
+            <label for="tanggal_awal">Tanggal Awal:</label>
+            <input type="date" id="tanggal_awal" name="tanggal_awal" required>
+
+            <label for="tanggal_akhir">Tanggal Akhir:</label>
+            <input type="date" id="tanggal_akhir" name="tanggal_akhir" required>
+
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='admin_laporan_tiket.php'">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </form>
+    </div>
+
+    <div class="mb-2">
+        <button class="btn btn-primary mb-1 mb-lg-0" onclick="window.location.href='../controllers/download_laporan_pdf.php?tanggal_awal=<?php echo isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : ''; ?>&tanggal_akhir=<?php echo isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : ''; ?>'">
+            <i class="fas fa-file-pdf"></i> Download PDF
+        </button>
+        <button class="btn btn-primary mb-1 mb-lg-0" onclick="window.location.href='../controllers/download_laporan_excel.php?tanggal_awal=<?php echo isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : ''; ?>&tanggal_akhir=<?php echo isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : ''; ?>'">
+            <i class="fas fa-file-excel"></i> Download Excel
+        </button>
+        <button class="btn btn-primary mb-1 mb-lg-0" onclick="window.open('../controllers/download_laporan_print.php?token=<?php echo $_SESSION['print_token']; ?>&tanggal_awal=<?php echo isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : ''; ?>&tanggal_akhir=<?php echo isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : ''; ?>', '_blank');">
+            <i class="fas fa-print"></i> Print
+        </button>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -50,6 +84,7 @@ $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai 
                     <th>Jumlah Tiket</th>
                     <th>Harga Tiket</th>
                     <th>Total</th>
+                    <th class="px-5">Tanggal</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -64,6 +99,7 @@ $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai 
                             <td><?php echo htmlspecialchars($row['jumlah_tiket']); ?></td>
                             <td><?php echo htmlspecialchars($row['harga_tiket']); ?></td>
                             <td><?php echo htmlspecialchars($row['total']); ?></td>
+                            <td><?php echo htmlspecialchars($row['tanggal_transaksi']); ?></td>
                             <td><?php echo htmlspecialchars($row['status']); ?></td>
                             <td>
                                 <button class="btn btn-danger" data-id="<?php echo htmlspecialchars($row['id_transaksi']); ?>" data-target="#hapusModal" data-toggle="modal">

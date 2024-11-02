@@ -1,16 +1,28 @@
 <?php
 require '../vendor/autoload.php'; // Memastikan autoload Composer sudah di-load
-
-// Pastikan Anda menggunakan library FPDF yang tidak menggunakan namespace.
-require_once('../vendor/setasign/fpdf/fpdf.php');
+require_once('../vendor/setasign/fpdf/fpdf.php'); // Memastikan FPDF sudah ter-load
 
 // Koneksi ke database
 include('../koneksi.php');
 $conn = $koneksi;
 
-// Query untuk mengambil data laporan dari tabel `riwayat_transaksi_tiket_wisata`
-$query = "SELECT * FROM riwayat_transaksi_tiket_wisata";
-$result = $conn->query($query);
+// Mendapatkan tanggal dari parameter GET
+$tanggal_awal = isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : null;
+$tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : null;
+
+// Menyiapkan query berdasarkan filter tanggal
+if ($tanggal_awal && $tanggal_akhir) {
+    $query = "SELECT * FROM riwayat_transaksi_tiket_wisata WHERE tanggal_transaksi BETWEEN ? AND ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ss", $tanggal_awal, $tanggal_akhir);
+} else {
+    // Jika filter tanggal kosong, ambil semua data
+    $query = "SELECT * FROM riwayat_transaksi_tiket_wisata";
+    $stmt = $conn->prepare($query);
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     die("Query gagal: " . $conn->error);
@@ -23,6 +35,11 @@ $pdf->SetFont('Arial', 'B', 12);
 
 // Judul laporan
 $pdf->Cell(0, 10, 'Laporan Riwayat Transaksi Tiket Wisata', 0, 1, 'C');
+if ($tanggal_awal && $tanggal_akhir) {
+    $pdf->Cell(0, 10, "Tanggal: $tanggal_awal sampai $tanggal_akhir", 0, 1, 'C');
+} else {
+    $pdf->Cell(0, 10, "Semua Data", 0, 1, 'C');
+}
 
 // Header tabel
 $pdf->SetFont('Arial', 'B', 10);
