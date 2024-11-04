@@ -105,7 +105,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <nav class="navbar navbar-expand-lg bg-white shadow-sm z-3 fixed-top" style="z-index: 1050;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="./img/logo_nav.png" alt="logo" class="ms-lg-5 img-fluid">
+                <img src="./public/assets/logo_nav.png" alt="logo" class="ms-lg-5 img-fluid">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -144,20 +144,20 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         <div class="container-fluid overflow-hidden">
             <section class="pt-4 mt-3">
                 <div class="row">
-                    <div class="col-lg-6 mt-lg-5 pt-lg-5 pt-2" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
-                        <h1 class="text-center pt-3 pt-lg-0 fw-bold" style="font-family: 'Playwrite GB S', sans-serif;">
+                    <div class="col-lg-6 mt-lg-4 pt-lg-5" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
+                        <h1 class="text-center text-sm pt-3 pt-lg-0 fw-bold" style="font-family: 'Playwrite GB S', sans-serif;">
                             Selamat Datang Di Kota
                         </h1>
                         <h1 class="text-center fw-bold mt-lg-3 mt-1" style="font-family: 'Playwrite GB S', sans-serif;">
                             <span class="text-primary" id="demo"></span>
                         </h1>
-                        <p class="text-center pt-lg-3" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
+                        <iframe class="img-fluid hvr-bob d-block mx-auto" src="https://lottie.host/embed/6f46ad7d-9522-47b2-9e62-843f412624d1/L9ja1gpUMT.json"></iframe>
+                        <p class="text-center" style="font-family: 'Poppins', sans-serif; font-size: 1.2rem;">
                             Nganjuk Visit memberikan pengalaman yang pastinya keren dan tak terlupakan dengan keindahan dan keistimewaan kota Nganjuk.
                         </p>
-                        <img src="./img/app_mobile.png" alt="app" class="img-fluid hvr-bob d-block mx-auto mt-lg-5 mt-1" style="max-width: 300px;">
                     </div>
-                    <div class="col-lg-6 mt-2 pt-2 mt-lg-4" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
-                        <img src="./img/Group 46.png" class="img-fluid floating-full" alt="nav-header" style="max-width: 100%;">
+                    <div class="col-lg-6 mt-lg-5" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
+                        <img src="./public/assets/header-img.png" class="img-fluid floating-full" alt="nav-header" style="max-width: 100%;">
                     </div>
                 </div>
             </section>
@@ -166,7 +166,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- header end -->
 
     <!-- sesi kategori -->
-    <section id="kategori" class="mt-lg-2 pt-lg-2 bg-primary pb-5">
+    <section id="kategori" class="mt-lg-2 pt-3 pt-lg-2 bg-primary pb-5">
         <div class="container-fluid bg-primary overflow-hidden mt-5 pb-5">
             <div class="row shadow justify-content-center mx-3 bg-white rounded-3 pb-4 mt-3 mb-2 mx-lg-5 mx-lg-5 px-lg-5">
                 <h1 class="text-center pt-4" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
@@ -318,9 +318,29 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <div class="row justify-content-center mt-5 mb-5" data-aos="fade-up"
                 data-aos-duration="2000">
                 <h1 class="text-center text-custom display-4">NGANJUK VISIT</h1>
-                <!-- <div class="col-12 pt-5 d-flex justify-content-center">
-                    <img src="./img/logo_nav.png" alt="Nganjuk Visit Logo" class="img-fluid" style="max-width: 200px;">
-                </div> -->
+                <div class="row mt-2 overflow-hidden">
+                    <div class="hvr-bob col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-right" data-aos-duration="2500">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/4bb98e7b-d269-4dbc-92f2-d92450a3b893/t1rk9u4hoM.json"></iframe>
+                        </div>
+                    </div>
+                    <div class="hvr-bob col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-right" data-aos-duration="2500">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/4f2e350c-3644-49ef-a7f8-4b51d2c731be/pRIf1H0Z6W.json"></iframe>
+                        </div>
+                    </div>
+                    <div class="hvr-bob col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-left" data-aos-duration="2500">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/32eaede3-fb23-4b9c-9044-50b62138614f/o57mcDYWyY.json"></iframe>
+                        </div>
+                    </div>
+                    <div class="hvr-bob col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-left" data-aos-duration="2500">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/5141099d-d518-4139-9ae3-9d96be7387ac/CcHueI8xeY.json"></iframe>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Keindahan Wisata Kota Nganjuk -->
