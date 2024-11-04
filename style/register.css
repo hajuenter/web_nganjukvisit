@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 .bg-image {
-  background-image: url("../img/bg_airterjun.jpg"); /* Ganti dengan path gambar yang kamu inginkan */
+  background-image: url("../public/assets/bg_airterjun.jpg"); /* Ganti dengan path gambar yang kamu inginkan */
   background-size: cover; /* Menyesuaikan gambar agar menutupi seluruh background */
   background-position: center; /* Memposisikan gambar di tengah */
   background-repeat: no-repeat; /* Menghindari pengulangan gambar */

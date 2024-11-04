@@ -319,22 +319,22 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 data-aos-duration="2000">
                 <h1 class="text-center text-custom display-4">NGANJUK VISIT</h1>
                 <div class="row mt-2 overflow-hidden">
-                    <div class="hvr-bob col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-right" data-aos-duration="2500">
+                    <div class="col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-right" data-aos-duration="2500">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/4bb98e7b-d269-4dbc-92f2-d92450a3b893/t1rk9u4hoM.json"></iframe>
                         </div>
                     </div>
-                    <div class="hvr-bob col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-right" data-aos-duration="2500">
+                    <div class="col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-right" data-aos-duration="2500">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/4f2e350c-3644-49ef-a7f8-4b51d2c731be/pRIf1H0Z6W.json"></iframe>
                         </div>
                     </div>
-                    <div class="hvr-bob col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-left" data-aos-duration="2500">
+                    <div class="col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-left" data-aos-duration="2500">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/32eaede3-fb23-4b9c-9044-50b62138614f/o57mcDYWyY.json"></iframe>
                         </div>
                     </div>
-                    <div class="hvr-bob col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-left" data-aos-duration="2500">
+                    <div class="col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-left" data-aos-duration="2500">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/5141099d-d518-4139-9ae3-9d96be7387ac/CcHueI8xeY.json"></iframe>
                         </div>

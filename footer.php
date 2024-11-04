@@ -7,7 +7,7 @@
                 <div class="col-12 col-md-4 pt-4 col-lg-3 col-xl-2">
                     <div class="widget">
                         <a href="#!">
-                            <img src="./img/image_logos.png" alt="footer logo" width="175" height="210" class="mx-auto d-block">
+                            <img src="./public/assets/image_logos.png" alt="footer logo" width="175" height="210" class="mx-auto d-block">
                         </a>
                     </div>
                 </div>
