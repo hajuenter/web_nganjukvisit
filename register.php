@@ -37,7 +37,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <!-- box kiri -->
             <div class="col-lg-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #103cbe;">
                 <div class="featured-image mb-3">
-                    <img src="./img/image_logos.png" class="img-fluid">
+                    <img src="./public/assets/image_logos.png" class="img-fluid">
                 </div>
                 <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Nganjuk Visit</p>
                 <small class="text-white text-wrap text-center" style="width: 17rem; font-family: 'Courier New', Courier, monospace;">Destinasi wisata paling keren hanya ada di kota Nganjuk</small>
