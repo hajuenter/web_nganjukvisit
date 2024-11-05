@@ -20,9 +20,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="./style/login.css">
-    <title>Login Nganjuk Visit</title>
+    <title>Nganjuk Visit</title>
 </head>
 
 <body class="bg-image">
@@ -63,7 +64,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                             <input type="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Email" required>
                         </div>
                         <div class="input-group mb-2 mt-3">
-                            <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Cek Email</button>
+                            <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Kirim OTP</button>
                         </div>
                         <div class="input-group">
                             <button class="btn btn-lg btn-success w-100 fs-6" onclick="window.location.href='login.php';">Batal</button>

@@ -28,7 +28,7 @@ if ($_SESSION['role'] !== 'admin') {
     <meta name="author" content="">
 
     <title>Admin Nganjuk Visit</title>
-
+    <link rel="icon" href="../public/assets/favicon-32x32.png" type="image/x-icon">
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link

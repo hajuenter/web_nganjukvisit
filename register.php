@@ -21,10 +21,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
     <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="./style/register.css">
-    <title>Login Nganjuk Visit</title>
+    <title>Register Nganjuk Visit</title>
 </head>
 
 <body class="bg-image">
@@ -107,7 +108,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <!-- NO HP -->
                         <div class="mb-3">
                             <label for="no_hp" class="form-label">No Hp</label>
-                            <input type="text" class="form-control" id="no_hp" name="no_hp" required>
+                            <input type="number" class="form-control" id="no_hp" name="no_hp" required>
                         </div>
 
                         <!-- Submit Button -->
@@ -135,8 +136,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <p class="text-danger">*<small class="text-black">Isi semua kolom</small></p>
                         <p class="text-danger">*<small class="text-black">Email harus menggunakan domain @gmail.com</small></p>
                         <p class="text-danger">*<small class="text-black">Password harus mengandung huruf dan angka</small></p>
-                        <p class="text-danger">*<small class="text-black">Password harus mimilike panjang antara 8 hingga 50 karakter</small></p>
-                        <p class="text-danger">*<small class="text-black">Nama harus memiliki antara 4 hingga 50 karakter</small></p>
+                        <p class="text-danger">*<small class="text-black">Password harus memiliki panjang antara 8 hingga 50 karakter</small></p>
+                        <p class="text-danger">*<small class="text-black">Nama harus memiliki panjang antara 4 hingga 50 karakter</small></p>
                         <p class="text-danger">*<small class="text-black">Nomor HP harus terdiri dari 10 hingga 15 digit angka</small></p>
                     </div>
                     <div class="modal-footer">

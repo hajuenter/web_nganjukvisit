@@ -21,6 +21,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nganjuk Visit</title>
+    <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/font-size/font-size.css">
@@ -128,7 +129,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="#tentang_kami">About Nganjuk</a>
+                        <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="#tentang_kami">Layanan Nganjuk Visit</a>
                     </li>
                 </ul>
                 <div class="d-flex">
@@ -315,7 +316,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- Sesi Tentang Kami -->
     <section id="tentang_kami" class="pb-2 pt-1 bg-white px-lg-3">
         <div class="container-fluid pb-2 pt-5">
-            <div class="row justify-content-center mt-5 mb-5" data-aos="fade-up"
+            <div class="row justify-content-center mt-5 mb-3" data-aos="fade-up"
                 data-aos-duration="2000">
                 <h1 class="text-center text-custom display-4">NGANJUK VISIT</h1>
                 <div class="row mt-2 overflow-hidden">

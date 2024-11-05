@@ -7,7 +7,9 @@
             </h1>
             <h2 class="font-weight-bold text-dark">Pengaturan Keamanan Password</h2>
             <p class="text-muted">Pastikan password baru Anda kuat dan aman.</p>
-            
+            <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#ketentuanModal">Baca ketentuan
+                <i class="fas fa-info-circle"></i>
+            </button>
             <?php if (isset($_SESSION['success'])): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?php
@@ -57,5 +59,24 @@
             </button>
         </div>
         </form>
+    </div>
+</div>
+
+<div class="modal fade" id="ketentuanModal" tabindex="-1" aria-labelledby="ketentuanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ketentuanModalLabel">Syarat dan Ketentuan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger">*<small class="text-black">Pastikan password baru dan konfirmasi password sama</small></p>
+                <p class="text-danger">*<small class="text-black">Password harus mengandung huruf dan angka</small></p>
+                <p class="text-danger">*<small class="text-black">Password harus memiliki panjang antara 8 hingga 50 karakter</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
     </div>
 </div>

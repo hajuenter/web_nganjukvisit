@@ -39,6 +39,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuliner Nganjuk Visit</title>
+    <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="./style/hover-min.css">
@@ -107,7 +108,7 @@ $conn->close();
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-semibold ms-lg-3" aria-current="page" href="index.php#tentang_kami">About Nganjuk</a>
+                        <a class="nav-link fw-semibold ms-lg-3" aria-current="page" href="index.php#tentang_kami">Layanan Nganjuk Visit</a>
                     </li>
                 </ul>
                 <div class="d-flex">

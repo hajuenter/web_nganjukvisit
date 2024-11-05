@@ -28,7 +28,7 @@ if ($_SESSION['role'] !== 'pengelola') {
     <meta name="author" content="">
 
     <title>Pengelola Nganjuk Visit</title>
-
+    <link rel="icon" href="../public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
