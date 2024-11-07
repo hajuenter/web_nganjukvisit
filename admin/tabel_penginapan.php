@@ -80,6 +80,8 @@ if (!empty($search)) {
                     <th>Lokasi</th>
                     <th>Gambar</th>
                     <th>Telepon</th>
+                    <th>Koordinat</th>
+                    <th>Maps</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -104,6 +106,8 @@ if (!empty($search)) {
                         // Tampilkan gambar acak
                         echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;'></td>";
                         echo "<td>" . htmlspecialchars($row['telepon']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
+                        echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
                         echo "<td class='d-flex flex-column'>
                                 <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_penginapan']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
                                 <i class='fas fa-edit'></i>
@@ -157,6 +161,14 @@ if (!empty($search)) {
                         <label for="telepon" class="form-label">Telepon</label>
                         <input type="tel" class="form-control" id="telepon" name="telepon" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="koordinat" class="form-label">Koordinat</label>
+                        <input type="text" class="form-control" id="koordinat" name="koordinat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_maps" class="form-label">Link Google Maps</label>
+                        <input type="url" class="form-control" id="link_maps" name="link_maps" required>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -188,7 +200,6 @@ if (!empty($search)) {
         </div>
     </div>
 </div>
-
 
 <!-- Modal Edit -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

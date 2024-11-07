@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $harga = htmlspecialchars($_POST['harga']);
     $lokasi = htmlspecialchars($_POST['lokasi']);
     $telpon = htmlspecialchars($_POST['telepon']);
+    $koordinat = htmlspecialchars($_POST['koordinat']);
+    $link_maps = htmlspecialchars($_POST['link_maps']);
 
     // Variabel untuk nama file gambar
     $gambar = $_FILES['gambar']['name'];
@@ -47,10 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gambar_string = trim(implode(',', $target_files), ',');
 
         // Query untuk menyimpan data ke database
-        $sql = "INSERT INTO detail_penginapan (nama_penginapan, id_user, deskripsi, harga, lokasi, gambar, telepon) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO detail_penginapan (nama_penginapan, id_user, deskripsi, harga, lokasi, gambar, telepon, koordinat, link_maps) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssssss', $nama_penginapan, $id_user, $deskripsi, $harga, $lokasi, $gambar_string, $telpon);
+        $stmt->bind_param('sssssssss', $nama_penginapan, $id_user, $deskripsi, $harga, $lokasi, $gambar_string, $telpon, $koordinat, $link_maps);
 
         if ($stmt->execute()) {
             // Redirect ke halaman admin dengan pesan sukses

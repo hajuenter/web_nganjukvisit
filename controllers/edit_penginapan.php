@@ -11,6 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $harga = htmlspecialchars($_POST['harga']);
     $lokasi = htmlspecialchars($_POST['lokasi']);
     $telepon = htmlspecialchars($_POST['telepon']);
+    $koordinat = htmlspecialchars($_POST['koordinat']);
+    $link_maps = htmlspecialchars($_POST['link_maps']);
 
     // Variabel untuk nama file gambar
     $gambar_files = $_FILES['gambar']['name'];
@@ -56,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gambar_string = trim(implode(',', $gambar_array), ',');
 
     // Update data penginapan dengan gambar baru dan gambar lama
-    $sql = "UPDATE detail_penginapan SET nama_penginapan = ?, deskripsi = ?, harga = ?, lokasi = ?, gambar = ?, telepon = ? WHERE id_penginapan = ?";
+    $sql = "UPDATE detail_penginapan SET nama_penginapan = ?, deskripsi = ?, harga = ?, lokasi = ?, gambar = ?, telepon = ?, koordinat = ?, link_maps = ? WHERE id_penginapan = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssssi', $nama_penginapan, $deskripsi, $harga, $lokasi, $gambar_string, $telepon, $id_penginapan);
+    $stmt->bind_param('ssssssssi', $nama_penginapan, $deskripsi, $harga, $lokasi, $gambar_string, $telepon, $koordinat, $link_maps, $id_penginapan);
 
     if ($stmt->execute()) {
         header("Location:" . BASE_URL . "/admin/admin_penginapan.php?update=success");

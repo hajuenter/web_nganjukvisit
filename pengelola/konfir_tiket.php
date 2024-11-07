@@ -30,7 +30,7 @@ $hasil = $result->fetch_all(MYSQLI_ASSOC);
             <?php unset($_SESSION['error']); ?>
         </div>
     <?php endif; ?>
-
+    <p class="text-sm">Data pembelian tiket wisata</p>
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>

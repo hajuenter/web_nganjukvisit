@@ -4,7 +4,7 @@
        <!-- Sidebar - Brand -->
        <a class="sidebar-brand d-flex align-items-center justify-content-center">
            <div class="sidebar-brand-icon rotate-n-15">
-               <i class="fas fa-laugh-wink"></i>
+               <i class="fas fa-plane-departure"></i>
            </div>
            <div class="sidebar-brand-text mx-3">Pengelola <sup>Nganjuk Visit</sup></div>
        </a>
@@ -50,6 +50,12 @@
            <a class="nav-link" href="pengelola_konfir_tiket.php">
                <i class="fas fa-fw fas fa-tags"></i>
                <span>Tiket Wisata</span>
+           </a>
+       </li>
+       <li class="nav-item <?= isActive('pengelola_scan_tiket.php') ?>">
+           <a class="nav-link" href="pengelola_scan_tiket.php">
+               <i class="fas fa-fw fas fa-qrcode"></i>
+               <span>Scan Tiket</span>
            </a>
        </li>
 

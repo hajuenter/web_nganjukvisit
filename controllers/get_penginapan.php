@@ -43,6 +43,14 @@ if (isset($_POST['id_penginapan'])) {
                 <label for="telepon" class="form-label">telepon</label>
                 <input type="text" class="form-control" id="telepon" name="telepon" value="' . htmlspecialchars($row['telepon']) . '">
             </div>
+            <div class="mb-3">
+                <label for="koordinat" class="form-label">koordinat</label>
+                <input type="text" class="form-control" id="koordinat" name="koordinat" value="' . htmlspecialchars($row['koordinat']) . '">
+            </div>
+            <div class="mb-3">
+                <label for="link_maps" class="form-label">Link Google Maps</label>
+                <input type="text" class="form-control" id="link_maps" name="link_maps" value="' . htmlspecialchars($row['link_maps']) . '">
+            </div>
         </form>
         ';
     }

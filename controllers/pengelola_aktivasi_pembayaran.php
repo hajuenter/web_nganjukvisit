@@ -29,8 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $stmt->bind_param("isssis", $detail['id_detail_tiket'], $nama_wisata, $detail['jumlah'], $detail['harga'], $detail['total'], $status);
         $stmt->execute();
 
-        // Update status dan bayar di detail_tiket
-        $stmt = $conn->prepare("UPDATE detail_tiket SET status = ?, bayar = ? WHERE id_detail_tiket = ?");
+        // Update status, bayar, dan waktu konfirmasi di detail_tiket
+        if ($status === 'berhasil') {
+            // Set waktu konfirmasi ke waktu sekarang jika status 'berhasil'
+            $stmt = $conn->prepare("UPDATE detail_tiket SET status = ?, bayar = ?, waktu_konfirmasi = NOW() WHERE id_detail_tiket = ?");
+        } else {
+            // Update status dan bayar tanpa waktu konfirmasi jika bukan 'berhasil'
+            $stmt = $conn->prepare("UPDATE detail_tiket SET status = ?, bayar = ? WHERE id_detail_tiket = ?");
+        }
         $bayar = $detail['total'];
         $stmt->bind_param("ssi", $status, $bayar, $id_detail_tiket);
         $stmt->execute();
@@ -40,5 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         exit();
     } else {
         $_SESSION['error'] = "Detail tiket tidak ditemukan.";
+        header("Location:" . BASE_URL . "/pengelola/pengelola_konfir_tiket.php");
+        exit();
     }
 }
