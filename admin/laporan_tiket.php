@@ -29,7 +29,7 @@ $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai 
 
 
 <div class="container-fluid mb-3">
-    <h2 class="mb-2">Menu Tiket Laporan Wisata Nganjuk Visit</h2>
+    <h2 class="mb-2">Laporan Data Tiket Wisata</h2>
     <!-- Win -->
     <?php if (isset($_SESSION['win'])): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
