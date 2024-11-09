@@ -33,6 +33,32 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@1,300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <style>
+        /* Navbar transparan tanpa bayangan */
+        @media (min-width: 992px) {
+
+            /* Navbar transparan hanya pada layar besar */
+            .navbar-transparent {
+                background-color: transparent !important;
+                box-shadow: none !important;
+            }
+
+            /* Navbar putih dengan bayangan hanya pada layar besar */
+            .navbar-scrolled {
+                background-color: white !important;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+
+            /* Navbar putih dengan bayangan pada layar mobile */
+            .navbar-transparent,
+            .navbar-scrolled {
+                background-color: white !important;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+            }
+        }
+
         /* Styling tombol scroll to top */
         #scrollTopBtn {
             position: fixed;
@@ -103,15 +129,15 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm z-3 fixed-top" style="z-index: 1050;">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-transparent z-3 fixed-top" style="z-index: 1050;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="./public/assets/logo_nav.png" alt="logo" class="ms-lg-5 img-fluid">
+            <a class="navbar-brand">
+                <img src="./public/assets/disporabudpar.png" alt="logo" class="ms-lg-5 img-fluid" style="width: 70px; height: 70px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse ms-lg-5 ps-lg-5" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link ms-lg-5 fw-semibold" aria-current="page" href="#home">Home</a>
@@ -466,6 +492,29 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
             new Typed("#demo", options);
         });
+    </script>
+
+    <!-- nav transparan ketika di top -->
+    <script>
+        // Mendapatkan elemen navbar
+        const navbar = document.getElementById('navbar');
+
+        // Fungsi untuk mengubah kelas navbar saat scroll
+        function onScroll() {
+            if (window.scrollY > 0) {
+                navbar.classList.remove('navbar-transparent');
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                navbar.classList.add('navbar-transparent');
+            }
+        }
+
+        // Memanggil fungsi saat halaman di-scroll
+        window.addEventListener('scroll', onScroll);
+
+        // Memanggil fungsi saat pertama kali halaman dimuat
+        document.addEventListener('DOMContentLoaded', onScroll);
     </script>
     <script>
         // Tampilkan tombol jika user scroll lebih dari 100px

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <h1 class="mb-4">Menu Data Ulasan Nganjuk Visit</h1>
+    <h1 class="mb-4">Data Ulasan Nganjuk Visit</h1>
     <p class="mb-5">Kelola ulasan wisata, hotel, atau kuliner dari pengunjung Nganjuk Visit di sini.</p>
     <!-- alert hapus -->
     <?php if (isset($_GET['delete']) && $_GET['delete'] == 'success'): ?>

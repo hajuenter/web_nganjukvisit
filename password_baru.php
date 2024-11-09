@@ -72,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="./style/login.css">
+    <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <title>Nganjuk Visit</title>
 </head>
 
@@ -116,7 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <form action="" method="post">
                         <div class="input-group mb-3">
-                            <input type="password" name="new_password" class="form-control form-control-lg bg-light fs-6" placeholder="Password Baru" required>
+                            <input type="password" name="new_password" class="form-control form-control-lg bg-light fs-6" placeholder="Password Baru" required id="newPassword">
+                            <button class="btn btn-outline-primary" type="button" onclick="togglePasswordVisibility()">
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </button>
                         </div>
                         <div class="input-group mb-3 mt-3">
                             <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Perbarui</button>
@@ -130,6 +134,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <!-- login end -->
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById("newPassword");
+            const toggleIcon = document.getElementById("toggleIcon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove("fa-eye");
+                toggleIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove("fa-eye-slash");
+                toggleIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </body>
 
 </html>

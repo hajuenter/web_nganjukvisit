@@ -12,7 +12,7 @@ $hasil = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <div class="container-fluid">
-    <h1 class="text-center text-black fw-bold">Menu Scan Tiket Wisata</h1>
+    <h1 class="text-center text-black fw-bold">Scan Tiket Wisata</h1>
     <hr>
     <p class="text-sm">Data tiket yang masih aktif</p>
     <?php if (isset($_SESSION['berhasil'])): ?>

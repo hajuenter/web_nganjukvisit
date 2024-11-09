@@ -1,10 +1,10 @@
    <!-- Sidebar -->
-   <ul class="navbar-nav bg-info sidebar sidebar-dark accordion" id="accordionSidebar">
+   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
        <!-- Sidebar - Brand -->
        <a class="sidebar-brand d-flex align-items-center justify-content-center">
            <div class="sidebar-brand-icon rotate-n-15">
-               <i class="fas fa-plane-departure"></i>
+               <img src="../public/assets/logo-sidebar.png" alt="">
            </div>
            <div class="sidebar-brand-text mx-3">Pengelola <sup>Nganjuk Visit</sup></div>
        </a>

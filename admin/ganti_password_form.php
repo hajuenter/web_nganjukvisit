@@ -39,7 +39,12 @@
                 <form action="../controllers/perbarui_password.php" method="POST">
                     <div class="form-group">
                         <label for="password">Masukkan Password Baru</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password Baru" required>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password Baru" required>
+                            <button class="btn btn-outline-primary" type="button" onclick="togglePassword('password', 'toggleIconPassword')">
+                                <i class="fas fa-eye" id="toggleIconPassword"></i>
+                            </button>
+                        </div>
                     </div>
             </div>
 
@@ -47,7 +52,12 @@
                 <h4 class="mb-3">Konfirmasi Password Baru</h4>
                 <div class="form-group">
                     <label for="konfir_password">Konfirmasi Password Baru</label>
-                    <input type="password" class="form-control" id="konfir_password" name="konfir_password" placeholder="Konfirmasi Password" required>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="konfir_password" name="konfir_password" placeholder="Konfirmasi Password" required>
+                        <button class="btn btn-outline-primary" type="button" onclick="togglePassword('konfir_password', 'toggleIconConfirm')">
+                            <i class="fas fa-eye" id="toggleIconConfirm"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,3 +90,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    function togglePassword(inputId, iconId) {
+        const passwordInput = document.getElementById(inputId);
+        const toggleIcon = document.getElementById(iconId);
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
+        }
+    }
+</script>

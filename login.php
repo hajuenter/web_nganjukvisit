@@ -25,6 +25,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="./style/login.css">
+    <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <title>Login Nganjuk Visit</title>
     <style>
         .right-box {
@@ -100,7 +101,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                             <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Email address" name="email" required>
                         </div>
                         <div class="input-group mb-1">
-                            <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" name="password" required>
+                            <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" name="password" required id="password">
+                            <button class="btn btn-outline-primary" type="button" onclick="togglePassword()">
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </button>
                         </div>
                         <div class="input-group mb-5 d-flex justify-content-end">
                             <div class="forgot">
@@ -123,6 +127,22 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- login end -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById("password");
+            const toggleIcon = document.getElementById("toggleIcon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove("fa-eye");
+                toggleIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove("fa-eye-slash");
+                toggleIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </body>
 
 </html>

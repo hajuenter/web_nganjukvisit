@@ -24,7 +24,7 @@ $resultWisata = $stmWisata->get_result();
 ?>
 
 <div class="container-fluid mb-3">
-    <h2>Menu Tiket Wisata Nganjuk Visit</h2>
+    <h2>Tiket Wisata Nganjuk Visit</h2>
     <hr>
     <!-- Pesan Sukses  -->
     <?php if (isset($_SESSION['bagus'])): ?>

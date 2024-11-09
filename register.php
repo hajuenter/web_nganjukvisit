@@ -96,7 +96,12 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <!-- Password -->
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <button class="btn btn-outline-primary" type="button" onclick="passwordDelokOra()">
+                                    <i class="fas fa-eye" id="anjayPas"></i>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Alamat -->
@@ -151,7 +156,22 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- Register end -->
 
     <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        function passwordDelokOra() {
+            const pasInput = document.getElementById("password");
+            const btnShowHide = document.getElementById("anjayPas");
 
+            if (pasInput.type === "password") {
+                pasInput.type = "text";
+                btnShowHide.classList.remove("fa-eye");
+                btnShowHide.classList.add("fa-eye-slash");
+            } else {
+                pasInput.type = "password";
+                btnShowHide.classList.remove("fa-eye-slash");
+                btnShowHide.classList.add("fa-eye");
+            }
+        }
+    </script>
 </body>
 
 </html>

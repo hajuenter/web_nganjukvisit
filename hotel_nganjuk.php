@@ -43,6 +43,31 @@ $conn->close();
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="./style/hover-min.css">
     <style>
+        /* Navbar transparan tanpa bayangan */
+        @media (min-width: 992px) {
+
+            /* Navbar transparan hanya pada layar besar */
+            .navbar-transparent {
+                background-color: transparent !important;
+                box-shadow: none !important;
+            }
+
+            /* Navbar putih dengan bayangan hanya pada layar besar */
+            .navbar-scrolled {
+                background-color: white !important;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+
+            /* Navbar putih dengan bayangan pada layar mobile */
+            .navbar-transparent,
+            .navbar-scrolled {
+                background-color: white !important;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+            }
+        }
         /* Styling tombol scroll to top */
         #scrollTopBtn {
             position: fixed;
@@ -84,17 +109,16 @@ $conn->close();
 </head>
 
 <body>
-
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm z-3 fixed-top" style="z-index: 1050;">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-transparent z-3 fixed-top" style="z-index: 1050;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="./public/assets/logo_nav.png" alt="logo" class="ms-lg-5 img-fluid">
+            <a class="navbar-brand">
+                <img src="./public/assets/disporabudpar.png" alt="logo" class="ms-lg-5 img-fluid" style="width: 70px; height: 70px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse ms-lg-5 ps-lg-5" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link ms-lg-5 fw-semibold" aria-current="page" href="index.php#home">Home</a>
@@ -103,7 +127,7 @@ $conn->close();
                         <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="index.php#kategori">Kategori</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle fw-semibold ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
+                        <a class="nav-link fw-semibold dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item fw-semibold" href="wisata_nganjuk.php">Wisata</a></li>
                             <li><a class="dropdown-item fw-semibold" href="kuliner_nganjuk.php">Kuliner</a></li>
@@ -112,7 +136,7 @@ $conn->close();
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-semibold ms-lg-3" aria-current="page" href="index.php#tentang_kami">Layanan Nganjuk Visit</a>
+                        <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="index.php#tentang_kami">Layanan Nganjuk Visit</a>
                     </li>
                 </ul>
                 <div class="d-flex">

@@ -1,13 +1,13 @@
 <!-- Footer 2 - Bootstrap Brain Component -->
 <footer class="footer">
     <!-- Widgets - Bootstrap Brain Component -->
-    <section class="bg-secondary py-2 py-md-5 py-xl-4 border-top border-light">
+    <section class="bg-info py-2 py-md-5 py-xl-4 border-top border-light">
         <div class="container overflow-hidden">
             <div class="row gy-4 gy-lg-0 justify-content-xl-between">
                 <div class="col-12 col-md-4 pt-4 col-lg-3 col-xl-2">
                     <div class="widget">
-                        <a href="#!">
-                            <img src="./public/assets/image_logos.png" alt="footer logo" width="175" height="210" class="mx-auto d-block">
+                        <a>
+                            <img src="./public/assets/disporabudpar.png" alt="footer logo" width="200" height="200" class="ms-lg-5 mx-auto d-block">
                         </a>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
                         <h4 class="widget-title mb-4 text-center">Nganjuk Visit</h4>
                         <address class="mb-4 ms-lg-2">Pengelola wisata, kuliner, penginapan di Kota Ngajuk</address>
                         <p class="mb-1 ms-lg-2">Tim pengelola dari Dinas Pariwisata</p>
-                        <p class="mb-0 ms-lg-2"><a href="" class="text-decoration-none text-black">nganjukvisit86@gmail.com</a></p>
+                        <p class="mb-0 ms-lg-2"><a class="text-decoration-none text-black">nganjukvisit86@gmail.com</a></p>
                     </div>
                 </div>
                 <div class="col-12 col-md-4 col-lg-3 col-xl-2">
@@ -43,7 +43,7 @@
     </section>
 
     <!-- Copyright - Bootstrap Brain Component -->
-    <div class="bg-dark py-2 py-md-2 py-xl-3 border-top border-black">
+    <div class="bg-primary py-2 py-md-2 py-xl-3 border-top border-black">
         <div class="container overflow-hidden">
             <div class="row gy-4 gy-md-0 align-items-md-center">
                 <div class="col-xs-12 col-md-7 order-1 order-md-0">
@@ -51,7 +51,7 @@
                         &copy; 2024. All Rights Reserved.
                     </div>
                     <div class="credits text-light text-center text-md-start mt-2 fs-8">
-                        Dibuat oleh <a href="" class="link-secondary text-primary text-decoration-none">tim Nganjuk Visit</a> dengan <span class="text-primary">&#9829;</span>
+                        Dibuat oleh <a href="" class="link-secondary text-dark text-decoration-none">tim Nganjuk Visit</a> dengan <span class="text-dark">&#9829;</span>
                     </div>
                 </div>
 

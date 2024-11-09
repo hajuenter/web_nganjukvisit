@@ -13,7 +13,7 @@ $hasil = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <div class="container-fluid">
-    <h1 class="text-center text-black fw-bold">Menu Konfirmasi Pembelian Tiket Wisata</h1>
+    <h1 class="text-center text-black fw-bold">Konfirmasi Pembelian Tiket Wisata</h1>
     <hr>
     <?php if (isset($_SESSION['berhasil'])): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">

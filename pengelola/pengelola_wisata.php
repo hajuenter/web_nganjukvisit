@@ -58,7 +58,7 @@ foreach ($jadwal_array as $index => $jadwal_item) {
 ?>
 
 <div class="container-fluid">
-    <h1 class="text-center text-black fw-bold">Menu Pengelola Wisata Nganjuk Visit</h1>
+    <h1 class="text-center text-black fw-bold">Pengelola Wisata Nganjuk Visit</h1>
     <hr>
     <h2 class="text-center text-black fw-bold">Form Detail Wisata <?php echo htmlspecialchars($nama_wisata); ?></h2>
     <form class="pb-3" action="../controllers/pengelola_edit_wisata.php" method="post" enctype="multipart/form-data">
