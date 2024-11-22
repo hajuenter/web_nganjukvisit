@@ -34,6 +34,14 @@ if ($result->num_rows > 0) {
         exit();
     }
 
+    if ($user['status'] != 'active') {
+        $_SESSION['gagal'] = 'Akses ditolak. Status akun anda masih inactive.';
+        unset($_SESSION['berhasil']);
+        header("Location:" . BASE_URL . "/lupa_password.php");
+        exit();
+    }
+
+
     // Email ditemukan dan role valid, set session dan kirim OTP
     $_SESSION['email'] = $email;
 

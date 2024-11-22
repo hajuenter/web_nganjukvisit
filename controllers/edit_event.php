@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_event = $_POST['id_event'];
     $nama = htmlspecialchars($_POST['nama']);
     $deskripsi_event = htmlspecialchars($_POST['deskripsi_event']);
+    $alamat = htmlspecialchars($_POST['alamat']);
     $tanggal_event = $_POST['tanggal_event'];
 
     // Variabel untuk nama file gambar
@@ -55,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gambar_string = implode(',', $gambar_array);
 
     // Update data event dengan gambar baru dan gambar lama
-    $sql = "UPDATE detail_event SET nama = ?, deskripsi_event = ?, gambar = ?, tanggal_event = ? WHERE id_event = ?";
+    $sql = "UPDATE detail_event SET nama = ?, deskripsi_event = ?, alamat = ?, gambar = ?, tanggal_event = ? WHERE id_event = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssi', $nama, $deskripsi_event, $gambar_string, $tanggal_event, $id_event);
+    $stmt->bind_param('sssssi', $nama, $deskripsi_event, $alamat, $gambar_string, $tanggal_event, $id_event);
 
     if ($stmt->execute()) {
         header("Location:" . BASE_URL . "/admin/admin_event.php?update=success");

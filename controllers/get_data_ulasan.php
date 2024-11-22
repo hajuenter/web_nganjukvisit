@@ -4,7 +4,6 @@ include("../koneksi.php");
 $conn = $koneksi;
 
 // Mendapatkan kategori dari request
-//iki teko ajax
 $category = $_GET['category'] ?? '';
 
 // Menyiapkan query SQL berdasarkan kategori yang dipilih
@@ -13,16 +12,12 @@ if ($category === 'ulasan_wisata') {
     $sql = "SELECT id_ulasan_w AS id_ulasan, nama AS nama_pengulas, kategori, komentar AS isi_ulasan, tanggal, id_user FROM ulasan_wisata";
 } elseif ($category === 'ulasan_penginapan') {
     $sql = "SELECT id_ulasan_p AS id_ulasan, nama AS nama_pengulas, kategori, komentar AS isi_ulasan, tanggal, id_user FROM ulasan_penginapan";
-} elseif ($category === 'ulasan_kuliner') {
-    $sql = "SELECT id_ulasan_k AS id_ulasan, nama AS nama_pengulas, kategori, komentar AS isi_ulasan, tanggal, id_user FROM ulasan_kuliner";
 } else {
-    // Jika tidak ada kategori yang dipilih, tampilkan semua data dari ketiga tabel
+    // Jika tidak ada kategori yang dipilih, tampilkan data dari dua tabel yang ada
     $sql = "
         SELECT id_ulasan_w AS id_ulasan, nama AS nama_pengulas, kategori, komentar AS isi_ulasan, tanggal, id_user FROM ulasan_wisata
         UNION
         SELECT id_ulasan_p AS id_ulasan, nama AS nama_pengulas, kategori, komentar AS isi_ulasan, tanggal, id_user FROM ulasan_penginapan
-        UNION
-        SELECT id_ulasan_k AS id_ulasan, nama AS nama_pengulas, kategori, komentar AS isi_ulasan, tanggal, id_user FROM ulasan_kuliner
     ";
 }
 
@@ -54,4 +49,3 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-?>

@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <h1 class="mb-4">Data Ulasan Nganjuk Visit</h1>
-    <p class="mb-5">Kelola ulasan wisata, hotel, atau kuliner dari pengunjung Nganjuk Visit di sini.</p>
+    <p class="mb-5">Kelola ulasan wisata atau hotel dari pengunjung Nganjuk Visit di sini.</p>
     <!-- alert hapus -->
     <?php if (isset($_GET['delete']) && $_GET['delete'] == 'success'): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -16,7 +16,6 @@
                 <option selected value="">Filter Kategori</option>
                 <option value="ulasan_wisata">Wisata</option>
                 <option value="ulasan_penginapan">Hotel</option>
-                <option value="ulasan_kuliner">Kuliner</option>
             </select>
             <button class='btn btn-info' onclick="window.location.href='admin_ulasan.php'">
                 <i class="fas fa-sync"></i>
@@ -45,7 +44,7 @@
                     </thead>
                     <tbody id="ulasanTableBody">
                         <tr>
-                            <td colspan="6" class="text-center">Pilih kategori untuk menampilkan data</td>
+                            <td colspan="7" class="text-center">Pilih kategori untuk menampilkan data</td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,6 +108,9 @@
 
 <!-- nyekel data ulasan pas arep di hapus -->
 <script>
+    let categoryToDelete = '';
+    let idToDelete = '';
+
     // Fungsi untuk menangkap data ulasan yang akan dihapus
     $(document).on('click', '.btn-danger', function() {
         // Ambil data dari atribut data-category dan data-id

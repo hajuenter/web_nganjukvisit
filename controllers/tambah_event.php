@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama = $_POST['nama'];
     $id_user = $_SESSION['user_id']; // Ambil user_id dari session
     $deskripsi_event = $_POST['deskripsi_event'];
+    $alamat = $_POST['alamat'];
 
     // Variabel untuk nama file gambar
     $gambar = $_FILES['gambar']['name'];
@@ -45,10 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $tanggal_event = $_POST['tanggal_event'];
         // Query untuk menyimpan data ke database
-        $sql = "INSERT INTO detail_event (nama, id_user, deskripsi_event, gambar, tanggal_event) 
-                VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO detail_event (nama, id_user, deskripsi_event, alamat, gambar, tanggal_event) 
+                VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssss', $nama, $id_user, $deskripsi_event, $gambar_string, $tanggal_event);
+        $stmt->bind_param('ssssss', $nama, $id_user, $deskripsi_event, $alamat, $gambar_string, $tanggal_event);
 
         if ($stmt->execute()) {
             // Redirect ke halaman admin dengan pesan sukses

@@ -30,10 +30,7 @@
                                 <a href="#kategori" class="link-secondary text-dark text-decoration-none">Kategori</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#" class="link-secondary text-dark text-decoration-none">Detail</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="link-secondary text-dark text-decoration-none">Kontak</a>
+                                <a href="#tentang_kami" class="link-secondary text-dark text-decoration-none">Layanan Nganjuk Visit</a>
                             </li>
                         </ul>
                     </div>

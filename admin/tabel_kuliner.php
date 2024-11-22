@@ -29,6 +29,11 @@ if (!empty($search)) {
 
 
 <div class="container-fluid">
+
+    <!-- Judul tabel kuliner -->
+    <h1 class="h3 mb-2 text-gray-800">Data Kuliner</h1>
+    <p class="mb-4">Informasi kuliner di Kota Nganjuk</p>
+
     <!-- alert tambah -->
     <?php if (isset($_GET['tambah']) && $_GET['tambah'] == 'success'): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -53,10 +58,6 @@ if (!empty($search)) {
         </div>
     <?php endif; ?>
 
-    <!-- Judul tabel kuliner -->
-    <h1 class="h3 mb-2 text-gray-800">Data Kuliner</h1>
-    <p class="mb-4">Informasi kuliner di Kota Nganjuk</p>
-
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -77,8 +78,8 @@ if (!empty($search)) {
             </form>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <div class="table-responsive pb-2">
+                <table id="kulinerTable" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Id Kuliner</th>
@@ -106,7 +107,7 @@ if (!empty($search)) {
                                 $gambarAcak = $gambarArray[array_rand($gambarArray)];
 
                                 // Tampilkan gambar acak
-                                echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;'></td>";
+                                echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width: 100px; aspect-ratio: 16 / 9;'></td>";
                                 echo "<td class='d-flex flex-column'>
                                 <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
                                 <i class='fas fa-edit'></i>
@@ -118,7 +119,7 @@ if (!empty($search)) {
                                 echo "</tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='9'>Tidak ada data ditemukan</td></tr>";
+                            echo "";
                         }
                         ?>
                     </tbody>
@@ -130,7 +131,26 @@ if (!empty($search)) {
 
 <!-- JQuery dan Ajax untuk mengambil data -->
 <script src="../js/jquery-3.7.1.min.js"></script>
+<!-- DataTables JS -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+<!-- Inisialisasi DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#kulinerTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": false,
+            "pageLength": 10,
+            "language": {
+                "emptyTable": "Tidak ada data ditemukan",
+                "zeroRecords": "Tidak ada data ditemukan"
+            }
+        });
+    });
+</script>
 <!-- ambil data untuk edit -->
 <script>
     $(document).ready(function() {

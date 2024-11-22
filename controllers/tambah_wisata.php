@@ -24,6 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gambar = $_FILES['gambar']['name'];
     $gambar_tmp = $_FILES['gambar']['tmp_name'];
 
+    // Validasi format koordinat
+    if (!preg_match('/^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$/', $koordinat)) {
+        $_SESSION['error'] = "Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153";
+        header("Location: " . BASE_URL . "/admin/admin_wisata.php");
+        exit();
+    }
+
     // Cek apakah ada gambar yang diunggah
     if (!empty($gambar)) {
         // Tentukan folder tempat menyimpan gambar
@@ -49,12 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Ambil jadwal buka-tutup dari form dan gabungkan menjadi string
         $jadwal = "Senin: " . $_POST['buka_senin'] . "-" . $_POST['tutup_senin'] . ", " .
-                  "Selasa: " . $_POST['buka_selasa'] . "-" . $_POST['tutup_selasa'] . ", " .
-                  "Rabu: " . $_POST['buka_rabu'] . "-" . $_POST['tutup_rabu'] . ", " .
-                  "Kamis: " . $_POST['buka_kamis'] . "-" . $_POST['tutup_kamis'] . ", " .
-                  "Jumat: " . $_POST['buka_jumat'] . "-" . $_POST['tutup_jumat'] . ", " .
-                  "Sabtu: " . $_POST['buka_sabtu'] . "-" . $_POST['tutup_sabtu'] . ", " .
-                  "Minggu: " . $_POST['buka_minggu'] . "-" . $_POST['tutup_minggu'];
+            "Selasa: " . $_POST['buka_selasa'] . "-" . $_POST['tutup_selasa'] . ", " .
+            "Rabu: " . $_POST['buka_rabu'] . "-" . $_POST['tutup_rabu'] . ", " .
+            "Kamis: " . $_POST['buka_kamis'] . "-" . $_POST['tutup_kamis'] . ", " .
+            "Jumat: " . $_POST['buka_jumat'] . "-" . $_POST['tutup_jumat'] . ", " .
+            "Sabtu: " . $_POST['buka_sabtu'] . "-" . $_POST['tutup_sabtu'] . ", " .
+            "Minggu: " . $_POST['buka_minggu'] . "-" . $_POST['tutup_minggu'];
 
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_wisata (nama_wisata, deskripsi, alamat, harga_tiket, jadwal, gambar, koordinat, link_maps, id_user) 

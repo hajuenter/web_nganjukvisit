@@ -15,7 +15,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     }
 }
 $conn = $koneksi;
-$query = "SELECT id_event, nama, deskripsi_event, gambar, tanggal_event FROM detail_event";
+$query = "SELECT id_event, nama, deskripsi_event, alamat, gambar, tanggal_event FROM detail_event";
 $result = mysqli_query($conn, $query);
 
 $event_data = [];
@@ -39,7 +39,7 @@ $conn->close();
     <title>Event Nganjuk Visit</title>
     <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="./style/hover-min.css">
     <style>
         /* Navbar transparan tanpa bayangan */
@@ -158,7 +158,7 @@ $conn->close();
             ?>
                 <div class="col-md-4" data-aos="fade-up"
                     data-aos-duration="1500">
-                    <div class="card hvr-grow shadow-sm">
+                    <div class="card hvr-grow shadow-sm" style="min-height: 550px;">
                         <div id="carousel-event-<?php echo $event['id_event']; ?>" class="carousel slide" data-bs-ride="carousel">
                             <!-- Indicators -->
                             <div class="carousel-indicators">
@@ -171,7 +171,7 @@ $conn->close();
                             <div class="carousel-inner">
                                 <?php foreach ($gambarList as $index => $gambar): ?>
                                     <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                        <img src="public/gambar/<?php echo htmlspecialchars($gambar); ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($event['nama']); ?>">
+                                        <img src="public/gambar/<?php echo htmlspecialchars($gambar); ?>" class="img-fluid" style="aspect-ratio: 16 / 9;" alt="<?php echo htmlspecialchars($event['nama']); ?>">
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -188,10 +188,10 @@ $conn->close();
                         </div>
 
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo htmlspecialchars($event['nama']); ?></h5>
-                            <p class="card-text"><?php echo htmlspecialchars($event['deskripsi_event']); ?></p>
+                            <h5 class="card-title mb-3"><strong>Nama:</strong> <?php echo htmlspecialchars($event['nama']); ?></h5>
+                            <p class="card-text"><strong>Deskripsi:</strong> <?php echo htmlspecialchars($event['deskripsi_event']); ?></p>
+                            <p class="card-text"><strong>Alamat:</strong> <?php echo htmlspecialchars($event['alamat']); ?></p>
                             <p><strong>Tanggal:</strong> <?php echo htmlspecialchars($event['tanggal_event']); ?></p>
-                            <a href="#" class="btn btn-primary">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -205,14 +205,16 @@ $conn->close();
             <path d="M12 19V5M12 5L5 12M12 5l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </button>
-    <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- script aos -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init();
     </script>
     <!-- script aos end -->
+
+
+    <script src="./js/jquery-3.7.1.min.js"></script>
     <script>
         // Tampilkan tombol jika user scroll lebih dari 100px
         $(window).scroll(function() {
@@ -246,6 +248,28 @@ $conn->close();
                 behavior: "smooth"
             });
         });
+    </script>
+    <!-- nav transparan ketika di top -->
+    <script>
+        // Mendapatkan elemen navbar
+        const navbar = document.getElementById('navbar');
+
+        // Fungsi untuk mengubah kelas navbar saat scroll
+        function onScroll() {
+            if (window.scrollY > 0) {
+                navbar.classList.remove('navbar-transparent');
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                navbar.classList.add('navbar-transparent');
+            }
+        }
+
+        // Memanggil fungsi saat halaman di-scroll
+        window.addEventListener('scroll', onScroll);
+
+        // Memanggil fungsi saat pertama kali halaman dimuat
+        document.addEventListener('DOMContentLoaded', onScroll);
     </script>
 </body>
 

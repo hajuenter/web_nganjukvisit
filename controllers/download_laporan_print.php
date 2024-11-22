@@ -32,6 +32,7 @@ $riwayat = $result->fetch_all(MYSQLI_ASSOC); // Mendapatkan semua hasil sebagai 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../public/assets/favicon-32x32.png" type="image/x-icon">
     <title>Print Laporan Riwayat Transaksi Tiket Wisata</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"> <!-- Sesuaikan dengan path file CSS Bootstrap Anda -->
     <style>

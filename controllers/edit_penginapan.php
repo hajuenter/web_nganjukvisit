@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("../koneksi.php");
 include("../base_url.php");
 $conn = $koneksi;
@@ -13,6 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telepon = htmlspecialchars($_POST['telepon']);
     $koordinat = htmlspecialchars($_POST['koordinat']);
     $link_maps = htmlspecialchars($_POST['link_maps']);
+
+    if (!preg_match('/^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$/', $koordinat)) {
+        $_SESSION['error'] = "Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153";
+        header("Location: " . BASE_URL . "/admin/admin_penginapan.php");
+        exit();
+    }
 
     // Variabel untuk nama file gambar
     $gambar_files = $_FILES['gambar']['name'];

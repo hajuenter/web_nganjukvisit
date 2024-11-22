@@ -15,10 +15,11 @@ if (!empty($search)) {
             OR deskripsi LIKE ? 
             OR harga LIKE ? 
             OR lokasi LIKE ? 
-            OR telepon LIKE ?";
+            OR telepon LIKE ?
+            OR koordinat LIKE ?";
     $stmt = $conn->prepare($sql);
     $search_param = "%" . $search . "%";
-    $stmt->bind_param("ssssss", $search_param, $search_param, $search_param, $search_param, $search_param, $search_param);
+    $stmt->bind_param("sssssss", $search_param, $search_param, $search_param, $search_param, $search_param, $search_param, $search_param);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
@@ -30,6 +31,17 @@ if (!empty($search)) {
 
 
 <div class="container-fluid">
+
+    <h2>Data Penginapan</h2>
+    <p>Informasi penginapan atau hotel yang ada di kawasan Nganjuk</p>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= $_SESSION['error']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
 
     <!-- alert tambah -->
     <?php if (isset($_GET['tambah']) && $_GET['tambah'] == 'success'): ?>
@@ -55,8 +67,6 @@ if (!empty($search)) {
         </div>
     <?php endif; ?>
 
-    <h2>Data Penginapan</h2>
-    <p>Informasi penginapan atau hotel yang ada di kawasan Nganjuk</p>
     <form method="get" class="input-group mb-2">
         <input type="search" name="search_query" class="form-control form-control-lg" placeholder="Search for something..." aria-label="Search" aria-describedby="button-addon2">
         <button class="btn btn-primary btn-lg" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
@@ -69,8 +79,8 @@ if (!empty($search)) {
     <button class="btn btn-warning btn-md ms-2 mb-2" onclick="window.location.href='admin_penginapan.php'" type="button">
         <i class="fas fa-sync-alt"></i> Refresh
     </button>
-    <div class="table-responsive">
-        <table class="table table-striped">
+    <div class="table-responsive pb-2">
+        <table id="penginapanTable" class="table table-striped">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -85,7 +95,6 @@ if (!empty($search)) {
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody>
             <tbody>
                 <?php
                 if ($result->num_rows > 0) {
@@ -104,7 +113,7 @@ if (!empty($search)) {
                         $gambarAcak = $gambarArray[array_rand($gambarArray)];
 
                         // Tampilkan gambar acak
-                        echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;'></td>";
+                        echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='aspect-ratio: 16 / 9;'></td>";
                         echo "<td>" . htmlspecialchars($row['telepon']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
                         echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
@@ -119,7 +128,7 @@ if (!empty($search)) {
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='9'>Tidak ada data ditemukan</td></tr>";
+                    echo "";
                 }
                 ?>
             </tbody>
@@ -163,7 +172,14 @@ if (!empty($search)) {
                     </div>
                     <div class="mb-3">
                         <label for="koordinat" class="form-label">Koordinat</label>
-                        <input type="text" class="form-control" id="koordinat" name="koordinat" required>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="koordinat"
+                            name="koordinat"
+                            required
+                            pattern="^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$"
+                            title="Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153">
                     </div>
                     <div class="mb-3">
                         <label for="link_maps" class="form-label">Link Google Maps</label>
@@ -222,7 +238,26 @@ if (!empty($search)) {
 
 <!-- JQuery dan Ajax untuk mengambil data -->
 <script src="../js/jquery-3.7.1.min.js"></script>
+<!-- DataTables JS -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+<!-- Inisialisasi DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#penginapanTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": false,
+            "pageLength": 10,
+            "language": {
+                "emptyTable": "Tidak ada data ditemukan",
+                "zeroRecords": "Tidak ada data ditemukan"
+            }
+        });
+    });
+</script>
 <!-- script ketika alert di close url kembali ke semula -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {

@@ -61,6 +61,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    // Validasi apakah nomor HP sudah digunakan
+    $sql_check_no_hp = "SELECT * FROM user WHERE no_hp = ?";
+    $stmt_check_no_hp = $koneksi->prepare($sql_check_no_hp);
+    $stmt_check_no_hp->bind_param("s", $no_hp);
+    $stmt_check_no_hp->execute();
+    $result_check_no_hp = $stmt_check_no_hp->get_result();
+
+    if ($result_check_no_hp->num_rows > 0) {
+        $_SESSION['error'] = "Nomor HP sudah digunakan!";
+        header("Location:" . BASE_URL . "/register.php");
+        exit;
+    }
+
     // Hash password sebelum disimpan
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 

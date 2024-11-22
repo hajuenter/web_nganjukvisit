@@ -14,7 +14,7 @@ $jumlahUser = mysqli_num_rows($result);
     <div class="mb-3">
         <span class="badge me-3 badge-success py-2 px-3 rounded-pill d-inline">Jumlah Pengguna : <?= $jumlahUser ?></span>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive pb-2">
         <!-- alert hapus -->
         <?php
         if (isset($_SESSION['message'])): ?>
@@ -36,7 +36,7 @@ $jumlahUser = mysqli_num_rows($result);
             ?>
         <?php endif; ?>
 
-        <table class="table align-middle mb-0 bg-white">
+        <table id="userTable" class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
                     <th>Id User</th>
@@ -96,7 +96,28 @@ $jumlahUser = mysqli_num_rows($result);
         </div>
     </div>
 </div>
+<!-- JQuery dan Ajax untuk mengambil data -->
+<script src="../js/jquery-3.7.1.min.js"></script>
+<!-- DataTables JS -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+<!-- Inisialisasi DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#userTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": false,
+            "pageLength": 10,
+            "language": {
+                "emptyTable": "Tidak ada data pengelola aktif.",
+                "zeroRecords": "Tidak ada data pengelola aktif."
+            }
+        });
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Setup event listeners for the delete buttons

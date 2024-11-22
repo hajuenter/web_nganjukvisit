@@ -19,6 +19,20 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
 
 // Tambahkan timestamp agar browser memuat ulang gambar terbaru
 $gambar_profil .= '?v=' . time();
+
+// Ambil notifikasi pengelola baru
+$sqlinfo = "SELECT id_user, nama, role, status FROM user WHERE role = 'pengelola' AND status = 'inactive'";
+$stmtinfor = $conn->prepare($sqlinfo);
+$stmtinfor->execute();
+$resultinfor = $stmtinfor->get_result();
+$notifications = $resultinfor->fetch_all(MYSQLI_ASSOC);
+
+// Simpan notifikasi dalam session jika belum dibaca
+$_SESSION['notifications'] = $notifications;
+
+
+$notifCount = isset($_SESSION['notifications']) ? count($_SESSION['notifications']) : 0;
+$badgeVisible = !isset($_SESSION['notifications_read']);
 ?>
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -31,6 +45,43 @@ $gambar_profil .= '?v=' . time();
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
+        <!-- Nav Item - Alerts -->
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <?php if ($badgeVisible && $notifCount > 0): ?>
+                    <span class="badge badge-danger badge-counter"><?= $notifCount ?></span>
+                <?php endif; ?>
+            </a>
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                    Pemberitahuan
+                </h6>
+                <?php if ($notifCount > 0): ?>
+                    <?php foreach ($_SESSION['notifications'] as $notif): ?>
+                        <a class="dropdown-item d-flex align-items-center">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-primary">
+                                    <i class="fa fa-exclamation-circle text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500"><?= date('d F Y') ?></div>
+                                <span class="font-weight-bold">Pengelola baru (<?= $notif['nama'] ?>) membutuhkan konfirmasi.</span>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="dropdown-item text-center">Tidak ada pemberitahuan.</div>
+                <?php endif; ?>
+                <div class="dropdown-item text-center">
+                    <button id="markAsRead" class="btn btn-sm btn-link">Tandai sudah dibaca</button>
+                </div>
+            </div>
+        </li>
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -89,3 +140,23 @@ $gambar_profil .= '?v=' . time();
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('markAsRead').addEventListener('click', function() {
+        fetch('../controllers/mark_notifications_read.php', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    markAsRead: true
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Hapus badge notifikasi
+                    const badge = document.querySelector('.badge-counter');
+                    if (badge) badge.remove();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>

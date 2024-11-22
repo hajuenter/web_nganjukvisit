@@ -28,6 +28,10 @@ if (isset($_POST['id_event'])) {
                 <textarea class="form-control" id="deskripsi_event" name="deskripsi_event">' . htmlspecialchars($row['deskripsi_event']) . '</textarea>
             </div>
             <div class="mb-3">
+                <label for="alamat" class="form-label">Alamat</label>
+                <input type="text" class="form-control" id="alamat" name="alamat" value="' . htmlspecialchars($row['alamat']) . '">
+            </div>
+            <div class="mb-3">
                 <label for="gambar" class="form-label">Gambar Event</label>
                 <input type="file" class="form-control" id="gambar" name="gambar[]" multiple accept="image/*">
             </div>

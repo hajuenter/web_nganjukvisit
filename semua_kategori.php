@@ -56,8 +56,13 @@
         include("koneksi.php");
         $conn = $koneksi;
 
-        // Query untuk mengambil data kuliner yang difavoritkan
-        $sql = "SELECT dk.id_kuliner, dk.nama_kuliner, dk.deskripsi, dk.gambar FROM detail_kuliner AS dk INNER JOIN fav_kuliner AS fk ON dk.id_kuliner = fk.id_kuliner";
+        // Query untuk mengambil data kuliner yang difavoritkan, hanya menampilkan satu entri per id_kuliner, dan hanya id_kuliner yang muncul lebih dari dua kali
+        $sql = "SELECT dk.id_kuliner, dk.nama_kuliner, dk.deskripsi, dk.gambar 
+        FROM detail_kuliner AS dk 
+        INNER JOIN fav_kuliner AS fk ON dk.id_kuliner = fk.id_kuliner 
+        GROUP BY dk.id_kuliner 
+        HAVING COUNT(fk.id_kuliner) > 2";
+
         $result = $conn->query($sql);
 
         $dataKuliner = [];
@@ -122,8 +127,13 @@
         include("koneksi.php");
         $conn = $koneksi;
 
-        // Query untuk mengambil data dari detail_wisata yang difavoritkan
-        $sql = "SELECT dw.id_wisata, dw.nama_wisata, dw.deskripsi, dw.alamat, dw.gambar FROM detail_wisata AS dw INNER JOIN fav_wisata AS fw ON dw.id_wisata = fw.id_wisata";
+        // Query untuk mengambil data dari detail_wisata yang difavoritkan, hanya menampilkan satu entri per id_wisata, dan hanya id_wisata yang muncul lebih dari dua kali
+        $sql = "SELECT dw.id_wisata, dw.nama_wisata, dw.deskripsi, dw.alamat, dw.gambar 
+        FROM detail_wisata AS dw 
+        INNER JOIN fav_wisata AS fw ON dw.id_wisata = fw.id_wisata 
+        GROUP BY dw.id_wisata 
+        HAVING COUNT(fw.id_wisata) > 2";
+
         $result = $conn->query($sql);
 
         $data = [];
@@ -191,8 +201,13 @@
         include("koneksi.php");
         $conn = $koneksi;
 
-        // Query untuk mengambil data hotel yang difavoritkan
-        $sql = "SELECT dh.id_penginapan, dh.nama_penginapan, dh.deskripsi, dh.gambar, dh.lokasi FROM detail_penginapan AS dh INNER JOIN fav_penginapan AS fh ON dh.id_penginapan = fh.id_penginapan";
+        // Query untuk mengambil data hotel yang difavoritkan, hanya menampilkan satu entri per id_penginapan, dan hanya id_penginapan yang muncul lebih dari dua kali
+        $sql = "SELECT dh.id_penginapan, dh.nama_penginapan, dh.deskripsi, dh.gambar, dh.lokasi 
+        FROM detail_penginapan AS dh 
+        INNER JOIN fav_penginapan AS fh ON dh.id_penginapan = fh.id_penginapan 
+        GROUP BY dh.id_penginapan 
+        HAVING COUNT(fh.id_penginapan) > 2";
+
         $result = $conn->query($sql);
 
         $dataHotel = [];

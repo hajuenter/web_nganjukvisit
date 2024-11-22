@@ -33,6 +33,19 @@ if (!empty($search)) {
 
 
 <div class="container-fluid">
+
+    <!-- Judul Tabel -->
+    <h1 class="h3 mb-2 text-gray-800">Data Wisata</h1>
+    <p class="mb-4">Informasi wisata di Kota Nganjuk</p>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= $_SESSION['error']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
     <!-- alert edit -->
     <?php if (isset($_GET['update']) && $_GET['update'] == 'success'): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -57,10 +70,6 @@ if (!empty($search)) {
         </div>
     <?php endif; ?>
 
-    <!-- Judul Tabel -->
-    <h1 class="h3 mb-2 text-gray-800">Data Wisata</h1>
-    <p class="mb-4">Informasi wisata di Kota Nganjuk</p>
-
     <!-- Tabel Wisata -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -81,16 +90,16 @@ if (!empty($search)) {
             </form>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <div class="table-responsive pb-2">
+                <table id="wisataTable" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Id Wisata</th>
-                            <th>Nama Wisata</th>
-                            <th>Deskripsi</th>
+                            <th style="white-space: nowrap;">Nama Wisata</th>
+                            <th style="padding-left: 80px; padding-right: 80px;">Deskripsi</th>
                             <th>Alamat</th>
-                            <th>Harga Tiket</th>
-                            <th class="pe-5">Jadwal Buka Tutup Wisata</th>
+                            <th style="white-space: nowrap;">Harga Tiket</th>
+                            <th class="pe-5" style="white-space: nowrap;">Jadwal Buka Tutup Wisata</th>
                             <th>Gambar</th>
                             <th>Koordinat</th>
                             <th>Maps</th>
@@ -114,7 +123,7 @@ if (!empty($search)) {
                                 // Tampilkan jadwal dalam list-inline
                                 echo "<ul class='list-inline'>";
                                 foreach ($jadwal_array as $jadwal_hari) {
-                                    echo "<li class='list-inline-item me-0'>" . htmlspecialchars(trim($jadwal_hari)) . "</li>";
+                                    echo "<li class='list-inline-item me-4'>" . htmlspecialchars(trim($jadwal_hari)) . "</li>";
                                 }
                                 echo "</ul>";
                                 echo "</td>";
@@ -124,7 +133,7 @@ if (!empty($search)) {
                                 $gambar_acak = $gambar_array[array_rand($gambar_array)];
 
                                 // Tampilkan gambar acak
-                                echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambar_acak) . "' alt='Gambar Acak' style='width:100px;'></td>";
+                                echo "<td><img class='img-fluid'  src='../public/gambar/" . htmlspecialchars($gambar_acak) . "' alt='Gambar Acak' style='aspect-ratio: 16 / 9;'></td>";
 
                                 echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
                                 echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
@@ -135,7 +144,7 @@ if (!empty($search)) {
                                 echo "</tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='10'>Tidak ada data ditemukan</td></tr>";
+                            echo "";
                         }
                         ?>
                     </tbody>
@@ -220,7 +229,14 @@ if (!empty($search)) {
                     </div>
                     <div class="mb-3">
                         <label for="koordinat" class="form-label">Koordinat</label>
-                        <input type="text" class="form-control" id="koordinat" name="koordinat" required>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="koordinat"
+                            name="koordinat"
+                            required
+                            pattern="^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$"
+                            title="Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153">
                     </div>
                     <div class="mb-3">
                         <label for="link_maps" class="form-label">Link Google Maps</label>
@@ -258,7 +274,26 @@ if (!empty($search)) {
 
 <!-- JQuery dan Ajax untuk mengambil data -->
 <script src="../js/jquery-3.7.1.min.js"></script>
+<!-- DataTables JS -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+<!-- Inisialisasi DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#wisataTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": false,
+            "pageLength": 10,
+            "language": {
+                "emptyTable": "Tidak ada data ditemukan",
+                "zeroRecords": "Tidak ada data ditemukan"
+            }
+        });
+    });
+</script>
 <!-- ambil data untuk edit -->
 <script>
     $(document).ready(function() {

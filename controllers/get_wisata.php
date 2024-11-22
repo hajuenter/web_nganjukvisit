@@ -133,7 +133,7 @@ if (isset($_POST['id_wisata'])) {
             </div>
             <div class="mb-3">
                 <label class="form-label">Link Maps</label>
-                <input type="text" class="form-control" id="link_maps" name="link_maps" value="' . htmlspecialchars($row['link_maps']) . '">
+                <input type="url" class="form-control" id="link_maps" name="link_maps" value="' . htmlspecialchars($row['link_maps']) . '">
             </div>
         </form>';
     } else {

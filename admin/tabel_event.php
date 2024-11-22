@@ -26,7 +26,6 @@ if (!empty($search)) {
 }
 ?>
 
-
 <div class="container-fluid">
     <h2>Data Event</h2>
     <p>Informasi event atau acara yang ada di Nganjuk</p>
@@ -70,13 +69,14 @@ if (!empty($search)) {
         <i class="fas fa-sync-alt"></i> Refresh
     </button>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
+    <div class="table-responsive pb-2">
+        <table id="eventTable" class="table table-striped">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nama</th>
                     <th>Deskripsi</th>
+                    <th>Alamat</th>
                     <th>Gambar</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
@@ -90,6 +90,7 @@ if (!empty($search)) {
                         echo "<td>" . htmlspecialchars($row['id_event']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['nama']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['deskripsi_event']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['alamat']) . "</td>";
 
                         // Pecah gambar menjadi array
                         $gambarArray = explode(',', $row['gambar']);
@@ -98,7 +99,7 @@ if (!empty($search)) {
                         $gambarAcak = $gambarArray[array_rand($gambarArray)];
 
                         // Tampilkan gambar acak
-                        echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px;'></td>";
+                        echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width:100px; aspect-ratio: 16 / 9;'></td>";
                         echo "<td>" . htmlspecialchars($row['tanggal_event']) . "</td>";
                         echo "<td class='d-flex flex-column'>
                                 <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_event']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
@@ -111,7 +112,7 @@ if (!empty($search)) {
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='9'>Tidak ada data ditemukan</td></tr>";
+                    echo "";
                 }
                 ?>
             </tbody>
@@ -136,6 +137,10 @@ if (!empty($search)) {
                     <div class="mb-3">
                         <label for="deskripsi" class="form-label">Deskripsi Event</label>
                         <textarea class="form-control" id="deskripsi_event" name="deskripsi_event" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <input type="text" class="form-control" id="alamat" name="alamat" required>
                     </div>
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
@@ -198,7 +203,26 @@ if (!empty($search)) {
 
 <!-- JQuery dan Ajax untuk mengambil data -->
 <script src="../js/jquery-3.7.1.min.js"></script>
+<!-- DataTables JS -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+<!-- Inisialisasi DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#eventTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": false,
+            "pageLength": 10,
+            "language": {
+                "emptyTable": "Tidak ada data ditemukan",
+                "zeroRecords": "Tidak ada data ditemukan"
+            }
+        });
+    });
+</script>
 <!-- script ketika alert di close url kembali ke semula -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {

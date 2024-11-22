@@ -41,7 +41,7 @@ $conn->close();
     <title>Nganjuk Visit</title>
     <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="./style/hover-min.css">
     <style>
         /* Navbar transparan tanpa bayangan */
@@ -69,6 +69,7 @@ $conn->close();
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
             }
         }
+
         /* Styling tombol scroll to top */
         #scrollTopBtn {
             position: fixed;
@@ -159,7 +160,7 @@ $conn->close();
             ?>
                 <div class="col-md-4" data-aos="fade-up"
                     data-aos-duration="1500">
-                    <div class="card hvr-grow shadow-sm">
+                    <div class="card hvr-grow shadow-sm" style="min-height: 650px;">
                         <div id="carousel-<?php echo $wisata['id_wisata']; ?>" class="carousel slide" data-bs-ride="carousel">
                             <!-- Indicators -->
                             <div class="carousel-indicators">
@@ -172,7 +173,7 @@ $conn->close();
                             <div class="carousel-inner">
                                 <?php foreach ($gambarList as $index => $gambar): ?>
                                     <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                        <img src="./public/gambar/<?php echo $gambar; ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($wisata['nama_wisata']); ?>">
+                                        <img src="./public/gambar/<?php echo $gambar; ?>" class="img-fluid" style="aspect-ratio: 16 / 9;" alt="<?php echo htmlspecialchars($wisata['nama_wisata']); ?>">
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -194,7 +195,6 @@ $conn->close();
                             <p><strong>Alamat:</strong> <?php echo htmlspecialchars($wisata['alamat']); ?></p>
                             <p><strong>Harga Tiket:</strong> <?php echo htmlspecialchars($wisata['harga_tiket']); ?></p>
                             <p><strong>Jadwal:</strong> <?php echo htmlspecialchars($wisata['jadwal']); ?></p>
-                            <a href="#" class="btn btn-primary">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -209,16 +209,39 @@ $conn->close();
         </svg>
     </button>
 
-    <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- script aos -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init();
     </script>
     <!-- script aos end -->
 
+    <script src="./js/jquery-3.7.1.min.js"></script>
+
+    <!-- nav transparan ketika di top -->
+    <script>
+        // Mendapatkan elemen navbar
+        const navbar = document.getElementById('navbar');
+
+        // Fungsi untuk mengubah kelas navbar saat scroll
+        function onScroll() {
+            if (window.scrollY > 0) {
+                navbar.classList.remove('navbar-transparent');
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                navbar.classList.add('navbar-transparent');
+            }
+        }
+
+        // Memanggil fungsi saat halaman di-scroll
+        window.addEventListener('scroll', onScroll);
+
+        // Memanggil fungsi saat pertama kali halaman dimuat
+        document.addEventListener('DOMContentLoaded', onScroll);
+    </script>
     <script>
         // Tampilkan tombol jika user scroll lebih dari 100px
         $(window).scroll(function() {

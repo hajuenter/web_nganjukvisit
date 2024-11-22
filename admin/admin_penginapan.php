@@ -30,6 +30,7 @@ if ($_SESSION['role'] !== 'admin') {
     <title>Admin Nganjuk Visit</title>
     <link rel="icon" href="../public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../vendor/datatables/dataTables.bootstrap4.min.css">
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -63,9 +64,6 @@ if ($_SESSION['role'] !== 'admin') {
         <i class="fas fa-angle-up"></i>
     </a>
 
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -74,24 +72,9 @@ if ($_SESSION['role'] !== 'admin') {
     <!-- Custom scripts for all pages-->
     <script src="../vendor/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="../vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../vendor/js/demo/chart-area-demo.js"></script>
-    <script src="../vendor/js/demo/chart-pie-demo.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
     <!-- script js bootstrap -->
-    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- script js bootstrap end-->
-
-    <!-- script jquery cdn -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- script jquery cdn end-->
 
 </body>
 

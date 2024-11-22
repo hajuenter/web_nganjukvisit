@@ -21,11 +21,12 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nganjuk Visit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/font-size/font-size.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/utilities/padding/padding.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/hover-min.css">
@@ -124,6 +125,26 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 transform: translateY(0);
             }
         }
+
+        .thumbnail {
+            width: 60px;
+            /* Lebar kotak kecil */
+            height: 60px;
+            /* Tinggi kotak kecil */
+            object-fit: cover;
+            /* Crop gambar untuk mengisi kotak tanpa distorsi */
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: 1px solid #ddd;
+            /* Opsional: Menambahkan border */
+            border-radius: 5px;
+            /* Opsional: Sudut membulat */
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.1);
+            /* Efek hover untuk memperbesar sedikit */
+        }
     </style>
 </head>
 
@@ -196,10 +217,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <section id="kategori" class="mt-lg-2 pt-3 pt-lg-2 bg-primary pb-5">
         <div class="container-fluid bg-primary overflow-hidden mt-5 pb-5">
             <div class="row shadow justify-content-center mx-3 bg-white rounded-3 pb-4 mt-3 mb-2 mx-lg-5 mx-lg-5 px-lg-5">
-                <h1 class="text-center pt-4" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
+                <h1 class="text-center text-custom pt-4" data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">KATEGORI</h1>
+                <div data-aos="fade-zoom-in" data-aos-duration="200" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0" class="bg-primary mx-auto" style="height: 4px; width: 50%; max-width: 150px; border-radius: 2px;"></div>
                 <section class="py-0 py-xl-3">
                     <!-- container -->
-                    <div class="container">
+                    <div class="container mt-1">
                         <div class="row g-3 mb-4">
                             <!-- item event -->
                             <div class="col-sm-6 col-lg-3 hvr-bob" data-aos="fade-right" data-aos-duration="700" data-aos-delay="600" data-aos-offset="100" data-aos-easing="ease-in-sine">
@@ -330,7 +352,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <!-- sesi all menu -->
                         <?php include("semua_kategori.php"); ?>
                         <!-- sesi all menu end -->
-
                     </div>
                     <!-- end container -->
                 </section>
@@ -345,37 +366,79 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             <div class="row justify-content-center mt-5 mb-3" data-aos="fade-up"
                 data-aos-duration="2000">
                 <h1 class="text-center text-custom display-4">NGANJUK VISIT</h1>
-                <div class="row mt-2 overflow-hidden">
-                    <div class="col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-right" data-aos-duration="2500">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/4bb98e7b-d269-4dbc-92f2-d92450a3b893/t1rk9u4hoM.json"></iframe>
+                <div class="bg-primary mx-auto" style="height: 4px; width: 50%; max-width: 300px; border-radius: 2px;"></div>
+                <div class=" row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 align-items-start">
+
+                    <div class=" col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="2500">
+                        <div class="card h-100">
+                            <img src="./public/assets/wisata.jpg" class="card-img-top img-fluid" alt="Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Layanan Wisata</h5>
+                                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionWisata" aria-expanded="false" aria-controls="descriptionWisata">
+                                    Baca Selengkapnya <i class="bi bi-chevron-down"></i>
+                                </button>
+                                <div class="collapse mt-2" id="descriptionWisata">
+                                    <p class="card-text">Ini adalah deskripsi yang akan muncul ketika tombol diklik.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-right" data-aos-duration="2500">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/4f2e350c-3644-49ef-a7f8-4b51d2c731be/pRIf1H0Z6W.json"></iframe>
+
+                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="2500">
+                        <div class="card h-100">
+                            <img src="./public/assets/wisata.jpg" class="card-img-top img-fluid" alt="Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Layanan Kuliner</h5>
+                                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionKuliner" aria-expanded="false" aria-controls="descriptionKuliner">
+                                    Baca Selengkapnya <i class="bi bi-chevron-down"></i>
+                                </button>
+                                <div class="collapse mt-2" id="descriptionKuliner">
+                                    <p class="card-text">Ini adalah deskripsi yang akan muncul ketika tombol diklik.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-left" data-aos-duration="2500">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/32eaede3-fb23-4b9c-9044-50b62138614f/o57mcDYWyY.json"></iframe>
+
+                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="2500">
+                        <div class="card h-100">
+                            <img src="./public/assets/wisata.jpg" class="card-img-top img-fluid" alt="Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Layanan Hotel</h5>
+                                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionHotel" aria-expanded="false" aria-controls="descriptionHotel">
+                                    Baca Selengkapnya <i class="bi bi-chevron-down"></i>
+                                </button>
+                                <div class="collapse mt-2" id="descriptionHotel">
+                                    <p class="card-text">Ini adalah deskripsi yang akan muncul ketika tombol diklik.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-6 col-lg-3 mb-4" data-aos="fade-up-left" data-aos-duration="2500">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe style="width: 100%; height: 150px; border: none;" src="https://lottie.host/embed/5141099d-d518-4139-9ae3-9d96be7387ac/CcHueI8xeY.json"></iframe>
+
+                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="2500">
+                        <div class="card h-100">
+                            <img src="./public/assets/wisata.jpg" class="card-img-top img-fluid" alt="Image">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Layanan Event</h5>
+                                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionEvent" aria-expanded="false" aria-controls="descriptionEvent">
+                                    Baca Selengkapnya <i class="bi bi-chevron-down"></i>
+                                </button>
+                                <div class="collapse mt-2" id="descriptionEvent">
+                                    <p class="card-text">Ini adalah deskripsi yang akan muncul ketika tombol diklik.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
 
             <!-- Keindahan Wisata Kota Nganjuk -->
-            <div class="row align-items-center mb-5">
-                <div class="col-lg-6 order-lg-1 order-1 text-center" data-aos="fade-up" data-aos-duration="2000">
+            <div class="row align-items-center bg-light mt-5 mb-3">
+                <div class="col-lg-6 order-lg-1 order-1 text-center" data-aos-offset="0" data-aos="fade-up" data-aos-duration="2000">
                     <img src="./img/index-aaa.png" alt="Keindahan Wisata Kota Nganjuk" class="img-fluid rounded shadow hvr-bob" style="max-width: 100%;">
                 </div>
-                <div class="col-lg-6 order-lg-2 order-2" data-aos="fade-up" data-aos-duration="2000">
+                <div class="col-lg-6 order-lg-2 order-2" data-aos="fade-up" data-aos-offset="0" data-aos-duration="2000">
                     <h2 class="text-custom-bold text-lg-start text-center mt-3 mt-lg-0">Keindahan Wisata Kota Nganjuk</h2>
                     <p class="fs-5 text-lg-start text-center">
                         Kota Nganjuk, dikenal sebagai Kota Angin, menawarkan beragam destinasi wisata alam yang menakjubkan. Dari pesona Air Terjun Sedudo yang memukau,
@@ -386,7 +449,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </div>
 
             <!-- Kuliner Khas Nganjuk -->
-            <div class="row align-items-center mb-5">
+            <div class="row align-items-center bg-light mb-3">
                 <div class="col-lg-6 order-lg-2 order-1 text-center" data-aos="fade-up"
                     data-aos-duration="2000">
                     <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="hvr-bob img-fluid rounded shadow" style="max-width: 100%;">
@@ -403,7 +466,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             </div>
 
             <!-- Penginapan Nyaman di Kota Nganjuk -->
-            <div class="row align-items-center mb-5">
+            <div class="row align-items-center bg-light mb-3">
                 <div class="col-lg-6 order-lg-1 order-1 text-center" data-aos="fade-up"
                     data-aos-duration="2000">
                     <img src="./img/index-ccc.png" alt="Penginapan di Nganjuk" class="hvr-bob img-fluid rounded shadow" style="max-width: 100%;">
@@ -419,7 +482,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 </div>
             </div>
 
-            <div class="row align-items-center mb-5 pb-lg-5">
+            <div class="row align-items-center bg-light mb-5">
                 <div class="col-lg-6 order-lg-2 order-1 text-center" data-aos="fade-up"
                     data-aos-duration="2000">
                     <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="hvr-bob img-fluid rounded shadow" style="max-width: 100%;">
@@ -435,6 +498,27 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 </div>
             </div>
 
+            <div class="row justify-content-center pt-lg-5 mt-3">
+                <div class="col-12 col-md-10 text-center">
+                    <div class="info">
+                        <div class="address">
+                            <i class="bi bi-geo-alt text-primary fs-3"></i>
+                            <h4 class="mt-2 mb-2">Alamat Kantor</h4>
+                            <p class="mb-3">
+                                Mangundikaran, Mangun Dikaran, Kec. Nganjuk, Kabupaten Nganjuk, Jawa Timur 64419
+                            </p>
+                            <div class="bg-primary mx-auto" style="height: 4px; width: 50%; max-width: 200px; border-radius: 2px;"></div>
+                        </div>
+                        <!-- Peta Google Maps -->
+                        <div class="ratio ratio-16x9 mt-4">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.270853382954!2d111.9027164!3d-7.601066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e784ba9d9447a99:0x1e4f0169e2940678!2sGedung+Balai+Budaya+Mpu+Sendok!5e0!3m2!1sen!2sid!4v1666513915249"
+                                allowfullscreen="" loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <!-- Sesi Tentang Kami End -->
@@ -451,20 +535,19 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         </svg>
     </button>
 
-    <!-- script jquery cdn -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- script jquery cdn end-->
 
     <!-- script js bootstrap -->
-    <script src="./bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- script js bootstrap end-->
 
-    <!-- script aos -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init();
     </script>
-    <!-- script aos end -->
+
+    <!-- script jquery -->
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <!-- script jquery end-->
 
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
@@ -516,6 +599,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         // Memanggil fungsi saat pertama kali halaman dimuat
         document.addEventListener('DOMContentLoaded', onScroll);
     </script>
+
     <script>
         // Tampilkan tombol jika user scroll lebih dari 100px
         $(window).scroll(function() {
@@ -550,7 +634,14 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             });
         });
     </script>
-
+    <script>
+        $(document).ready(function() {
+            $('.btn[data-bs-toggle="collapse"]').on('click', function() {
+                // Tutup semua collapse yang sedang terbuka, kecuali yang sedang diklik
+                $('.collapse.show').not($(this).data('bs-target')).collapse('hide');
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -4,7 +4,7 @@ include("../koneksi.php");
 $conn = $koneksi;
 
 // Query untuk mengambil data pengelola dengan status active
-$pengelolaActiveQuery = "SELECT id_user, email, nama, role, alamat, gambar, status, ket_wisata FROM user WHERE role = 'pengelola' AND status = 'active'";
+$pengelolaActiveQuery = "SELECT id_user, email, nama, role, alamat, gambar, status, no_hp, ket_wisata FROM user WHERE role = 'pengelola' AND status = 'active'";
 $resultActive = mysqli_query($conn, $pengelolaActiveQuery);
 $jumlahPengelolaActive = mysqli_num_rows($resultActive);
 
@@ -47,18 +47,19 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
     </div>
 
     <!-- Tabel Pengelola Aktif -->
-    <div class="table-responsive">
-        <table class="table align-middle mb-lg-5 mb-2 bg-white">
+    <div class="table-responsive pb-2">
+        <table id="pengelolaTable" class="mb-3 table align-middle mb-lg-5 mb-2 bg-white">
             <thead class="bg-light">
                 <tr>
-                    <th>Id Pengelola</th>
+                    <th style="white-space: nowrap;">Id Pengelola</th>
                     <th>Email</th>
                     <th>Nama</th>
                     <th>Role</th>
                     <th>Alamat</th>
                     <th>Status</th>
-                    <th>Pengelola Wisata</th>
+                    <th>No Hp</th>
                     <th>Gambar</th>
+                    <th style="white-space: nowrap;">Pengelola Wisata</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -73,8 +74,9 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         echo '<td><span class="badge badge-success rounded-pill py-2 px-3 d-inline">Pengelola</span></td>';
                         echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
                         echo '<td>' . htmlspecialchars($row['status']) . '</td>';
-                        echo '<td>' . htmlspecialchars($row['ket_wisata']) . '</td>';
+                        echo '<td>' . htmlspecialchars($row['no_hp']) . '</td>';
                         echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
+                        echo '<td>' . htmlspecialchars($row['ket_wisata']) . '</td>';
                         echo '<td class="d-flex flex-column">';
                         echo '<button class="btn btn-danger mb-1" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal"><i class="fas fa-trash-alt"></i> Hapus</button>';
                         echo '<button class="btn btn-info" data-id="' . htmlspecialchars($row['id_user']) . '" data-bs-toggle="modal" data-bs-target="#modalSetWisata" onclick="setPengelolaId(' . htmlspecialchars($row['id_user']) . ')"><i class="fas fa-map-marker-alt"></i> Set Wisata</button>';
@@ -82,7 +84,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         echo '</tr>';
                     }
                 } else {
-                    echo '<tr><td colspan="6" class="text-center">Tidak ada data pengelola aktif.</td></tr>';
+                    echo '';
                 }
                 ?>
             </tbody>
@@ -153,6 +155,10 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat</label>
                         <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="no_hp" class="form-label">No Hp</label>
+                        <input type="number" class="form-control" id="no_hp" name="no_hp" required>
                     </div>
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
@@ -257,7 +263,28 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
         </div>
     </div>
 </div>
+<!-- JQuery dan Ajax untuk mengambil data -->
+<script src="../js/jquery-3.7.1.min.js"></script>
+<!-- DataTables JS -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+<!-- Inisialisasi DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#pengelolaTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": false,
+            "pageLength": 10,
+            "language": {
+                "emptyTable": "Tidak ada data pengelola aktif.",
+                "zeroRecords": "Tidak ada data pengelola aktif."
+            }
+        });
+    });
+</script>
 <script>
     function togglePassword() {
         const passwordInput = document.getElementById("password");

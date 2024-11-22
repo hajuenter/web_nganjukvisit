@@ -29,7 +29,7 @@ if ($_SESSION['role'] !== 'pengelola') {
 
     <title>Pengelola Nganjuk Visit</title>
     <link rel="icon" href="../public/assets/favicon-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
@@ -59,7 +59,7 @@ if ($_SESSION['role'] !== 'pengelola') {
         <i class="fas fa-angle-up"></i>
     </a>
     <!-- script js bootstrap -->
-    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
     <!-- script js bootstrap end-->
 
     <!-- Bootstrap core JavaScript-->
@@ -71,13 +71,6 @@ if ($_SESSION['role'] !== 'pengelola') {
 
     <!-- Custom scripts for all pages-->
     <script src="../vendor/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../vendor/js/demo/chart-area-demo.js"></script>
-    <script src="../vendor/js/demo/chart-pie-demo.js"></script>
 
     <!-- Page level plugins -->
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>

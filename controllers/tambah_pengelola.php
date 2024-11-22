@@ -11,11 +11,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama = mysqli_real_escape_string($conn, $_POST['nama']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $alamat = mysqli_real_escape_string($conn, $_POST['alamat']);
+    $no_hp = mysqli_real_escape_string($conn, $_POST['no_hp']);
     $ket_wisata = mysqli_real_escape_string($conn, $_POST['pilih_untuk_mengelola']); // ID wisata dari dropdown
 
     // Validasi panjang password dan kombinasi huruf dan angka
     if (strlen($password) < 8 || strlen($password) > 50 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/[0-9]/', $password)) {
         $_SESSION['error_konfir'] = "Password harus memiliki panjang minimal 8 karakter, maksimal 50 karakter, dan harus mengandung huruf dan angka.";
+        header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
+        exit();
+    }
+
+    // Validasi nomor HP
+    if (!preg_match('/^[0-9]{10,15}$/', $no_hp)) {
+        $_SESSION['error_konfir'] = "Nomor HP harus terdiri dari angka, panjang minimal 10 karakter dan maksimal 15 karakter.";
         header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
         exit();
     }
@@ -36,6 +44,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         mysqli_stmt_close($stmt_check); // Pastikan ditutup di sini
+    }
+
+    // Cek apakah nomor HP sudah digunakan
+    $query_check_no_hp = "SELECT no_hp FROM user WHERE no_hp = ?";
+    if ($stmt_check_no_hp = mysqli_prepare($conn, $query_check_no_hp)) {
+        mysqli_stmt_bind_param($stmt_check_no_hp, 's', $no_hp);
+        mysqli_stmt_execute($stmt_check_no_hp);
+        mysqli_stmt_store_result($stmt_check_no_hp);
+
+        if (mysqli_stmt_num_rows($stmt_check_no_hp) > 0) {
+            // Jika nomor HP sudah terdaftar
+            $_SESSION['error_konfir'] = "Nomor HP sudah digunakan. Silakan gunakan nomor HP lain.";
+            mysqli_stmt_close($stmt_check_no_hp); // Tutup $stmt_check_no_hp setelah digunakan
+            header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
+            exit();
+        }
+
+        mysqli_stmt_close($stmt_check_no_hp); // Pastikan ditutup di sini
     }
 
     // Enkripsi password
@@ -61,11 +87,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (in_array(strtolower($gambarExt), $allowedExt)) {
             if (move_uploaded_file($gambarTmp, $targetFile)) {
                 // Simpan data ke database
-                $query = "INSERT INTO user (email, nama, password, alamat, gambar, role, status, ket_wisata) 
-                          VALUES (?, ?, ?, ?, ?, 'pengelola', 'active', ?)";
+                $query = "INSERT INTO user (email, nama, password, alamat, no_hp, gambar, role, status, ket_wisata) 
+                          VALUES (?, ?, ?, ?, ?, ?, 'pengelola', 'active', ?)";
 
                 if ($stmt = mysqli_prepare($conn, $query)) {
-                    mysqli_stmt_bind_param($stmt, 'ssssss', $email, $nama, $hashedPassword, $alamat, $gambarBaru, $ket_wisata);
+                    mysqli_stmt_bind_param($stmt, 'sssssss', $email, $nama, $hashedPassword, $alamat, $no_hp, $gambarBaru, $ket_wisata);
 
                     if (mysqli_stmt_execute($stmt)) {
                         $_SESSION['success_konfir'] = "Pengelola berhasil ditambahkan.";

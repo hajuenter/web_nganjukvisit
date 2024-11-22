@@ -4,7 +4,7 @@ include("../koneksi.php");
 $conn = $koneksi;
 $id_user = $_SESSION['user_id'];
 
-$sql = "SELECT email, nama, role, alamat, gambar FROM user WHERE id_user = ?";
+$sql = "SELECT email, nama, role, alamat, gambar, no_hp FROM user WHERE id_user = ?";
 $stm = $conn->prepare($sql);
 $stm->bind_param("i", $id_user);
 $stm->execute();
@@ -17,6 +17,7 @@ $role = $user['role'];
 $alamat = $user['alamat'];
 // Ganti gambar default jika pengguna belum memiliki gambar
 $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar'] : "../public/gambar/avatar_profile.jpg";
+$no_hp = $user['no_hp'];
 ?>
 
 <div class="container-fluid">
@@ -62,7 +63,7 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
                         <?php endif; ?>
                         <?php
                         if (isset($_SESSION['profile_gagal'])) : ?>
-                            <div class="mt-2 alert alert-warning alert-dismissible fade show" role="alert">
+                            <div class="mt-2 alert alert-danger alert-dismissible fade show" role="alert">
                                 <?php echo $_SESSION['profile_gagal']; ?>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
@@ -72,19 +73,25 @@ $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar']
                             <div class="mb-3 row">
                                 <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" value="<?= htmlspecialchars($email) ?>">
+                                    <input type="email" class="form-control" required id="inputEmail" name="email" placeholder="Email" value="<?= htmlspecialchars($email) ?>">
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName" name="name" placeholder="Nama" value="<?= htmlspecialchars($nama) ?>">
+                                    <input type="text" class="form-control" required id="inputName" name="name" placeholder="Nama" value="<?= htmlspecialchars($nama) ?>">
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="inputExperience" class="col-sm-2 col-form-label">Alamat</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="inputExperience" name="alamat" placeholder="Alamat"><?= htmlspecialchars($alamat); ?></textarea>
+                                    <textarea class="form-control" id="inputExperience" required name="alamat" placeholder="Alamat"><?= htmlspecialchars($alamat); ?></textarea>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="inputExperience" class="col-sm-2 col-form-label">No Hp</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="inputNoHp" required name="no_hp" placeholder="No Hp" value="<?= htmlspecialchars($no_hp) ?>">
                                 </div>
                             </div>
                             <div class="mb-3 row">

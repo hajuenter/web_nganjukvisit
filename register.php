@@ -22,7 +22,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <link href="./vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="./style/register.css">
     <title>Register Nganjuk Visit</title>
@@ -139,6 +139,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                     </div>
                     <div class="modal-body">
                         <p class="text-danger">*<small class="text-black">Isi semua kolom</small></p>
+                        <p class="text-danger">*<small class="text-black">Pastikan menggunakan email yang aktif</small></p>
                         <p class="text-danger">*<small class="text-black">Email harus menggunakan domain @gmail.com</small></p>
                         <p class="text-danger">*<small class="text-black">Password harus mengandung huruf dan angka</small></p>
                         <p class="text-danger">*<small class="text-black">Password harus memiliki panjang antara 8 hingga 50 karakter</small></p>
@@ -155,7 +156,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     </div>
     <!-- Register end -->
 
-    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
         function passwordDelokOra() {
             const pasInput = document.getElementById("password");
