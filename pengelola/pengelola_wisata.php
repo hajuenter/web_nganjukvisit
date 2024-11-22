@@ -94,11 +94,11 @@ foreach ($jadwal_array as $index => $jadwal_item) {
             <label for="alamat" class="form-label text-black">Alamat</label>
             <input type="text" class="form-control text-black" id="alamat" name="alamat" value="<?php echo htmlspecialchars($alamat); ?>" required>
         </div>
-        
+<!--         
         <div class="mb-2">
             <label for="harga_tiket" class="form-label text-black">Harga Tiket</label>
             <input type="text" class="form-control text-black" id="harga_tiket" name="harga_tiket" value="<?php echo htmlspecialchars($harga_tiket); ?>" required>
-        </div>
+        </div> -->
         
         <div class="mb-2">
             <label class="form-label text-black">Jadwal Buka dan Tutup</label>

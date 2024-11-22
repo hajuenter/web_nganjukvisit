@@ -34,6 +34,14 @@ if (!empty($search)) {
     <h1 class="h3 mb-2 text-gray-800">Data Kuliner</h1>
     <p class="mb-4">Informasi kuliner di Kota Nganjuk</p>
 
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= $_SESSION['error']; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
     <!-- alert tambah -->
     <?php if (isset($_GET['tambah']) && $_GET['tambah'] == 'success'): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">

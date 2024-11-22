@@ -102,11 +102,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             color: #0C3924;
         }
 
-        .text-custom-bold {
-            color: #0C3924;
-            font-weight: bold;
-        }
-
         .floating-full {
             position: relative;
             animation: float 3s ease-in-out infinite;
@@ -369,7 +364,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                 <div class="bg-primary mx-auto" style="height: 4px; width: 50%; max-width: 300px; border-radius: 2px;"></div>
                 <div class=" row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 align-items-start">
 
-                    <div class=" col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="2500">
+                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="2500">
                         <div class="card h-100">
                             <img src="./public/assets/wisata.jpg" class="card-img-top img-fluid" alt="Image">
                             <div class="card-body text-center">
@@ -378,52 +373,69 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                                     Baca Selengkapnya <i class="bi bi-chevron-down"></i>
                                 </button>
                                 <div class="collapse mt-2" id="descriptionWisata">
-                                    <p class="card-text">Ini adalah deskripsi yang akan muncul ketika tombol diklik.</p>
+                                    <ul class="list-group list-group-flush text-start">
+                                        <li class="list-group-item">Nganjuk Visit menyediakan informasi lengkap tentang wisata di Kota Nganjuk.</li>
+                                        <li class="list-group-item">Anda dapat memberikan rating, ulasan, like, dan memesan tiket secara online melalui aplikasi Nganjuk Visit.</li>
+                                        <li class="list-group-item">Anda dapat melihat lokasi wisata, deskripsi, harga tiket dan cuplikan informasi wisata.</li>
+                                        <li class="list-group-item">Nikmati pengalaman wisata yang lebih mudah dan modern, temukan berbagai pilihan wisata dengan detail lengkap di satu tempat.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="2500">
+                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="1000">
                         <div class="card h-100">
-                            <img src="./public/assets/wisata.jpg" class="card-img-top img-fluid" alt="Image">
+                            <img src="./public/assets/kuliner.jpg" class="card-img-top img-fluid" alt="Image">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Layanan Kuliner</h5>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionKuliner" aria-expanded="false" aria-controls="descriptionKuliner">
                                     Baca Selengkapnya <i class="bi bi-chevron-down"></i>
                                 </button>
                                 <div class="collapse mt-2" id="descriptionKuliner">
-                                    <p class="card-text">Ini adalah deskripsi yang akan muncul ketika tombol diklik.</p>
+                                    <ul class="list-group list-group-flush text-start">
+                                        <li class="list-group-item">Nganjuk Visit menyediakan informasi lengkap tentang kuliner di Kota Nganjuk.</li>
+                                        <li class="list-group-item">Anda dapat menyukai dan memberi rating melalui aplikasi Nganjuk Visit.</li>
+                                        <li class="list-group-item">Nikmati kuliner baik yang tradisional maupun yang modern, temukan berbagai pilihan kuliner dengan detail yang lengkap di Kota Nganjuk</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="2500">
+                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-left" data-aos-duration="1000">
                         <div class="card h-100">
-                            <img src="./public/assets/wisata.jpg" class="card-img-top img-fluid" alt="Image">
+                            <img src="./public/assets/hotel.jpg" class="card-img-top img-fluid" alt="Image">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Layanan Hotel</h5>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionHotel" aria-expanded="false" aria-controls="descriptionHotel">
                                     Baca Selengkapnya <i class="bi bi-chevron-down"></i>
                                 </button>
                                 <div class="collapse mt-2" id="descriptionHotel">
-                                    <p class="card-text">Ini adalah deskripsi yang akan muncul ketika tombol diklik.</p>
+                                    <ul class="list-group list-group-flush text-start">
+                                        <li class="list-group-item">Nganjuk Visit menyediakan informasi lengkap tentang penginapan di Kota Nganjuk.</li>
+                                        <li class="list-group-item">Anda dapat memberikan rating, ulasan, like, dan melihat lokasi melalui aplikasi Nganjuk Visit.</li>
+                                        <li class="list-group-item">Anda dapat melihat nama, deskripsi, harga tiket dan cuplikan informasi penginapan.</li>
+                                        <li class="list-group-item">Nikmati pengalaman menginapan di penginapan yang lebih mudah dan modern di Kota Nganjuk, temukan berbagai pilihan penginapan dengan detail lengkap di melalui Nganjuk Visit.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-right" data-aos-duration="2500">
+                    <div class="col-6 col-md-6 col-lg-3 mb-2" data-aos="fade-up-left" data-aos-duration="2500">
                         <div class="card h-100">
-                            <img src="./public/assets/wisata.jpg" class="card-img-top img-fluid" alt="Image">
+                            <img src="./public/assets/event.jpg" class="card-img-top img-fluid" alt="Image">
                             <div class="card-body text-center">
                                 <h5 class="card-title">Layanan Event</h5>
                                 <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#descriptionEvent" aria-expanded="false" aria-controls="descriptionEvent">
                                     Baca Selengkapnya <i class="bi bi-chevron-down"></i>
                                 </button>
                                 <div class="collapse mt-2" id="descriptionEvent">
-                                    <p class="card-text">Ini adalah deskripsi yang akan muncul ketika tombol diklik.</p>
+                                    <ul class="list-group list-group-flush text-start">
+                                        <li class="list-group-item">Nganjuk Visit menyediakan informasi event dan acara yang ada di Kota Nganjuk.</li>
+                                        <li class="list-group-item">Anda dapat melihat nama event, deskripsi, tanggal dan cuplikan informasi event yang ada.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -431,71 +443,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
                 </div>
 
-            </div>
-
-            <!-- Keindahan Wisata Kota Nganjuk -->
-            <div class="row align-items-center bg-light mt-5 mb-3">
-                <div class="col-lg-6 order-lg-1 order-1 text-center" data-aos-offset="0" data-aos="fade-up" data-aos-duration="2000">
-                    <img src="./img/index-aaa.png" alt="Keindahan Wisata Kota Nganjuk" class="img-fluid rounded shadow hvr-bob" style="max-width: 100%;">
-                </div>
-                <div class="col-lg-6 order-lg-2 order-2" data-aos="fade-up" data-aos-offset="0" data-aos-duration="2000">
-                    <h2 class="text-custom-bold text-lg-start text-center mt-3 mt-lg-0">Keindahan Wisata Kota Nganjuk</h2>
-                    <p class="fs-5 text-lg-start text-center">
-                        Kota Nganjuk, dikenal sebagai Kota Angin, menawarkan beragam destinasi wisata alam yang menakjubkan. Dari pesona Air Terjun Sedudo yang memukau,
-                        hingga panorama alam perbukitan Wilis yang memanjakan mata. Nikmati suasana sejuk dan asri yang membuat Anda betah berlama-lama di setiap sudut
-                        keindahan Nganjuk.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Kuliner Khas Nganjuk -->
-            <div class="row align-items-center bg-light mb-3">
-                <div class="col-lg-6 order-lg-2 order-1 text-center" data-aos="fade-up"
-                    data-aos-duration="2000">
-                    <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="hvr-bob img-fluid rounded shadow" style="max-width: 100%;">
-                </div>
-                <div class="col-lg-6 order-lg-1 order-2" data-aos="fade-up"
-                    data-aos-duration="2000">
-                    <h2 class="text-custom-bold text-center text-lg-start mt-3 mt-lg-0">Kuliner Khas Nganjuk</h2>
-                    <p class="fs-5 text-center text-lg-start">
-                        Nganjuk juga kaya akan cita rasa kuliner tradisional yang menggugah selera. Cobalah Nasi Pecel Tumpang yang legendaris,
-                        atau Manisan Mangga yang segar dan lezat. Setiap gigitan dari kuliner khas Nganjuk membawa Anda ke dalam pengalaman kuliner
-                        yang autentik dan penuh kehangatan.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Penginapan Nyaman di Kota Nganjuk -->
-            <div class="row align-items-center bg-light mb-3">
-                <div class="col-lg-6 order-lg-1 order-1 text-center" data-aos="fade-up"
-                    data-aos-duration="2000">
-                    <img src="./img/index-ccc.png" alt="Penginapan di Nganjuk" class="hvr-bob img-fluid rounded shadow" style="max-width: 100%;">
-                </div>
-                <div class="col-lg-6 order-lg-2 order-2" data-aos="fade-up"
-                    data-aos-duration="2000">
-                    <h2 class="text-custom-bold text-center text-lg-start mt-3 mt-lg-0">Penginapan Nyaman di Kota Nganjuk</h2>
-                    <p class="fs-5 text-center text-lg-start">
-                        Temukan penginapan yang nyaman di Nganjuk, mulai dari hotel berbintang hingga homestay dengan suasana rumah yang ramah.
-                        Setiap penginapan menawarkan fasilitas lengkap dengan pelayanan yang hangat, memastikan perjalanan Anda semakin nyaman
-                        dan berkesan.
-                    </p>
-                </div>
-            </div>
-
-            <div class="row align-items-center bg-light mb-5">
-                <div class="col-lg-6 order-lg-2 order-1 text-center" data-aos="fade-up"
-                    data-aos-duration="2000">
-                    <img src="./img/index-bbb.png" alt="Kuliner Khas Nganjuk" class="hvr-bob img-fluid rounded shadow" style="max-width: 100%;">
-                </div>
-                <div class="col-lg-6 order-lg-1 order-2" data-aos="fade-up"
-                    data-aos-duration="2000">
-                    <h2 class="text-custom-bold text-center text-lg-start mt-3 mt-lg-0">Kuliner Khas Nganjuk</h2>
-                    <p class="fs-5 text-center text-lg-start">
-                        Nganjuk juga kaya akan cita rasa kuliner tradisional yang menggugah selera. Cobalah Nasi Pecel Tumpang yang legendaris,
-                        atau Manisan Mangga yang segar dan lezat. Setiap gigitan dari kuliner khas Nganjuk membawa Anda ke dalam pengalaman kuliner
-                        yang autentik dan penuh kehangatan.
-                    </p>
-                </div>
             </div>
 
             <div class="row justify-content-center pt-lg-5 mt-3">

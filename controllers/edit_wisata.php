@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: " . BASE_URL . "/admin/admin_wisata.php");
         exit();
     }
+    $ekstensi_diperbolehkan = ['jpg', 'jpeg', 'png'];
 
     // Dapatkan gambar lama dari database
     $sql_get_gambar = "SELECT gambar FROM detail_wisata WHERE id_wisata = ?";
@@ -39,27 +40,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return "$hari: $jam";
     }, array_keys($jadwal), $jadwal));
 
-    // Proses gambar baru jika ada
-    $gambar_baru = '';
+    // Proses gambar baru
+    $gambar_baru_array = [];
     if (isset($_FILES['gambar']) && !empty($_FILES['gambar']['name'][0])) {
-        $gambar_baru_array = [];
         foreach ($_FILES['gambar']['name'] as $key => $nama_gambar_baru) {
-            $gambar_tmp = $_FILES['gambar']['tmp_name'][$key];
-            $target_dir = "../public/gambar/";
-            $unique_name = uniqid() . '_' . basename($nama_gambar_baru); // Nama file unik
-            $target_file = $target_dir . $unique_name;
+            $ekstensi_file = strtolower(pathinfo($nama_gambar_baru, PATHINFO_EXTENSION));
 
-            if (move_uploaded_file($gambar_tmp, $target_file)) {
-                $gambar_baru_array[] = $unique_name; // Simpan nama file unik
+            if (!in_array($ekstensi_file, $ekstensi_diperbolehkan)) {
+                $_SESSION['error'] = "Format file tidak valid. Hanya jpg, jpeg, dan png yang diperbolehkan.";
+                header("Location: " . BASE_URL . "/admin/admin_wisata.php");
+                exit();
+            }
+
+            if ($_FILES['gambar']['size'][$key] > 2000000) { // Maksimal 2MB
+                $_SESSION['error'] = "Ukuran file terlalu besar. Maksimal 2MB.";
+                header("Location: " . BASE_URL . "/admin/admin_wisata.php");
+                exit();
+            }
+
+            $unique_name = uniqid() . '_' . basename($nama_gambar_baru);
+            $target_file = "../public/gambar/" . $unique_name;
+
+            if (move_uploaded_file($_FILES['gambar']['tmp_name'][$key], $target_file)) {
+                $gambar_baru_array[] = $unique_name;
             }
         }
-        $gambar_baru = implode(',', $gambar_baru_array);
-        $gambar_baru = trim($gambar_baru, ',');
     }
 
-    // Gabungkan gambar lama dan gambar baru
-    $gambar_final = !empty($gambar_baru) ? ($gambar_lama ? $gambar_lama . ',' . $gambar_baru : $gambar_baru) : $gambar_lama;
-    $gambar_final = trim($gambar_final, ',');
+    // Gabungkan gambar lama dan baru
+    $gambar_final = implode(',', array_filter(array_merge(explode(',', $gambar_lama), $gambar_baru_array)));
+
 
     // Update data di tabel detail_wisata
     $sql = "UPDATE detail_wisata SET nama_wisata = ?, deskripsi = ?, alamat = ?, harga_tiket = ?, jadwal = ?, gambar = ?, koordinat = ?, link_maps = ? WHERE id_wisata = ?";

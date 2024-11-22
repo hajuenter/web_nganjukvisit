@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Variabel untuk nama file gambar
     $gambar = $_FILES['gambar']['name'];
     $gambar_tmp = $_FILES['gambar']['tmp_name'];
+    $ekstensi_diperbolehkan = ['jpg', 'jpeg', 'png'];
 
     // Cek apakah ada gambar yang diunggah
     if (!empty($gambar)) {
@@ -29,6 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Loop untuk menghandle multiple files
         foreach ($gambar as $key => $value) {
+            // Cek ekstensi file
+            $ekstensi_file = strtolower(pathinfo($value, PATHINFO_EXTENSION));
+            if (!in_array($ekstensi_file, $ekstensi_diperbolehkan)) {
+                $_SESSION['error'] = "Format file tidak valid. Hanya diperbolehkan jpg, jpeg, dan png.";
+                header("Location: " . BASE_URL . "/admin/admin_kuliner.php");
+                exit();
+            }
+
             // Buat nama file yang unik
             $unique_name = uniqid() . '_' . basename($value); // menambahkan ID unik ke nama file
             $target_file = $target_dir . $unique_name;

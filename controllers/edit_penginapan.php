@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
+    $ekstensi_diperbolehkan = ['jpg', 'jpeg', 'png'];
     // Variabel untuk nama file gambar
     $gambar_files = $_FILES['gambar']['name'];
     $gambar_tmp = $_FILES['gambar']['tmp_name'];
@@ -46,6 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target_dir = "../public/gambar/";
 
         foreach ($gambar_files as $key => $gambar) {
+            // Cek ekstensi file
+            $ekstensi_file = strtolower(pathinfo($gambar, PATHINFO_EXTENSION));
+            if (!in_array($ekstensi_file, $ekstensi_diperbolehkan)) {
+                $_SESSION['error'] = "Format file tidak valid. Hanya diperbolehkan jpg, jpeg, dan png.";
+                header("Location: " . BASE_URL . "/admin/admin_penginapan.php");
+                exit();
+            }
+
             // Buat nama file unik
             $unique_name = uniqid() . '_' . basename($gambar);
             $target_file = $target_dir . $unique_name;

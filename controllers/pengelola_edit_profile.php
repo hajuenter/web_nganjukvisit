@@ -97,7 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo 'Error moving the uploaded file.';
             }
         } else {
-            echo 'Invalid file type. Only JPG, JPEG, and PNG are allowed.';
+            // Mengatur pesan berhasil dan mengarahkan ulang
+            $_SESSION['profile_gagal'] = "Format file tidak di dukung.";
+            header("Location:" . BASE_URL . "/pengelola/pengelola_profile.php");
+            exit();
         }
     }
 
