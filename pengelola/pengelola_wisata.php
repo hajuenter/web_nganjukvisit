@@ -31,8 +31,8 @@ if ($result_user->num_rows > 0) {
         $jadwal = $row_wisata['jadwal'];
         $koordinat = $row_wisata['koordinat'];
         $link_maps = $row_wisata['link_maps'];
-        $gambar = trim($row_wisata['gambar'], ','); 
-        $gambar_array = array_filter(explode(',', $gambar)); 
+        $gambar = trim($row_wisata['gambar'], ',');
+        $gambar_array = array_filter(explode(',', $gambar));
     } else {
         $nama_wisata = $deskripsi = $alamat = '';
         $gambar_array = [];
@@ -79,27 +79,27 @@ foreach ($jadwal_array as $index => $jadwal_item) {
         <?php endif; ?>
 
         <input type="hidden" name="id_wisata" value="<?php echo htmlspecialchars($id_wisata); ?>">
-        
+
         <div class="mb-2">
             <label for="namaWisata" class="form-label text-black">Nama Wisata</label>
             <input type="text" class="form-control text-black" id="namaWisata" name="namaWisata" value="<?php echo htmlspecialchars($nama_wisata); ?>" required>
         </div>
-        
+
         <div class="mb-2">
             <label for="deskripsi" class="form-label text-black">Deskripsi</label>
             <textarea class="form-control text-black" id="deskripsi" name="deskripsi" rows="3" required><?php echo htmlspecialchars($deskripsi); ?></textarea>
         </div>
-        
+
         <div class="mb-2">
             <label for="alamat" class="form-label text-black">Alamat</label>
             <input type="text" class="form-control text-black" id="alamat" name="alamat" value="<?php echo htmlspecialchars($alamat); ?>" required>
         </div>
-<!--         
+        <!--         
         <div class="mb-2">
             <label for="harga_tiket" class="form-label text-black">Harga Tiket</label>
             <input type="text" class="form-control text-black" id="harga_tiket" name="harga_tiket" value="<?php echo htmlspecialchars($harga_tiket); ?>" required>
         </div> -->
-        
+
         <div class="mb-2">
             <label class="form-label text-black">Jadwal Buka dan Tutup</label>
             <?php
@@ -117,25 +117,33 @@ foreach ($jadwal_array as $index => $jadwal_item) {
                 </div>
             <?php endforeach; ?>
         </div>
-        
-        <div class="mb-2">
-            <label for="koordinat" class="form-label text-black">Koordinat</label>
-            <input type="text" class="form-control text-black" id="koordinat" name="koordinat" value="<?php echo htmlspecialchars($koordinat); ?>" required>
+
+        <div class="mb-3">
+            <label for="koordinat" class="form-label">Koordinat</label>
+            <input
+                type="text"
+                class="form-control"
+                id="koordinat"
+                name="koordinat"
+                required
+                value="<?php echo htmlspecialchars($koordinat); ?>"
+                pattern="^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$"
+                title="Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153">
         </div>
-        
+
         <div class="mb-2">
             <label for="link_maps" class="form-label text-black">Link Maps</label>
             <input type="text" class="form-control text-black" id="link_maps" name="link_maps" value="<?php echo htmlspecialchars($link_maps); ?>" required>
         </div>
-        
+
         <div class="mb-4">
             <label for="gambar" class="form-label text-black">Gambar</label>
             <input type="file" class="form-control text-black" id="gambar" name="gambar[]" multiple accept="image/*">
         </div>
-        
+
         <button type="submit" class="btn btn-info fw-bold">Perbarui</button>
     </form>
-    
+
     <hr>
     <h3 class="text-center text-black fw-bold">Gambar Wisata</h3>
     <div class="row">

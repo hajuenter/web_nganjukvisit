@@ -15,6 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $link_maps = $_POST['link_maps'];
     $id_wisata = $_POST['id_wisata'];
 
+    if (!preg_match('/^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$/', $koordinat)) {
+        $_SESSION['error'] = "Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153";
+        header("Location: " . BASE_URL . "/pengelola/index.php");
+        exit();
+    }
+
+
     // Mengatur jadwal
     $hari_hari = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
     $jadwal = [];
