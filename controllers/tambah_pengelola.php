@@ -38,12 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mysqli_stmt_num_rows($stmt_check) > 0) {
             // Jika email sudah terdaftar
             $_SESSION['error_konfir'] = "Email sudah digunakan. Silakan gunakan email lain.";
-            mysqli_stmt_close($stmt_check); // Tutup $stmt_check setelah digunakan
+            mysqli_stmt_close($stmt_check);
             header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
             exit();
         }
 
-        mysqli_stmt_close($stmt_check); // Pastikan ditutup di sini
+        mysqli_stmt_close($stmt_check);
     }
 
     // Cek apakah nomor HP sudah digunakan
@@ -56,12 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mysqli_stmt_num_rows($stmt_check_no_hp) > 0) {
             // Jika nomor HP sudah terdaftar
             $_SESSION['error_konfir'] = "Nomor HP sudah digunakan. Silakan gunakan nomor HP lain.";
-            mysqli_stmt_close($stmt_check_no_hp); // Tutup $stmt_check_no_hp setelah digunakan
+            mysqli_stmt_close($stmt_check_no_hp);
             header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
             exit();
         }
 
-        mysqli_stmt_close($stmt_check_no_hp); // Pastikan ditutup di sini
+        mysqli_stmt_close($stmt_check_no_hp);
     }
 
     // Enkripsi password
@@ -94,13 +94,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     mysqli_stmt_bind_param($stmt, 'sssssss', $email, $nama, $hashedPassword, $alamat, $no_hp, $gambarBaru, $ket_wisata);
 
                     if (mysqli_stmt_execute($stmt)) {
-                        $_SESSION['success_konfir'] = "Pengelola berhasil ditambahkan.";
-                        mysqli_stmt_close($stmt); // Tutup statement $stmt setelah digunakan
+                        // Ambil ID pengelola yang baru saja dimasukkan
+                        $id_pengelola = mysqli_insert_id($conn);
+
+                        // Update tabel detail_wisata
+                        $query_update_detail_wisata = "UPDATE detail_wisata 
+                                                       SET id_pengelola = ?, no_hp_pengelola = ? 
+                                                       WHERE id_wisata = ?";
+                        if ($stmt_update = mysqli_prepare($conn, $query_update_detail_wisata)) {
+                            mysqli_stmt_bind_param($stmt_update, 'iss', $id_pengelola, $no_hp, $ket_wisata);
+
+                            if (mysqli_stmt_execute($stmt_update)) {
+                                $_SESSION['success_konfir'] = "Pengelola berhasil ditambahkan dan detail wisata diperbarui.";
+                            } else {
+                                $_SESSION['error_konfir'] = "Pengelola berhasil ditambahkan, namun detail wisata gagal diperbarui.";
+                            }
+
+                            mysqli_stmt_close($stmt_update);
+                        } else {
+                            $_SESSION['error_konfir'] = "Pengelola berhasil ditambahkan, namun query untuk update detail wisata gagal disiapkan.";
+                        }
+
+                        mysqli_stmt_close($stmt);
                         header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
                         exit();
                     } else {
                         $_SESSION['error_konfir'] = "Gagal menambahkan pengelola.";
-                        mysqli_stmt_close($stmt); // Tutup $stmt di sini juga untuk mencegah kebocoran
+                        mysqli_stmt_close($stmt);
                         header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
                         exit();
                     }
