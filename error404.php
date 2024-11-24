@@ -9,7 +9,6 @@ include("./base_url.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nganjuk Visit | Page Not Found</title>
     <link rel="icon" href="./public/assets/favicon-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="./style/404.css">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
 </head>
 
@@ -21,7 +20,7 @@ include("./base_url.php");
                 <h1 class="display-1 fw-bold text-white">404</h1>
                 <p class="fs-2 fw-medium mt-4 text-white">Oops! Page not found</p>
                 <p class="mt-4 mb-5 text-white">Nganjuk Visit is not found on your URL</p>
-                <a href="<?= BASE_URL; ?>/index.php" class="btn btn-light text-white fw-semibold rounded-pill px-4 py-2 custom-btn">
+                <a href="<?= BASE_URL; ?>/index.php" class="btn btn-danger text-white fw-semibold rounded-pill px-4 py-2 custom-btn">
                     Go Home
                 </a>
             </div>
