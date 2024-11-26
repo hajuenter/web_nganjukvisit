@@ -35,6 +35,18 @@ if (isset($_POST['id_kuliner'])) {
                 <label for="gambar" class="form-label">Gambar Wisata</label>
                 <input type="file" class="form-control" id="gambar" name="gambar[]" multiple accept="image/*">
             </div>
+            <div class="mb-3">
+                <label for="alamat" class="form-label">Alamat</label>
+                <input type="text" class="form-control" id="alamat" name="alamat" value="' . htmlspecialchars($row['alamat']) . '">
+            </div>
+            <div class="mb-3">
+                <label for="koordinat" class="form-label">Koordinat</label>
+                <input type="text" class="form-control" id="koordinat" name="koordinat" value="' . htmlspecialchars($row['koordinat']) . '">
+            </div>
+            <div class="mb-3">
+                <label for="link_maps" class="form-label">Link Maps</label>
+                <input type="text" class="form-control" id="link_maps" name="link_maps" value="' . htmlspecialchars($row['link_maps']) . '">
+            </div>
         </form>
         ';
     }

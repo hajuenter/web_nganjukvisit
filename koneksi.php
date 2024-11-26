@@ -1,12 +1,10 @@
 <?php
+require_once 'config/config.php';
 
-$hostdb = "localhost";
-$userdb = "root";
-$passdb = "";
-$namadb = "nganjuknew";
-
-$koneksi = mysqli_connect($hostdb, $userdb, $passdb, $namadb);
+$koneksi = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 if (!$koneksi) {
-    die("error adalah :" . mysqli_connect_error());
+    die("Koneksi gagal: " . mysqli_connect_error());
+
+    //pindah header ke konten file maintance
 }

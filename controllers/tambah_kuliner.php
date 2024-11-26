@@ -53,11 +53,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma, dan hapus koma di awal/akhir
         $gambar_string = trim(implode(',', $target_files), ',');
 
+        $alamat = $_POST['alamat'];
+        $koordinat = $_POST['koordinat'];
+        $link_maps = $_POST['link_maps'];
+
+        $link_maps_final = "nganjuk," . $link_maps;
+        // Validasi format koordinat
+        if (!preg_match('/^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$/', $koordinat)) {
+            $_SESSION['error'] = "Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153";
+            header("Location: " . BASE_URL . "/admin/admin_kuliner.php");
+            exit();
+        }
+
         // Query untuk menyimpan data ke database
-        $sql = "INSERT INTO detail_kuliner (nama_kuliner, deskripsi, harga, gambar, id_user) 
-                VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO detail_kuliner (nama_kuliner, deskripsi, harga, gambar, alamat, koordinat, link_maps, id_user) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssss', $nama_kuliner, $deskripsi, $harga, $gambar_string, $id_user);
+        $stmt->bind_param('ssssssss', $nama_kuliner, $deskripsi, $harga, $gambar_string, $alamat, $koordinat, $link_maps_final, $id_user);
 
         if ($stmt->execute()) {
             // Redirect ke halaman admin dengan pesan sukses

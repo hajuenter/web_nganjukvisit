@@ -111,104 +111,106 @@ $conn->close();
 </head>
 
 <body>
-    <!-- navbar -->
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-transparent z-3 fixed-top" style="z-index: 1050;">
-        <div class="container-fluid">
-            <a class="navbar-brand">
-                <img src="./public/assets/disporabudpar.png" alt="logo" class="ms-lg-5 img-fluid" style="width: 70px; height: 70px;">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse ms-lg-5 ps-lg-5" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link ms-lg-5 fw-semibold" aria-current="page" href="index.php#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="index.php#kategori">Kategori</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link fw-semibold dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fw-semibold" href="wisata_nganjuk.php">Wisata</a></li>
-                            <li><a class="dropdown-item fw-semibold" href="kuliner_nganjuk.php">Kuliner</a></li>
-                            <li><a class="dropdown-item fw-semibold" href="hotel_nganjuk.php">Penginapan</a></li>
-                            <li><a class="dropdown-item fw-semibold" href="event_nganjuk.php">Event</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="index.php#tentang_kami">Layanan Nganjuk Visit</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <a href="login.php" class="btn me-lg-5 btn-outline-primary mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Login</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <!-- navbar end -->
 
-    <div class="container my-5" style="padding-top: 3.8rem;">
-        <h2 class="text-center fw-bold mb-4" data-aos="fade-zoom-in"
-            data-aos-easing="ease-in-back"
-            data-aos-delay="200"
-            data-aos-offset="0">Wisata Nganjuk</h2>
-        <div class="row g-4">
-            <?php foreach ($wisata_data as $wisata):
-                $gambarList = explode(',', $wisata['gambar']); // Memisahkan string gambar menjadi array
-            ?>
-                <div class="col-md-4" data-aos="fade-up"
-                    data-aos-duration="1500">
-                    <div class="card hvr-grow shadow-sm" style="min-height: 650px;">
-                        <div id="carousel-<?php echo $wisata['id_wisata']; ?>" class="carousel slide" data-bs-ride="carousel">
-                            <!-- Indicators -->
-                            <div class="carousel-indicators">
-                                <?php foreach ($gambarList as $index => $gambar): ?>
-                                    <button type="button" data-bs-target="#carousel-<?php echo $wisata['id_wisata']; ?>" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index === 0 ? 'active' : ''; ?>" aria-current="true" aria-label="Slide <?php echo $index + 1; ?>"></button>
-                                <?php endforeach; ?>
-                            </div>
-
-                            <!-- Slides -->
-                            <div class="carousel-inner">
-                                <?php foreach ($gambarList as $index => $gambar): ?>
-                                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                        <img src="./public/gambar/<?php echo $gambar; ?>" class="img-fluid" style="aspect-ratio: 16 / 9;" alt="<?php echo htmlspecialchars($wisata['nama_wisata']); ?>">
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-
-                            <!-- Controls -->
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?php echo $wisata['id_wisata']; ?>" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carousel-<?php echo $wisata['id_wisata']; ?>" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo htmlspecialchars($wisata['nama_wisata']); ?></h5>
-                            <p class="card-text"><?php echo htmlspecialchars($wisata['deskripsi']); ?></p>
-                            <p><strong>Alamat:</strong> <?php echo htmlspecialchars($wisata['alamat']); ?></p>
-                            <p><strong>Harga Tiket:</strong> <?php echo htmlspecialchars($wisata['harga_tiket']); ?></p>
-                            <p><strong>Jadwal:</strong> <?php echo htmlspecialchars($wisata['jadwal']); ?></p>
-                        </div>
+    <div class="overflow-hidden">
+        <!-- navbar -->
+        <nav id="navbar" class="navbar navbar-expand-lg navbar-transparent z-3 fixed-top" style="z-index: 1050;">
+            <div class="container-fluid">
+                <a class="navbar-brand">
+                    <img src="./public/assets/disporabudpar.png" alt="logo" class="ms-lg-5 img-fluid" style="width: 70px; height: 70px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse ms-lg-5 ps-lg-5" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link ms-lg-5 fw-semibold" aria-current="page" href="index.php#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="index.php#kategori">Kategori</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link fw-semibold dropdown-toggle ms-lg-3" role="button" data-bs-toggle="dropdown" aria-expanded="false">Detail</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item fw-semibold" href="wisata_nganjuk.php">Wisata</a></li>
+                                <li><a class="dropdown-item fw-semibold" href="kuliner_nganjuk.php">Kuliner</a></li>
+                                <li><a class="dropdown-item fw-semibold" href="hotel_nganjuk.php">Penginapan</a></li>
+                                <li><a class="dropdown-item fw-semibold" href="event_nganjuk.php">Event</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms-lg-3 fw-semibold" aria-current="page" href="index.php#tentang_kami">Layanan Nganjuk Visit</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="login.php" class="btn me-lg-5 btn-outline-primary mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Login</a>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            </div>
+        </nav>
+        <!-- navbar end -->
+
+        <div class="container my-5" style="padding-top: 3.8rem;">
+            <h2 class="text-center fw-bold mb-4" data-aos="fade-zoom-in"
+                data-aos-easing="ease-in-back"
+                data-aos-delay="200"
+                data-aos-offset="0">Wisata Nganjuk</h2>
+            <div class="row g-4">
+                <?php foreach ($wisata_data as $wisata):
+                    $gambarList = explode(',', $wisata['gambar']); // Memisahkan string gambar menjadi array
+                ?>
+                    <div class="col-md-4" data-aos="fade-up"
+                        data-aos-duration="1500">
+                        <div class="card hvr-grow shadow-sm" style="min-height: 650px;">
+                            <div id="carousel-<?php echo $wisata['id_wisata']; ?>" class="carousel slide" data-bs-ride="carousel">
+                                <!-- Indicators -->
+                                <div class="carousel-indicators">
+                                    <?php foreach ($gambarList as $index => $gambar): ?>
+                                        <button type="button" data-bs-target="#carousel-<?php echo $wisata['id_wisata']; ?>" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index === 0 ? 'active' : ''; ?>" aria-current="true" aria-label="Slide <?php echo $index + 1; ?>"></button>
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <!-- Slides -->
+                                <div class="carousel-inner">
+                                    <?php foreach ($gambarList as $index => $gambar): ?>
+                                        <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                            <img src="./public/gambar/<?php echo $gambar; ?>" class="img-fluid" style="aspect-ratio: 16 / 9;" alt="<?php echo htmlspecialchars($wisata['nama_wisata']); ?>">
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <!-- Controls -->
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?php echo $wisata['id_wisata']; ?>" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel-<?php echo $wisata['id_wisata']; ?>" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>Nama:</strong> <?php echo htmlspecialchars($wisata['nama_wisata']); ?></h5>
+                                <p class="card-text"><strong>Deskripsi:</strong> <?php echo htmlspecialchars($wisata['deskripsi']); ?></p>
+                                <p><strong>Alamat:</strong> <?php echo htmlspecialchars($wisata['alamat']); ?></p>
+                                <p><strong>Harga Tiket:</strong> <?php echo htmlspecialchars($wisata['harga_tiket']); ?></p>
+                                <p><strong>Jadwal:</strong> <?php echo htmlspecialchars($wisata['jadwal']); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
+
+        <!-- Tombol Scroll to Top -->
+        <button id="scrollTopBtn" class="btn btn-dark">
+            <svg class="mx-auto" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 19V5M12 5L5 12M12 5l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
     </div>
-
-    <!-- Tombol Scroll to Top -->
-    <button id="scrollTopBtn" class="btn btn-dark">
-        <svg class="mx-auto" width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 19V5M12 5L5 12M12 5l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-    </button>
-
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- script aos -->

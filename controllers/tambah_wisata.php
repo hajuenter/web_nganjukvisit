@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $alamat = $_POST['alamat'];
     $harga_tiket = $_POST['harga_tiket'];
     $koordinat = $_POST['koordinat'];
-    $link_maps = $_POST['link_maps'];
+    $link_maps = $nama_wisata;
     $id_user = $_SESSION['user_id']; // Ambil user_id dari session
 
     // Variabel untuk nama file gambar
@@ -72,11 +72,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             "Sabtu: " . $_POST['buka_sabtu'] . "-" . $_POST['tutup_sabtu'] . ", " .
             "Minggu: " . $_POST['buka_minggu'] . "-" . $_POST['tutup_minggu'];
 
+        // Tambahkan kata "nganjuk " di depan input link_maps
+        $link_maps1 = "nganjuk," . $link_maps;
+
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_wisata (nama_wisata, deskripsi, alamat, harga_tiket, jadwal, gambar, koordinat, link_maps, id_user) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssssssss', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal, $gambar_string, $koordinat, $link_maps, $id_user);
+        $stmt->bind_param('sssssssss', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal, $gambar_string, $koordinat, $link_maps1, $id_user);
 
         if ($stmt->execute()) {
             // Redirect ke halaman admin dengan pesan sukses

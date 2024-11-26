@@ -1,0 +1,5 @@
+<Files "config.php">
+    Require all denied
+</Files>
+
+ErrorDocument 403 /nganjukvisit/config/error403.php

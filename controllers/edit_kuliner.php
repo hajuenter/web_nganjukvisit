@@ -62,10 +62,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Gabungkan semua nama gambar menjadi string untuk disimpan di database dan pastikan tidak ada koma di awal/akhir
     $gambar_string = trim(implode(',', $gambar_array), ',');
 
+    $alamat = htmlspecialchars($_POST['alamat']);
+    $koordinat = htmlspecialchars($_POST['koordinat']);
+    if (!preg_match('/^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$/', $koordinat)) {
+        $_SESSION['error'] = "Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153";
+        header("Location: " . BASE_URL . "/admin/admin_kuliner.php");
+        exit();
+    }
+    $link_maps = htmlspecialchars($_POST['link_maps']);
+    $link_maps_final = "nganjuk," . $link_maps;
     // Update data kuliner dengan gambar baru dan gambar lama
-    $sql = "UPDATE detail_kuliner SET nama_kuliner = ?, deskripsi = ?, harga = ?, gambar = ? WHERE id_kuliner = ?";
+    $sql = "UPDATE detail_kuliner SET nama_kuliner = ?, deskripsi = ?, harga = ?, gambar = ?, alamat = ?, koordinat = ?, link_maps = ? WHERE id_kuliner = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssi', $nama_kuliner, $deskripsi, $harga, $gambar_string, $id_kuliner);
+    $stmt->bind_param('sssssssi', $nama_kuliner, $deskripsi, $harga, $gambar_string, $alamat, $koordinat, $link_maps_final, $id_kuliner);
 
     if ($stmt->execute()) {
         header("Location:" . BASE_URL . "/admin/admin_kuliner.php?update=success");

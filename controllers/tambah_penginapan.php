@@ -19,7 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lokasi = htmlspecialchars($_POST['lokasi']);
     $telpon = htmlspecialchars($_POST['telepon']);
     $koordinat = htmlspecialchars($_POST['koordinat']);
-    $link_maps = htmlspecialchars($_POST['link_maps']);
+    $link_maps = $nama_penginapan;
+
+    // Validasi nomor HP
+    if (!preg_match('/^[0-9]{10,15}$/', $telpon)) {
+        $_SESSION['error'] = "Nomor HP harus terdiri dari angka, panjang minimal 10 karakter dan maksimal 15 karakter.";
+        header("Location:" . BASE_URL . "/admin/admin_penginapan.php");
+        exit();
+    }
 
     // Validasi format koordinat
     if (!preg_match('/^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$/', $koordinat)) {
@@ -63,12 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma
         $gambar_string = trim(implode(',', $target_files), ',');
-
+        $link_maps_final = "nganjuk," . $link_maps;
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_penginapan (nama_penginapan, id_user, deskripsi, harga, lokasi, gambar, telepon, koordinat, link_maps) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssssssss', $nama_penginapan, $id_user, $deskripsi, $harga, $lokasi, $gambar_string, $telpon, $koordinat, $link_maps);
+        $stmt->bind_param('sssssssss', $nama_penginapan, $id_user, $deskripsi, $harga, $lokasi, $gambar_string, $telpon, $koordinat, $link_maps_final);
 
         if ($stmt->execute()) {
             // Redirect ke halaman admin dengan pesan sukses

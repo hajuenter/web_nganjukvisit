@@ -1,1 +1,6 @@
+<Files "koneksi.php">
+    Require all denied
+</Files>
+
 ErrorDocument 404 /nganjukvisit/error404.php
+ErrorDocument 403 /nganjukvisit/error403.php
