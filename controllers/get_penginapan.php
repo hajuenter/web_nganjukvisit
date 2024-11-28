@@ -5,7 +5,7 @@ $conn = $koneksi;
 if (isset($_POST['id_penginapan'])) {
     $id_penginapan = $_POST['id_penginapan'];
 
-    // Query untuk mendapatkan data wisata berdasarkan id_penginapan
+    // Query untuk mendapatkan data penginapan berdasarkan id_penginapan
     $sql = "SELECT * FROM detail_penginapan WHERE id_penginapan = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id_penginapan);
@@ -32,7 +32,7 @@ if (isset($_POST['id_penginapan'])) {
                 <input type="text" class="form-control" id="harga" name="harga" value="' . htmlspecialchars($row['harga']) . '">
             </div>
             <div class="mb-3">
-                <label for="lokasi" class="form-label">lokasi</label>
+                <label for="lokasi" class="form-label">Lokasi</label>
                 <input type="text" class="form-control" id="lokasi" name="lokasi" value="' . htmlspecialchars($row['lokasi']) . '">
             </div>
             <div class="mb-3">
@@ -40,12 +40,22 @@ if (isset($_POST['id_penginapan'])) {
                 <input type="file" class="form-control" id="gambar" name="gambar[]" multiple accept="image/*">
             </div>
             <div class="mb-3">
-                <label for="telepon" class="form-label">telepon</label>
-                <input type="text" class="form-control" id="telepon" name="telepon" value="' . htmlspecialchars($row['telepon']) . '">
+                <label for="telepon" class="form-label">Telepon</label>
+                <div class="input-group">
+                    <span class="input-group-text">+62</span>
+                    <input type="tel" class="form-control" id="telepon" name="telepon" 
+                        pattern="62[0-9]{9,}" minlength="10" maxlength="15" 
+                        placeholder="62xxxxxxxxxx" required 
+                        value="' . htmlspecialchars($row['telepon']) . '">
+                </div>
             </div>
             <div class="mb-3">
-                <label for="koordinat" class="form-label">koordinat</label>
+                <label for="koordinat" class="form-label">Koordinat</label>
                 <input type="text" class="form-control" id="koordinat" name="koordinat" value="' . htmlspecialchars($row['koordinat']) . '">
+            </div>
+            <div class="mb-3">
+                <label for="link_maps" class="form-label">Link Maps</label>
+                <input type="url" class="form-control" id="link_maps" name="link_maps" value="' . htmlspecialchars($row['link_maps']) . '">
             </div>
         </form>
         ';

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lokasi = htmlspecialchars($_POST['lokasi']);
     $telpon = htmlspecialchars($_POST['telepon']);
     $koordinat = htmlspecialchars($_POST['koordinat']);
-    $link_maps = $nama_penginapan;
+    $link_maps = htmlspecialchars($_POST['link_maps']);
 
     // Validasi nomor HP
     if (!preg_match('/^[0-9]{10,15}$/', $telpon)) {
@@ -70,12 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Gabungkan semua nama file gambar menjadi satu string, dipisahkan oleh koma
         $gambar_string = trim(implode(',', $target_files), ',');
-        $link_maps_final = "nganjuk," . $link_maps;
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_penginapan (nama_penginapan, id_user, deskripsi, harga, lokasi, gambar, telepon, koordinat, link_maps) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssssssss', $nama_penginapan, $id_user, $deskripsi, $harga, $lokasi, $gambar_string, $telpon, $koordinat, $link_maps_final);
+        $stmt->bind_param('sssssssss', $nama_penginapan, $id_user, $deskripsi, $harga, $lokasi, $gambar_string, $telpon, $koordinat, $link_maps);
 
         if ($stmt->execute()) {
             // Redirect ke halaman admin dengan pesan sukses

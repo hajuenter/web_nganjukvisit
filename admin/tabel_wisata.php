@@ -102,6 +102,7 @@ if (!empty($search)) {
                             <th class="pe-5" style="white-space: nowrap;">Jadwal Buka Tutup Wisata</th>
                             <th>Gambar</th>
                             <th>Koordinat</th>
+                            <th>Maps</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -135,6 +136,7 @@ if (!empty($search)) {
                                 echo "<td><img class='img-fluid'  src='../public/gambar/" . htmlspecialchars($gambar_acak) . "' alt='Gambar Acak' style='aspect-ratio: 16 / 9;'></td>";
 
                                 echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
+                                echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
                                 echo "<td class='d-flex flex-column'>
                             <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fas fa-edit'></i></button> 
                             <button class='btn btn-danger mt-lg-1' data-id='" . htmlspecialchars($row['id_wisata']) . "' data-toggle='modal' data-target='#hapusModal'><i class='fas fa-trash-alt'></i></button>
@@ -235,6 +237,10 @@ if (!empty($search)) {
                             required
                             pattern="^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$"
                             title="Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153">
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_maps" class="form-label">Link Maps</label>
+                        <input type="url" class="form-control" id="link_maps" name="link_maps" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </form>

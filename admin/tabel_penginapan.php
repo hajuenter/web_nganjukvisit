@@ -99,6 +99,7 @@ if (!empty($search)) {
                     <th>Gambar</th>
                     <th>Telepon</th>
                     <th>Koordinat</th>
+                    <th>Link Maps</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -123,6 +124,7 @@ if (!empty($search)) {
                         echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='aspect-ratio: 16 / 9;'></td>";
                         echo "<td>" . htmlspecialchars($row['telepon']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
+                        echo "<td><a href='" . htmlspecialchars($row['link_maps']) . "' target='_blank'>Lihat di Maps</a></td>";
                         echo "<td class='d-flex flex-column'>
                                 <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_penginapan']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
                                 <i class='fas fa-edit'></i>
@@ -173,8 +175,11 @@ if (!empty($search)) {
                         <input type="file" class="form-control" id="gambar" name="gambar[]" multiple accept="image/*" required>
                     </div>
                     <div class="mb-3">
-                        <label for="telepon" class="form-label">Telepon</label>
-                        <input type="tel" class="form-control" id="telepon" name="telepon" required>
+                        <label for="telepon" class="form-label">No HP</label>
+                        <div class="input-group">
+                            <span class="input-group-text">+62</span>
+                            <input type="number" class="form-control" id="telepon" name="telepon" required>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="koordinat" class="form-label">Koordinat</label>
@@ -186,6 +191,10 @@ if (!empty($search)) {
                             required
                             pattern="^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$"
                             title="Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153">
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_maps" class="form-label">Link Maps</label>
+                        <input type="url" class="form-control" id="link_maps" name="link_maps" required>
                     </div>
                 </form>
             </div>
@@ -321,5 +330,21 @@ if (!empty($search)) {
                 }
             });
         });
+    });
+</script>
+
+<script>
+    document.getElementById('telepon').addEventListener('input', function() {
+        let input = this.value;
+
+        // Hapus angka 0 di depan jika ada
+        if (input.startsWith('0')) {
+            input = input.substring(1);
+        }
+
+        // Periksa apakah sudah ada kode negara '62'
+        if (!input.startsWith('62')) {
+            this.value = '62' + input;
+        }
     });
 </script>

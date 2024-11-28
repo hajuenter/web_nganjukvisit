@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $alamat = htmlspecialchars($_POST['alamat']);
     $harga_tiket = htmlspecialchars($_POST['harga_tiket']);
     $koordinat = htmlspecialchars($_POST['koordinat']);
-    $link_maps = $nama_wisata;
+    $link_maps = htmlspecialchars($_POST['link_maps']);
 
     if (!preg_match('/^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$/', $koordinat)) {
         $_SESSION['error'] = "Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153";
@@ -69,13 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Gabungkan gambar lama dan baru
     $gambar_final = implode(',', array_filter(array_merge(explode(',', $gambar_lama), $gambar_baru_array)));
-    // Tambahkan kata "nganjuk " di depan input link_maps
-    $link_maps1 = "nganjuk," . $link_maps;
 
     // Update data di tabel detail_wisata
     $sql = "UPDATE detail_wisata SET nama_wisata = ?, deskripsi = ?, alamat = ?, harga_tiket = ?, jadwal = ?, gambar = ?, koordinat = ?, link_maps = ? WHERE id_wisata = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssssssi', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal_string, $gambar_final, $koordinat, $link_maps1, $id_wisata);
+    $stmt->bind_param('ssssssssi', $nama_wisata, $deskripsi, $alamat, $harga_tiket, $jadwal_string, $gambar_final, $koordinat, $link_maps, $id_wisata);
 
     if ($stmt->execute()) {
         // Cek apakah id_wisata memiliki tiket di tabel tiket_wisata

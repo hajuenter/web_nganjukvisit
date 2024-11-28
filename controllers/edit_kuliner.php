@@ -69,12 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: " . BASE_URL . "/admin/admin_kuliner.php");
         exit();
     }
-    $link_maps = $nama_kuliner;
-    $link_maps_final = "nganjuk," . $link_maps;
+    $link_maps = htmlspecialchars($_POST['link_maps']);
     // Update data kuliner dengan gambar baru dan gambar lama
     $sql = "UPDATE detail_kuliner SET nama_kuliner = ?, deskripsi = ?, harga = ?, gambar = ?, alamat = ?, koordinat = ?, link_maps = ? WHERE id_kuliner = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sssssssi', $nama_kuliner, $deskripsi, $harga, $gambar_string, $alamat, $koordinat, $link_maps_final, $id_kuliner);
+    $stmt->bind_param('sssssssi', $nama_kuliner, $deskripsi, $harga, $gambar_string, $alamat, $koordinat, $link_maps, $id_kuliner);
 
     if ($stmt->execute()) {
         header("Location:" . BASE_URL . "/admin/admin_kuliner.php?update=success");
