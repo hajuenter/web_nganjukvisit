@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $alamat = $_POST['alamat'];
         $koordinat = $_POST['koordinat'];
-        $link_maps = $_POST['link_maps'];
+        $link_maps = $nama_kuliner;
 
         $link_maps_final = "nganjuk," . $link_maps;
         // Validasi format koordinat

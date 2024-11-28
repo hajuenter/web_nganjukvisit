@@ -43,10 +43,6 @@ if (isset($_POST['id_kuliner'])) {
                 <label for="koordinat" class="form-label">Koordinat</label>
                 <input type="text" class="form-control" id="koordinat" name="koordinat" value="' . htmlspecialchars($row['koordinat']) . '">
             </div>
-            <div class="mb-3">
-                <label for="link_maps" class="form-label">Link Maps</label>
-                <input type="text" class="form-control" id="link_maps" name="link_maps" value="' . htmlspecialchars($row['link_maps']) . '">
-            </div>
         </form>
         ';
     }

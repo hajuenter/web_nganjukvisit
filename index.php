@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 include("./base_url.php");
 // Cek apakah pengguna sudah login

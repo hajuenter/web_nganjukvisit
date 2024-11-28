@@ -97,7 +97,6 @@ if (!empty($search)) {
                             <th>Gambar</th>
                             <th>Alamat</th>
                             <th>Koordinat</th>
-                            <th>Link Maps</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -121,7 +120,6 @@ if (!empty($search)) {
                                 echo "<td><img class='img-fluid' src='../public/gambar/" . htmlspecialchars($gambarAcak) . "' alt='Gambar' style='width: 100px; aspect-ratio: 16 / 9;'></td>";
                                 echo "<td>" . htmlspecialchars($row['alamat']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['koordinat']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['link_maps']) . "</td>";
                                 echo "<td class='d-flex flex-column'>
                                 <button class='btn btn-primary btn-edit mb-1' data-id='" . htmlspecialchars($row['id_kuliner']) . "' data-bs-toggle='modal' data-bs-target='#exampleModal'>
                                 <i class='fas fa-edit'></i>
@@ -190,7 +188,7 @@ if (!empty($search)) {
 
 <!-- Modal Tambah kuliner -->
 <div class="modal fade" id="modalTambahKuliner" tabindex="-1" aria-labelledby="modalTambahKulinerLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalTambahKulinerLabel">Tambah Data Kuliner</h5>
@@ -222,10 +220,6 @@ if (!empty($search)) {
                         <label for="koordinat" class="form-label">Koordinat</label>
                         <input type="text" class="form-control" id="koordinat" name="koordinat" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="link_maps" class="form-label">Link Maps</label>
-                        <input type="text" class="form-control" id="link_maps" name="link_maps" required>
-                    </div>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </form>
             </div>
@@ -235,7 +229,7 @@ if (!empty($search)) {
 
 <!-- Modal Edit -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Wisata</h1>

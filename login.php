@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("./koneksi.php");
 include("./base_url.php");
 // Cek apakah pengguna sudah login
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {

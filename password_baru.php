@@ -25,14 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validasi panjang password
         if (strlen($new_password) > 50) {
             $_SESSION['error_password'] = "Password tidak boleh lebih dari 50 karakter.";
-            header("Location:" . BASE_URL . "/lupa_password.php"); // Sesuaikan URL redirect jika perlu
+            header("Location:" . BASE_URL . "/password_baru.php"); // Sesuaikan URL redirect jika perlu
             exit();
         }
 
         // Validasi pola password (kombinasi huruf dan angka)
         if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,50}$/', $new_password)) {
             $_SESSION['error_password'] = "Password harus mengandung huruf, angka, dan panjang antara 8 hingga 50 karakter.";
-            header("Location:" . BASE_URL . "/lupa_password.php"); // Sesuaikan URL redirect jika perlu
+            header("Location:" . BASE_URL . "/password_baru.php"); // Sesuaikan URL redirect jika perlu
             exit();
         }
 
