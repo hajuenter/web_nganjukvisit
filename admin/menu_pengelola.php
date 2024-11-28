@@ -156,9 +156,13 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         <label for="alamat" class="form-label">Alamat</label>
                         <textarea class="form-control" id="alamat" name="alamat" rows="3" required></textarea>
                     </div>
+                    <!-- NO HP -->
                     <div class="mb-3">
-                        <label for="no_hp" class="form-label">No Hp</label>
-                        <input type="number" class="form-control" id="no_hp" name="no_hp" required>
+                        <label for="no_hp" class="form-label">No HP</label>
+                        <div class="input-group">
+                            <span class="input-group-text">+62</span>
+                            <input type="number" class="form-control" id="no_hp" name="no_hp" required>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="gambar" class="form-label">Gambar</label>
@@ -319,6 +323,22 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                 hapusForm.action = '../controllers/hapus_pengelola.php';
             });
         });
+    });
+</script>
+
+<script>
+    document.getElementById('no_hp').addEventListener('input', function() {
+        let input = this.value;
+
+        // Hapus angka 0 di depan jika ada
+        if (input.startsWith('0')) {
+            input = input.substring(1);
+        }
+
+        // Periksa apakah sudah ada kode negara '62'
+        if (!input.startsWith('62')) {
+            this.value = '62' + input;
+        }
     });
 </script>
 

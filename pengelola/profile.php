@@ -88,10 +88,14 @@ $no_hp = $user['no_hp'];
                                     <textarea class="form-control" id="inputExperience" required name="alamat" placeholder="Alamat"><?= htmlspecialchars($alamat); ?></textarea>
                                 </div>
                             </div>
+                            <!-- NO HP -->
                             <div class="mb-3 row">
-                                <label for="inputExperience" class="col-sm-2 col-form-label">No Hp</label>
+                                <label for="no_hp" class="col-sm-2 col-form-label">No HP</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="inputNoHp" required name="no_hp" placeholder="No Hp" value="<?= htmlspecialchars($no_hp) ?>">
+                                    <div class="input-group">
+                                        <span class="input-group-text">+62</span>
+                                        <input type="number" class="form-control" id="no_hp" name="no_hp" required placeholder="Masukkan nomor HP tanpa 0 di depan" value="<?= htmlspecialchars($no_hp) ?>">
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -107,3 +111,19 @@ $no_hp = $user['no_hp'];
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('no_hp').addEventListener('input', function() {
+        let input = this.value;
+
+        // Hapus angka 0 di depan jika ada
+        if (input.startsWith('0')) {
+            input = input.substring(1);
+        }
+
+        // Periksa apakah sudah ada kode negara '62'
+        if (!input.startsWith('62')) {
+            this.value = '62' + input;
+        }
+    });
+</script>

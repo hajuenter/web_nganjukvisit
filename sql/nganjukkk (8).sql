@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Nov 2024 pada 04.23
+-- Waktu pembuatan: 28 Nov 2024 pada 05.45
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -215,17 +215,6 @@ CREATE TABLE `notifikasi` (
   `waktu` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `notifikasi`
---
-
-INSERT INTO `notifikasi` (`id_notif`, `judul`, `isi`, `id_user`, `waktu`) VALUES
-(9, 'Event Baru: asdasa', 'Akan hadir Event \"asdasa\" jangan sampai lewatin eventnya ya. Lokasi: adsad. Tanggal: 26-11-2024', 9, '2024-11-26 15:19:44'),
-(10, 'Event Baru: asda', 'Akan hadir Event \"asda\" jangan sampai lewatin eventnya ya. Lokasi: adsa. Tanggal: 26-11-2024', 9, '2024-11-26 15:20:07'),
-(11, 'Event Baru: asds', 'Akan hadir Event \"asds\" jangan sampai lewatin eventnya ya. Lokasi: asda. Tanggal: 28-11-2024', 9, '2024-11-26 15:20:26'),
-(12, 'Event Baru: adsasd', 'Akan hadir Event \"adsasd\" jangan sampai lewatin eventnya ya. Lokasi: asdasdadsd. Tanggal: 26-11-2024', 9, '2024-11-26 15:27:41'),
-(13, 'Event Baru: asa', 'Akan hadir Event \"asa\" jangan sampai lewatin eventnya ya. Lokasi: adsa. Tanggal: 29-11-2024', 9, '2024-11-26 15:28:05');
-
 -- --------------------------------------------------------
 
 --
@@ -317,9 +306,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `email`, `nama`, `role`, `password`, `alamat`, `gambar`, `kode_otp`, `expired_otp`, `status`, `ket_wisata`, `no_hp`) VALUES
-(9, 'bahrulahmad1945@gmail.com', 'bahrul ', 'admin', '$2y$10$tCoWXnux8UuyQQ2iHUo.BOufS3NBwyB3FDHTRlIcgId/3cXktQ8y2', 'Nganjuk sini aja', '9_1732285680.png', '18240463', '2024-11-28 03:47:51', 'active', NULL, ''),
-(56, 'igvi@gmail.com', 'Alex', 'user', '$2y$10$5zZMWUuG0MBDJqJSpyzVyuu5obtMFWpP4FInl4EZmKN5INd2DLrYq', 'Bagor', '0', NULL, NULL, 'active', NULL, '085158854504'),
-(57, 'tes@gmail.com', 'tes', 'user', '$2y$10$ZwQJ6mKl.Zmf/bq9r34nnOKcLLmn2Bp6Uiu5aSM9dI9nN8P5PTd82', 'hbhsa', NULL, NULL, NULL, 'active', NULL, NULL);
+(9, 'bahrulahmad1945@gmail.com', 'bahrul ', 'admin', '$2y$10$x8zC/wB50wepYtrSdMnivOXkNnWbtVv3iQT2cGvROw0YdBbycQuhW', 'Nganjuk sini aja', '9_1732285680.png', '32612796', '2024-11-24 15:05:06', 'active', NULL, '');
 
 --
 -- Indexes for dumped tables
@@ -438,19 +425,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_event`
 --
 ALTER TABLE `detail_event`
-  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kuliner`
 --
 ALTER TABLE `detail_kuliner`
-  MODIFY `id_kuliner` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_kuliner` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penginapan`
 --
 ALTER TABLE `detail_penginapan`
-  MODIFY `id_penginapan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_penginapan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_tiket`
@@ -462,7 +449,7 @@ ALTER TABLE `detail_tiket`
 -- AUTO_INCREMENT untuk tabel `detail_wisata`
 --
 ALTER TABLE `detail_wisata`
-  MODIFY `id_wisata` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id_wisata` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT untuk tabel `fav_kuliner`
@@ -474,19 +461,19 @@ ALTER TABLE `fav_kuliner`
 -- AUTO_INCREMENT untuk tabel `fav_penginapan`
 --
 ALTER TABLE `fav_penginapan`
-  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `fav_wisata`
 --
 ALTER TABLE `fav_wisata`
-  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `id_notif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_notif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_transaksi_tiket_wisata`
@@ -510,13 +497,13 @@ ALTER TABLE `ulasan_penginapan`
 -- AUTO_INCREMENT untuk tabel `ulasan_wisata`
 --
 ALTER TABLE `ulasan_wisata`
-  MODIFY `id_ulasan_w` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_ulasan_w` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -607,6 +594,17 @@ ALTER TABLE `ulasan_penginapan`
 ALTER TABLE `ulasan_wisata`
   ADD CONSTRAINT `ulasan_id_w` FOREIGN KEY (`id_wisata`) REFERENCES `detail_wisata` (`id_wisata`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ulasan_user_w` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+DELIMITER $$
+--
+-- Event
+--
+CREATE DEFINER=`root`@`localhost` EVENT `hapus_notifikasi_lama` ON SCHEDULE EVERY 1 DAY STARTS '2024-11-26 10:00:32' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+    DELETE FROM notifikasi
+    WHERE waktu < NOW() - INTERVAL 7 DAY;
+END$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -113,8 +113,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
                         <!-- NO HP -->
                         <div class="mb-3">
-                            <label for="no_hp" class="form-label">No Hp</label>
-                            <input type="number" class="form-control" id="no_hp" name="no_hp" required>
+                            <label for="no_hp" class="form-label">No HP</label>
+                            <div class="input-group">
+                                <span class="input-group-text">+62</span>
+                                <input type="number" class="form-control" id="no_hp" name="no_hp" required>
+                            </div>
                         </div>
 
                         <!-- Submit Button -->
@@ -146,6 +149,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <p class="text-danger">*<small class="text-black">Password harus memiliki panjang antara 8 hingga 50 karakter</small></p>
                         <p class="text-danger">*<small class="text-black">Nama harus memiliki panjang antara 4 hingga 50 karakter</small></p>
                         <p class="text-danger">*<small class="text-black">Nomor HP harus terdiri dari 10 hingga 15 digit angka</small></p>
+                        <p class="text-danger">*<small class="text-black">Nomor HP harus menggunakan format +62 sebagai ganti angka 0</small></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -158,6 +162,22 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <!-- Register end -->
 
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('no_hp').addEventListener('input', function() {
+            let input = this.value;
+
+            // Hapus angka 0 di depan jika ada
+            if (input.startsWith('0')) {
+                input = input.substring(1);
+            }
+
+            // Periksa apakah sudah ada kode negara '62'
+            if (!input.startsWith('62')) {
+                this.value = '62' + input;
+            }
+        });
+    </script>
+
     <script>
         function passwordDelokOra() {
             const pasInput = document.getElementById("password");
