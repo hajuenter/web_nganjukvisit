@@ -7,7 +7,7 @@ include("./base_url.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nganjuk Visit | Page Not Found</title>
+    <title>Nganjuk Visit | Page Not Access</title>
     <link rel="icon" href="<?= BASE_URL; ?>/public/assets/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/bootstrap/css/bootstrap.min.css">
 </head>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Nov 2024 pada 04.14
+-- Waktu pembuatan: 28 Nov 2024 pada 04.23
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `nganjuknew`
+-- Database: `nganjukkk`
 --
 
 -- --------------------------------------------------------
@@ -38,11 +38,19 @@ CREATE TABLE `detail_event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `detail_event`
+-- Trigger `detail_event`
 --
-
-INSERT INTO `detail_event` (`id_event`, `nama`, `id_user`, `deskripsi_event`, `alamat`, `gambar`, `tanggal_event`) VALUES
-(9, 'Siraman Sedudo', 9, 'ritual ngumbah anu', 'ujbswjcebwj', '673562f3202a8_index4-besar.png', '2024-11-14');
+DELIMITER $$
+CREATE TRIGGER `after_insert_event` AFTER INSERT ON `detail_event` FOR EACH ROW BEGIN
+    DECLARE notif_judul VARCHAR(255);
+    DECLARE notif_isi VARCHAR(255);
+    SET notif_judul = CONCAT('Event Baru: ', NEW.nama);
+    SET notif_isi = CONCAT('Akan hadir Event "', NEW.nama, '" jangan sampai lewatin eventnya ya. Lokasi: ', NEW.alamat, '. Tanggal: ', DATE_FORMAT(NEW.tanggal_event, '%d-%m-%Y'));
+    INSERT INTO notifikasi (judul, isi, id_user, waktu)
+    VALUES (notif_judul, notif_isi, NEW.id_user, CURRENT_TIMESTAMP);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -57,15 +65,10 @@ CREATE TABLE `detail_kuliner` (
   `deskripsi` text NOT NULL,
   `harga` varchar(200) NOT NULL,
   `gambar` varchar(200) NOT NULL,
-  `total_rating` float DEFAULT 0
+  `alamat` varchar(255) NOT NULL,
+  `koordinat` varchar(255) NOT NULL,
+  `link_maps` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `detail_kuliner`
---
-
-INSERT INTO `detail_kuliner` (`id_kuliner`, `nama_kuliner`, `id_user`, `deskripsi`, `harga`, `gambar`, `total_rating`) VALUES
-(25, 'Nasi Becel', 9, 'Makanan enak tapi agak mahal sih wkwkwkwkwkwkwk anjayyyyyyyyyyyy', '50000', '673561046b303_index1-besar.png', 0);
 
 -- --------------------------------------------------------
 
@@ -86,13 +89,6 @@ CREATE TABLE `detail_penginapan` (
   `telepon` varchar(100) NOT NULL,
   `total_rating` float DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `detail_penginapan`
---
-
-INSERT INTO `detail_penginapan` (`id_penginapan`, `nama_penginapan`, `id_user`, `deskripsi`, `harga`, `lokasi`, `gambar`, `koordinat`, `link_maps`, `telepon`, `total_rating`) VALUES
-(7, 'Hotel Omahku', 9, 'apik ki koyok e, murah', '300000', 'Nganjuk', '6735618e0ba5c_index2-besar.png', 'rfyujubguigy7887', 'https://maps.app.goo.gl/vbtbTSRUYFAi4ZeE7', '1234567890', 0);
 
 -- --------------------------------------------------------
 
@@ -118,6 +114,28 @@ CREATE TABLE `detail_tiket` (
 --
 -- Trigger `detail_tiket`
 --
+DELIMITER $$
+CREATE TRIGGER `after_detail_tiket_status_update` AFTER UPDATE ON `detail_tiket` FOR EACH ROW BEGIN
+DECLARE wisata_nama VARCHAR(200);
+      IF NEW.status = 'berhasil' AND OLD.status != 'berhasil' THEN
+        
+       
+        SELECT nama_wisata INTO wisata_nama 
+        FROM detail_wisata 
+        WHERE id_wisata = NEW.id_wisata;
+
+       
+        INSERT INTO notifikasi (judul, isi, id_user, waktu)
+        VALUES (
+            CONCAT('Tiket Wisata: ', wisata_nama), 
+            CONCAT('Selamat Pembayaran Tiket Wisata: ', wisata_nama, ' Berhasil terkonfirmasi!!! Anda sekarang dapat melihat informasi tiketnya di menu Booking, tunjukkan pada petugas penjaga loket saat ingin memasuki wisata.'),
+            NEW.id_user,
+            NOW()
+        );
+    END IF;
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update_total` BEFORE INSERT ON `detail_tiket` FOR EACH ROW BEGIN
     SET NEW.total = NEW.harga * NEW.jumlah;
@@ -146,14 +164,6 @@ CREATE TABLE `detail_wisata` (
   `no_hp_pengelola` varchar(50) DEFAULT NULL,
   `total_rating` float DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `detail_wisata`
---
-
-INSERT INTO `detail_wisata` (`id_wisata`, `nama_wisata`, `id_user`, `deskripsi`, `alamat`, `harga_tiket`, `jadwal`, `gambar`, `koordinat`, `link_maps`, `id_pengelola`, `no_hp_pengelola`, `total_rating`) VALUES
-(39, 'Roro Kuning', 9, 'Roro Kuning adalah destinasi wisata alam di Nganjuk, Jawa Timur, yang terkenal dengan keindahan air terjun yang mengalir di antara tebing hijau dan suasana alami yang asri.', 'Sawahan, Nganjuk', '20000', 'senin: 09:19-21:19, selasa: 09:19-21:19, rabu: 09:21-21:19, kamis: 09:19-21:19, jumat: 09:19-21:19, sabtu: 09:19-21:19, minggu: 09:19-21:19', '67355e61a2d4a_index3-besar.png', '-7.599090314279133, 111.87815532081424', 'qdwudbqwbdiqw', 43, '1234567890', 0),
-(41, 'tes', 9, 'sdas', 'adada', '122', 'Senin: 21:05-09:05, Selasa: -, Rabu: -, Kamis: -, Jumat: -, Sabtu: -, Minggu: -', '673f3e675dd85_20241116_211252.jpg', '-7.599090314279133, 111.87815532081424', 'https://maps.app.goo.gl/7cf8TZzykJcJnCr86', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -194,6 +204,31 @@ CREATE TABLE `fav_wisata` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `notifikasi`
+--
+
+CREATE TABLE `notifikasi` (
+  `id_notif` int(11) NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `isi` varchar(255) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `notifikasi`
+--
+
+INSERT INTO `notifikasi` (`id_notif`, `judul`, `isi`, `id_user`, `waktu`) VALUES
+(9, 'Event Baru: asdasa', 'Akan hadir Event \"asdasa\" jangan sampai lewatin eventnya ya. Lokasi: adsad. Tanggal: 26-11-2024', 9, '2024-11-26 15:19:44'),
+(10, 'Event Baru: asda', 'Akan hadir Event \"asda\" jangan sampai lewatin eventnya ya. Lokasi: adsa. Tanggal: 26-11-2024', 9, '2024-11-26 15:20:07'),
+(11, 'Event Baru: asds', 'Akan hadir Event \"asds\" jangan sampai lewatin eventnya ya. Lokasi: asda. Tanggal: 28-11-2024', 9, '2024-11-26 15:20:26'),
+(12, 'Event Baru: adsasd', 'Akan hadir Event \"adsasd\" jangan sampai lewatin eventnya ya. Lokasi: asdasdadsd. Tanggal: 26-11-2024', 9, '2024-11-26 15:27:41'),
+(13, 'Event Baru: asa', 'Akan hadir Event \"asa\" jangan sampai lewatin eventnya ya. Lokasi: adsa. Tanggal: 29-11-2024', 9, '2024-11-26 15:28:05');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `riwayat_transaksi_tiket_wisata`
 --
 
@@ -222,13 +257,6 @@ CREATE TABLE `tiket_wisata` (
   `harga_tiket` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `tiket_wisata`
---
-
-INSERT INTO `tiket_wisata` (`id_tiket`, `id_wisata`, `nama_wisata`, `id_user`, `harga_tiket`) VALUES
-(14, 39, 'Roro Kuning', 9, 20000);
-
 -- --------------------------------------------------------
 
 --
@@ -240,7 +268,7 @@ CREATE TABLE `ulasan_penginapan` (
   `id_penginapan` int(11) NOT NULL,
   `nama` varchar(200) NOT NULL,
   `komentar` varchar(255) NOT NULL,
-  `tanggal` datetime NOT NULL,
+  `tanggal` date NOT NULL,
   `kategori` varchar(50) NOT NULL DEFAULT 'ulasan_penginapan',
   `id_user` int(11) NOT NULL,
   `rating` float DEFAULT 0
@@ -257,7 +285,7 @@ CREATE TABLE `ulasan_wisata` (
   `id_wisata` int(11) NOT NULL,
   `nama` varchar(200) NOT NULL,
   `komentar` varchar(255) NOT NULL,
-  `tanggal` datetime NOT NULL,
+  `tanggal` date NOT NULL,
   `kategori` varchar(50) NOT NULL DEFAULT 'ulasan_wisata',
   `id_user` int(11) NOT NULL,
   `rating` float DEFAULT 0
@@ -289,11 +317,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `email`, `nama`, `role`, `password`, `alamat`, `gambar`, `kode_otp`, `expired_otp`, `status`, `ket_wisata`, `no_hp`) VALUES
-(9, 'bahrulahmad1945@gmail.com', 'bahrul ', 'admin', '$2y$10$TY51tS1/hLH7tEng0FTBsO6El0RSvfPfY7/QU5g.SopsPVWiYQmRq', 'Nganjuk sini aja', '9_1730942971.png', '11882792', '2024-11-22 03:01:16', 'active', NULL, ''),
-(39, 'igvi@gmail.com', 'igvi', 'user', '$2y$10$5L3JlK3OyKhB6F7Khp0UsuvxY6RAdm31gqgf9WiT8Lo1f5NR69Jei', 'Bagor', 'igvi.png', NULL, NULL, 'active', NULL, '085606650827'),
-(43, 'eskuwut1945@gmail.com', 'Pengelola', 'pengelola', '$2y$10$p5kkeiTYdXo3MjUxjz7xKeqf285YaxnYUvyFPWordkCYbgU4.D8ia', 'Nganjuk', '672c1a0c4b465.png', '69637754', '2024-11-09 14:22:31', 'active', '39', '1234567890'),
-(49, 'dianashafa@gmail.com', 'diana', 'pengelola', '$2y$10$DOlA0wF.vOEa.XK9LIOw9efdiYOQnWVpsV67MxFcKuOrIyiqPopxS', 'kauman', NULL, NULL, NULL, 'active', NULL, '085774831924'),
-(50, 'esvanilla63@gmail.com', 'vanilla', 'pengelola', '$2y$10$kUlxi1Z39IQnbYwOKHjGKe7L5uevVmqoLpkY/zsGjlJL0GbWakSbm', 'adsadsad', NULL, NULL, NULL, 'active', NULL, '5432561788');
+(9, 'bahrulahmad1945@gmail.com', 'bahrul ', 'admin', '$2y$10$tCoWXnux8UuyQQ2iHUo.BOufS3NBwyB3FDHTRlIcgId/3cXktQ8y2', 'Nganjuk sini aja', '9_1732285680.png', '18240463', '2024-11-28 03:47:51', 'active', NULL, ''),
+(56, 'igvi@gmail.com', 'Alex', 'user', '$2y$10$5zZMWUuG0MBDJqJSpyzVyuu5obtMFWpP4FInl4EZmKN5INd2DLrYq', 'Bagor', '0', NULL, NULL, 'active', NULL, '085158854504'),
+(57, 'tes@gmail.com', 'tes', 'user', '$2y$10$ZwQJ6mKl.Zmf/bq9r34nnOKcLLmn2Bp6Uiu5aSM9dI9nN8P5PTd82', 'hbhsa', NULL, NULL, NULL, 'active', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -361,6 +387,13 @@ ALTER TABLE `fav_wisata`
   ADD KEY `fav_user_wisata` (`id_user`);
 
 --
+-- Indeks untuk tabel `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD PRIMARY KEY (`id_notif`),
+  ADD KEY `notif_user` (`id_user`);
+
+--
 -- Indeks untuk tabel `riwayat_transaksi_tiket_wisata`
 --
 ALTER TABLE `riwayat_transaksi_tiket_wisata`
@@ -405,31 +438,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `detail_event`
 --
 ALTER TABLE `detail_event`
-  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_event` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_kuliner`
 --
 ALTER TABLE `detail_kuliner`
-  MODIFY `id_kuliner` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_kuliner` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penginapan`
 --
 ALTER TABLE `detail_penginapan`
-  MODIFY `id_penginapan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_penginapan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_tiket`
 --
 ALTER TABLE `detail_tiket`
-  MODIFY `id_detail_tiket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_detail_tiket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_wisata`
 --
 ALTER TABLE `detail_wisata`
-  MODIFY `id_wisata` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_wisata` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT untuk tabel `fav_kuliner`
@@ -447,7 +480,13 @@ ALTER TABLE `fav_penginapan`
 -- AUTO_INCREMENT untuk tabel `fav_wisata`
 --
 ALTER TABLE `fav_wisata`
-  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT untuk tabel `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  MODIFY `id_notif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_transaksi_tiket_wisata`
@@ -459,7 +498,7 @@ ALTER TABLE `riwayat_transaksi_tiket_wisata`
 -- AUTO_INCREMENT untuk tabel `tiket_wisata`
 --
 ALTER TABLE `tiket_wisata`
-  MODIFY `id_tiket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_tiket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `ulasan_penginapan`
@@ -471,13 +510,13 @@ ALTER TABLE `ulasan_penginapan`
 -- AUTO_INCREMENT untuk tabel `ulasan_wisata`
 --
 ALTER TABLE `ulasan_wisata`
-  MODIFY `id_ulasan_w` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ulasan_w` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -535,6 +574,12 @@ ALTER TABLE `fav_penginapan`
 ALTER TABLE `fav_wisata`
   ADD CONSTRAINT `fav_user_wisata` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fav_wisata` FOREIGN KEY (`id_wisata`) REFERENCES `detail_wisata` (`id_wisata`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD CONSTRAINT `notif_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `riwayat_transaksi_tiket_wisata`

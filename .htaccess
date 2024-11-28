@@ -2,7 +2,15 @@
     Require all denied
 </Files>
 
-<Files "maintenance.php">
+<Files "maintenance_access.php">
+    Require all denied
+</Files>
+
+<Files "check_connection.php">
+    Require all denied
+</Files>
+
+<Files "check_maintenance.php">
     Require all denied
 </Files>
 

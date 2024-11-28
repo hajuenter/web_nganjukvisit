@@ -2,12 +2,12 @@
 require_once 'config/config.php';
 
 // Mengambil konfigurasi maintenance
-$maintenanceConfig = require 'maintenance.php';
+$maintenanceConfig = require 'maintenance_access.php';
 
 // Cek status maintenance
 if ($maintenanceConfig['maintenance_mode']) {
     // Jika maintenance mode aktif, arahkan ke halaman error_koneksi.php
-    header("Location: error_koneksi.php");
+    header("Location: maintenance.php");
     exit();
 }
 
@@ -23,7 +23,6 @@ try {
     // Log error ke file atau sistem logging
     error_log($e->getMessage(), 3, 'logs/error.log');
 
-    // Tampilkan pesan error umum tanpa membocorkan detail
-    header("Location: error_koneksi.php"); // Arahkan ke halaman error khusus
+    header("Location: error_db.php");
     exit();
 }
