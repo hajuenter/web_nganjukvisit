@@ -219,6 +219,10 @@ if (!empty($search)) {
                         <input type="text" class="form-control" id="alamat" name="alamat" required>
                     </div>
                     <div class="mb-3">
+                        <label for="nama_usaha" class="form-label">Nama Usaha</label>
+                        <input type="text" class="form-control" id="nama_usaha" name="nama_usaha" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="koordinat" class="form-label">Koordinat</label>
                         <input
                             type="text"

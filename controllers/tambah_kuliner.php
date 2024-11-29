@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_kuliner = $_POST['nama_kuliner'];
     $deskripsi = $_POST['deskripsi'];
     $harga = $_POST['harga'];
+    $nama_usaha = $_POST['nama_usaha'];
     $id_user = $_SESSION['user_id']; // Ambil user_id dari session
 
     // Variabel untuk nama file gambar
@@ -64,11 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
 
+        $alamat_final = $nama_usaha . ",Alamat:" . $alamat;
         // Query untuk menyimpan data ke database
         $sql = "INSERT INTO detail_kuliner (nama_kuliner, deskripsi, harga, gambar, alamat, koordinat, link_maps, id_user) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ssssssss', $nama_kuliner, $deskripsi, $harga, $gambar_string, $alamat, $koordinat, $link_maps, $id_user);
+        $stmt->bind_param('ssssssss', $nama_kuliner, $deskripsi, $harga, $gambar_string, $alamat_final, $koordinat, $link_maps, $id_user);
 
         if ($stmt->execute()) {
             // Redirect ke halaman admin dengan pesan sukses
