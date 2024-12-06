@@ -25,6 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gambar_tmp = $_FILES['gambar']['tmp_name'];
     $ekstensi_diperbolehkan = ['jpg', 'jpeg', 'png'];
 
+    if($harga_tiket == 0) {
+        $harga_tiket = "Gratis";
+    }
+    
     // Validasi format koordinat
     if (!preg_match('/^-?([1-8]?[0-9](\.\d+)?|90(\.0+)?),\s?-?(180(\.0+)?|((1[0-7][0-9])|([0-9]?[0-9]))(\.\d+)?)$/', $koordinat)) {
         $_SESSION['error'] = "Koordinat harus dalam format latitude, longitude. Contoh: -6.175392, 106.827153";

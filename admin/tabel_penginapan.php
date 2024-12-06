@@ -93,9 +93,9 @@ if (!empty($search)) {
                 <tr>
                     <th>Id</th>
                     <th>Nama</th>
-                    <th>Deskripsi</th>
+                    <th style="padding-left: 80px; padding-right: 80px;">Deskripsi</th>
                     <th>Harga</th>
-                    <th>Lokasi</th>
+                    <th style="padding-left: 60px; padding-right: 60px;">Lokasi</th>
                     <th>Gambar</th>
                     <th>Telepon</th>
                     <th>Koordinat</th>
@@ -261,7 +261,8 @@ if (!empty($search)) {
             "ordering": true,
             "info": true,
             "searching": false,
-            "pageLength": 10,
+            "pageLength": 100, // Default page length
+            "lengthMenu": [3, 5, 10, 25, 50, 100], // Opsi jumlah entri
             "language": {
                 "emptyTable": "Tidak ada data ditemukan",
                 "zeroRecords": "Tidak ada data ditemukan"

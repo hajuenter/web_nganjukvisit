@@ -273,85 +273,100 @@ function base64()
 {
     global $koneksi;
 
-    // Add error logging
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
     try {
-        // Validate input
         if (!isset($_POST["id_user"]) || !isset($_POST['photo'])) {
             jsonResponse(false, "Missing required parameters");
             return;
         }
 
-        $idUser = intval($_POST["id_user"]); // Ensure integer
+        $idUser = intval($_POST["id_user"]);
         $photo = htmlspecialchars($_POST['photo']);
 
-        // Remove base64 prefix and handle potential spaces
         $photo = preg_replace('/^data:image\/\w+;base64,/', '', $photo);
         $photo = str_replace(' ', '+', $photo);
 
-        // Decode base64 and validate
         $data = base64_decode($photo);
         if ($data === false) {
             jsonResponse(false, "Invalid base64 data");
             return;
         }
 
-        // Generate unique filename
-        $file = uniqid() . '.png';
+        $hash = md5($data);
+        $file = $hash . '.png';
         $filePath = "../public/gambar/" . $file;
 
-        // Ensure directory exists and is writable
         $uploadDir = dirname($filePath);
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
 
-        // Save file
-        if (file_put_contents($filePath, $data) === false) {
-            jsonResponse(false, "Failed to save file: " . error_get_last()['message']);
-            return;
-        }
+        $sqlCheckCurrentPhoto = "SELECT `gambar` FROM `user` WHERE `id_user` = ?";
+        $checkStmt = $koneksi->prepare($sqlCheckCurrentPhoto);
 
-        // Prepare database update
-        $sqlqueryupload = "UPDATE `user` SET `gambar` = ? WHERE `id_user` = ?";
-        $update_stmt = $koneksi->prepare($sqlqueryupload);
-
-        if ($update_stmt === false) {
-            // Log detailed error information
+        if ($checkStmt === false) {
             jsonResponse(false, "Prepare statement failed: " . $koneksi->error);
             return;
         }
 
-        // Bind parameters
+        $checkStmt->bind_param("i", $idUser);
+        $checkStmt->execute();
+        $checkStmt->store_result();
+
+        if ($checkStmt->num_rows > 0) {
+            $checkStmt->bind_result($currentImage);
+            $checkStmt->fetch();
+
+            if ($currentImage && $currentImage !== $file) {
+                $oldFilePath = "../public/gambar/" . $currentImage;
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath); 
+                }
+            }
+        }
+
+        $checkStmt->close();
+
+        if (file_exists($filePath)) {
+            jsonResponse(false, "Duplikat foto terdeteksi. Upload ditolak.");
+            return;
+        }
+
+        if (file_put_contents($filePath, $data) === false) {
+            jsonResponse(false, "Gagal menyimpan foto: " . error_get_last()['message']);
+            return;
+        }
+
+        $sqlqueryupload = "UPDATE `user` SET `gambar` = ? WHERE `id_user` = ?";
+        $update_stmt = $koneksi->prepare($sqlqueryupload);
+
+        if ($update_stmt === false) {
+            jsonResponse(false, "Prepare statement gagal: " . $koneksi->error);
+            return;
+        }
+
         $update_stmt->bind_param("si", $file, $idUser);
 
-        // Execute and check result
         if (!$update_stmt->execute()) {
-            jsonResponse(false, "Update failed: " . $update_stmt->error);
+            jsonResponse(false, "Update gagal: " . $update_stmt->error);
             return;
         }
 
-        // Check if any rows were actually updated
         if ($update_stmt->affected_rows === 0) {
-            jsonResponse(false, "No rows updated. Check if user ID exists.");
+            jsonResponse(false, "tidak ada baris yang diperbarui. Cek jika user ID exists.");
             return;
         }
 
-        // Close statement
         $update_stmt->close();
 
-        jsonResponse(true,$file);
+        jsonResponse(true, $file);
 
     } catch (Exception $e) {
-        // Catch any unexpected errors
         jsonResponse(false, "An error occurred: " . $e->getMessage());
     }
 }
-
-
-
 
 
 ?>

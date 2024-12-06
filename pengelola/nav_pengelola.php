@@ -11,7 +11,7 @@ $conn = $koneksi;
 $id_user = $_SESSION['user_id'];
 
 // Ambil data pengguna dari database
-$sql = "SELECT gambar FROM user WHERE id_user = ?";
+$sql = "SELECT nama, gambar FROM user WHERE id_user = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_user);
 $stmt->execute();
@@ -41,7 +41,7 @@ $gambar_profil .= '?v=' . time();
         <li class="nav-item dropdown no-arrow">
             <a class="text-white nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-dark small"><?= htmlspecialchars($_SESSION['nama']); ?></span>
+                <span class="mr-2 d-none d-lg-inline text-dark small"><?= htmlspecialchars($user['nama']); ?></span>
                 <img class="img-profile rounded-circle"
                     src="<?= htmlspecialchars($gambar_profil); ?>" alt="Foto Profil">
             </a>

@@ -223,7 +223,8 @@ if (!empty($search)) {
             "ordering": true,
             "info": true,
             "searching": false,
-            "pageLength": 10,
+            "pageLength": 100, // Default page length
+            "lengthMenu": [3, 5, 10, 25, 50, 100], // Opsi jumlah entri
             "language": {
                 "emptyTable": "Tidak ada data ditemukan",
                 "zeroRecords": "Tidak ada data ditemukan"

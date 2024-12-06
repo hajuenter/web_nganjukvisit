@@ -47,7 +47,7 @@ if (isset($_POST['id_wisata'])) {
             </div>
             <div class="mb-3">
                 <label for="harga" class="form-label">Harga Tiket</label>
-                <input type="text" class="form-control" id="harga_tiket" name="harga_tiket" value="' . htmlspecialchars($row['harga_tiket']) . '">
+                <input type="number" class="form-control" id="harga_tiket" name="harga_tiket" value="' . htmlspecialchars($row['harga_tiket']) . '">
             </div>
             <div class="mb-3">
                 <label class="form-label">Jadwal Buka Tutup</label>

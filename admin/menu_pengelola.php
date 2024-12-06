@@ -175,10 +175,12 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                             <?php
                             // Koneksi ke database
                             include("../koneksi.php");
-
-                            // Query untuk mengambil id_wisata dan nama_wisata
-                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata WHERE id_pengelola IS NULL OR id_pengelola = ''");
-
+                        
+                            // Query untuk mengambil id_wisata dan nama_wisata yang bukan "Gratis"
+                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata 
+                                                           WHERE (id_pengelola IS NULL OR id_pengelola = '') 
+                                                           AND harga_tiket <> 'Gratis'");
+                        
                             // Loop melalui hasil query dan buat opsi dropdown
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<option value='" . $row['id_wisata'] . "'>" . $row['nama_wisata'] . "</option>";
@@ -281,7 +283,8 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
             "ordering": true,
             "info": true,
             "searching": false,
-            "pageLength": 10,
+            "pageLength": 100, // Default page length
+            "lengthMenu": [3, 5, 10, 25, 50, 100], // Opsi jumlah entri
             "language": {
                 "emptyTable": "Tidak ada data pengelola aktif.",
                 "zeroRecords": "Tidak ada data pengelola aktif."
