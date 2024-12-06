@@ -4,6 +4,16 @@ Your gateway to exploring the beauty and culture of Nganjuk!
 
 Nganjuk Visit is a comprehensive platform that provides information on tourism, culinary delights, hotels, and events in Nganjuk. With a user-friendly design and rich features, discovering the wonders of Nganjuk has never been easier!
 
+---
+
+![App Screenshot](./public/assets/screencapture-localhost-nganjukvisit-admin-admin-profile-php-2024-11-24-22_22_20.png)
+![App Screenshot](./public/assets/screencapture-localhost-nganjukvisit-login-php-2024-11-24-20_51_47.png)
+![App Screenshot](./public/assets/screencapture-localhost-nganjukvisit-admin-index-php-2024-11-24-21_20_49.png)
+
+---
+
+## 🛠 Technology
+
 ![PHP](https://img.shields.io/badge/PHP-8.3.8-blue?style=flat-square&logo=php)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?style=flat-square&logo=javascript)
 ![jQuery](https://img.shields.io/badge/jQuery-3.6.4-blue?style=flat-square&logo=jquery)
@@ -56,13 +66,13 @@ git clone https://github.com/hajuenter/web_nganjukvisit.git
 **SSH**
 
 ```bash
-    git clone git@github.com:hajuenter/web_nganjukvisit.git
+git clone git@github.com:hajuenter/web_nganjukvisit.git
 ```
 
 **GitHub CLI**
 
 ```bash
-    gh repo clone hajuenter/web_nganjukvisit
+gh repo clone hajuenter/web_nganjukvisit
 ```
 
 ---
