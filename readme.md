@@ -6,6 +6,7 @@ Nganjuk Visit is a comprehensive platform that provides information on tourism, 
 
 ---
 
+![App Screenshot](./public/assets/lp%20nganjuk%20visit.png)
 ![App Screenshot](./public/assets/screencapture-localhost-nganjukvisit-admin-admin-profile-php-2024-11-24-22_22_20.png)
 ![App Screenshot](./public/assets/screencapture-localhost-nganjukvisit-login-php-2024-11-24-20_51_47.png)
 ![App Screenshot](./public/assets/screencapture-localhost-nganjukvisit-admin-index-php-2024-11-24-21_20_49.png)
