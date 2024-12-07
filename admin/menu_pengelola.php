@@ -108,12 +108,14 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         <select class="form-control" id="wisata" name="wisata" required>
                             <option value="">Pilih Wisata</option>
                             <?php
-                            // Query untuk mengambil id_wisata dan nama_wisata
-                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata WHERE id_pengelola IS NULL OR id_pengelola = ''");
-
-                            // Loop untuk membuat pilihan dropdown
+                            // Query untuk mengambil wisata yang tidak gratis
+                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata 
+                                                           FROM detail_wisata 
+                                                           WHERE (id_pengelola IS NULL OR id_pengelola = '') 
+                                                           AND harga_tiket <> 'Gratis'");
+                            // Loop untuk mengisi opsi dropdown
                             while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<option value='" . $row['id_wisata'] . "'>" . $row['nama_wisata'] . "</option>";
+                                echo "<option value='" . htmlspecialchars($row['id_wisata']) . "'>" . htmlspecialchars($row['nama_wisata']) . "</option>";
                             }
                             ?>
                         </select>
@@ -175,12 +177,12 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                             <?php
                             // Koneksi ke database
                             include("../koneksi.php");
-                        
+
                             // Query untuk mengambil id_wisata dan nama_wisata yang bukan "Gratis"
                             $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata 
                                                            WHERE (id_pengelola IS NULL OR id_pengelola = '') 
                                                            AND harga_tiket <> 'Gratis'");
-                        
+
                             // Loop melalui hasil query dan buat opsi dropdown
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<option value='" . $row['id_wisata'] . "'>" . $row['nama_wisata'] . "</option>";
