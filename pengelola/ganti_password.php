@@ -61,7 +61,7 @@
             </div>
             <div class="modal-body">
                 <p class="text-danger">*<small class="text-black">Pastikan password baru dan konfirmasi password sama</small></p>
-                <p class="text-danger">*<small class="text-black">Password harus mengandung huruf dan angka</small></p>
+                <p class="text-danger">*<small class="text-black">Password harus mengandung huruf,angka, dan karakter unik</small></p>
                 <p class="text-danger">*<small class="text-black">Password harus memiliki panjang antara 8 hingga 50 karakter</small></p>
             </div>
             <div class="modal-footer">

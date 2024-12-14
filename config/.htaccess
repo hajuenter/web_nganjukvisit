@@ -2,4 +2,12 @@
     Require all denied
 </Files>
 
-ErrorDocument 403 /nganjukvisit/config/error403.php
+<Files "key.php">
+    Require all denied
+</Files>
+
+<Files "encryption_helper.php">
+    Require all denied
+</Files>
+
+ErrorDocument 403 /config/error403.php

@@ -2,12 +2,14 @@
 header("Content-Type: application/json");
 include_once '../koneksi.php';
 include 'jsonResponse.php';
+include("../config/encryption_helper.php");
+include("../config/key.php");
 
 // Mendapatkan parameter `action`
 $action = $_GET['action'] ?? '';
 
 switch ($action) {
-    // Rekomendasi
+        // Rekomendasi
     case 'rekomendasi_penginapan':
     case 'rekomendasi_wisata':
     case 'rekomendasi_kuliner':
@@ -16,7 +18,7 @@ switch ($action) {
         getRekomendasi($kategori);
         break;
 
-    // Detail
+        // Detail
     case 'detail_penginapan':
     case 'detail_wisata':
     case 'detail_kuliner':
@@ -25,7 +27,7 @@ switch ($action) {
         getDetailById($kategori);
         break;
 
-    // Ulasan
+        // Ulasan
     case 'get_all_ulasan':
         getAllUlasan();
         break;
@@ -39,7 +41,7 @@ switch ($action) {
         deleteUlasan();
         break;
 
-    // Pencarian berdasarkan key dan value
+        // Pencarian berdasarkan key dan value
     case 'search_home':
         searchInTables();
         break;
@@ -529,4 +531,3 @@ function executeQuery($conn, $query, $successMessage, $errorMessage)
         jsonResponse('error', $errorMessage);
     }
 }
-?>

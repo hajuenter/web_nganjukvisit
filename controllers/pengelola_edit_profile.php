@@ -1,6 +1,9 @@
 <?php
 include("../koneksi.php");
 include("../base_url.php");
+include("../config/encryption_helper.php");
+include("../config/key.php");
+
 $conn = $koneksi;
 
 // Memulai sesi untuk mendapatkan ID pengguna
@@ -30,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $alamat = $_POST['alamat'];
     $email = $_POST['email'];
     $no_hp = $_POST['no_hp'];
-
+    
     // Validasi nomor HP
     if (!preg_match('/^[0-9]{10,15}$/', $no_hp)) {
         $_SESSION['profile_gagal'] = "Nomor HP harus berupa angka dengan panjang antara 10 hingga 15 karakter.";
@@ -51,10 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
+    $encrypted_no_hp = encryptData($no_hp, ENCRYPTION_KEY);
+    
     // Validasi apakah nomor HP sudah digunakan oleh pengguna lain
     $noHpQuery = "SELECT id_user FROM user WHERE no_hp = ? AND id_user != ?";
     $stmtNoHp = $conn->prepare($noHpQuery);
-    $stmtNoHp->bind_param("si", $no_hp, $id_user);
+    $stmtNoHp->bind_param("si", $encrypted_no_hp, $id_user);
     $stmtNoHp->execute();
     $resultNoHp = $stmtNoHp->get_result();
 
@@ -107,13 +112,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Memperbarui detail pengguna di database
     $updateQuery = "UPDATE user SET nama = ?, role = ?, alamat = ?, email = ?, no_hp = ? WHERE id_user = ?";
     $stmt = $conn->prepare($updateQuery);
-    $stmt->bind_param("sssssi", $name, $role, $alamat, $email, $no_hp, $id_user);
+    $stmt->bind_param("sssssi", $name, $role, $alamat, $email, $encrypted_no_hp, $id_user);
     $stmt->execute();
-
+    
+        
     // Memperbarui nomor HP di tabel detail_wisata jika id_pengelola cocok
     $updateNoHpPengelolaQuery = "UPDATE detail_wisata SET no_hp_pengelola = ? WHERE id_pengelola = ?";
     $stmtDetailWisata = $conn->prepare($updateNoHpPengelolaQuery);
-    $stmtDetailWisata->bind_param("si", $no_hp, $id_user);
+    $stmtDetailWisata->bind_param("si", $encrypted_no_hp, $id_user);
     $stmtDetailWisata->execute();
 
     // Mengambil data pengguna yang sudah diperbarui

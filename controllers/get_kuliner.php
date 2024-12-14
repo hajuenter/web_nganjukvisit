@@ -34,7 +34,7 @@ if (isset($_POST['id_kuliner'])) {
             </div>
             <div class="mb-3">
                 <label for="harga" class="form-label">Harga</label>
-                <input type="text" class="form-control" id="harga" name="harga" value="' . htmlspecialchars($row['harga']) . '">
+                <input type="number" class="form-control" id="harga" name="harga" value="' . htmlspecialchars($row['harga']) . '">
             </div>
             <div class="mb-3">
                 <label for="gambar" class="form-label">Gambar</label>

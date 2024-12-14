@@ -1,7 +1,11 @@
 <?php
 include("../koneksi.php");
+include("../config/encryption_helper.php");
+include("../config/key.php");
 
 $conn = $koneksi;
+
+
 $id_user = $_SESSION['user_id'];
 
 $sql = "SELECT email, nama, role, alamat, gambar, no_hp FROM user WHERE id_user = ?";
@@ -18,6 +22,7 @@ $alamat = $user['alamat'];
 // Ganti gambar default jika pengguna belum memiliki gambar
 $gambar_profil = !empty($user['gambar']) ? "../public/gambar/" . $user['gambar'] : "../public/gambar/avatar_profile.jpg";
 $no_hp = $user['no_hp'];
+$decrypted_no_hp = decryptData($no_hp, ENCRYPTION_KEY);
 ?>
 
 <div class="container-fluid">
@@ -94,7 +99,7 @@ $no_hp = $user['no_hp'];
                                 <div class="col-sm-10">
                                     <div class="input-group">
                                         <span class="input-group-text">+62</span>
-                                        <input type="number" class="form-control" id="no_hp" name="no_hp" required placeholder="Masukkan nomor HP tanpa 0 di depan" value="<?= htmlspecialchars($no_hp) ?>">
+                                        <input type="number" class="form-control" id="no_hp" name="no_hp" required placeholder="Masukkan nomor HP tanpa 0 di depan" value="<?= htmlspecialchars($decrypted_no_hp) ?>">
                                     </div>
                                 </div>
                             </div>

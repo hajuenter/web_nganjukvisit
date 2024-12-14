@@ -4,6 +4,8 @@ header("Content-Type: application/json");
 
 // Mengimpor koneksi database
 include '../koneksi.php';
+include("../config/encryption_helper.php");
+include("../config/key.php");
 $conn = $koneksi; // Menggunakan koneksi dari config
 
 require 'jsonResponse.php'; // Mengimpor file untuk menangani JSON
@@ -110,4 +112,3 @@ elseif ($method == 'POST' && $action == 'pesan') {
 } else {
     jsonResponse(false, "Metode atau action tidak diizinkan", null);
 }
-?>

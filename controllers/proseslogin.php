@@ -42,12 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Cek role pengguna dan redirect ke halaman sesuai
                 if ($row['role'] == 'admin') {
-                    header("Location: " . BASE_URL . "/admin/index.php");
+                    header("Location:" . BASE_URL . "/admin/index.php");
                 } elseif ($row['role'] == 'pengelola') {
-                    header("Location: " . BASE_URL . "/pengelola/index.php");
+                    header("Location:" . BASE_URL . "/pengelola/index.php");
                 } else {
                     $_SESSION['error'] = "Role pengguna tidak valid!";
-                    header("Location:" . BASE_URL . "/login.php");
+                    header("Location: ../login.php");
                 }
                 exit;
             }

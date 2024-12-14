@@ -2,6 +2,8 @@
 session_start();
 include("../koneksi.php");
 include("../base_url.php");
+include("../config/encryption_helper.php");
+include("../config/key.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
@@ -41,9 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Validasi pola password (kombinasi huruf dan angka)
-    if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,50}$/', $password)) {
-        $_SESSION['error'] = "Password harus mengandung huruf, angka, dan panjang antara 8 hingga 50 karakter.";
+    if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,50}$/', $password)) {
+        $_SESSION['error'] = "Password harus mengandung huruf, angka, karakter unik, dan panjang antara 8 hingga 50 karakter.";
         header("Location:" . BASE_URL . "/register.php");
         exit;
     }
@@ -60,11 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location:" . BASE_URL . "/register.php");
         exit;
     }
+    
+    $encrypted_no_hp = encryptData($no_hp, ENCRYPTION_KEY);
 
     // Validasi apakah nomor HP sudah digunakan
     $sql_check_no_hp = "SELECT * FROM user WHERE no_hp = ?";
     $stmt_check_no_hp = $koneksi->prepare($sql_check_no_hp);
-    $stmt_check_no_hp->bind_param("s", $no_hp);
+    $stmt_check_no_hp->bind_param("s", $encrypted_no_hp);
     $stmt_check_no_hp->execute();
     $result_check_no_hp = $stmt_check_no_hp->get_result();
 
@@ -79,11 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Set status sebagai inactive untuk pengelola
     $status = 'inactive';
-
+    
+    $gambar = "avatar_profile.jpg";
+    
     // Query untuk menyimpan data ke tabel user
-    $sql = "INSERT INTO user (email, nama, role, password, alamat, no_hp, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO user (email, nama, role, password, alamat, gambar, no_hp, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $koneksi->prepare($sql);
-    $stmt->bind_param("sssssss", $email, $name, $role, $hashed_password, $alamat, $no_hp, $status);
+    $stmt->bind_param("ssssssss", $email, $name, $role, $hashed_password, $alamat, $gambar, $encrypted_no_hp, $status);
 
     // Eksekusi query
     if ($stmt->execute()) {

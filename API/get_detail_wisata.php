@@ -1,7 +1,9 @@
 <?php
 // Mengatur header respons menjadi JSON dan mendukung CORS
 header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *"); // Mengizinkan akses dari domain lain, jika perlu
+header("Access-Control-Allow-Origin: *");
+include("../config/encryption_helper.php");
+include("../config/key.php"); // Mengizinkan akses dari domain lain, jika perlu
 
 // Mengimpor koneksi database
 include '../koneksi.php'; // Pastikan file ini sudah ada untuk koneksi database
@@ -72,4 +74,3 @@ if ($requestMethod === "GET") {
 
 // Menutup koneksi database
 mysqli_close($conn);
-?>

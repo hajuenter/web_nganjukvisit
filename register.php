@@ -145,11 +145,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         <p class="text-danger">*<small class="text-black">Isi semua kolom</small></p>
                         <p class="text-danger">*<small class="text-black">Pastikan menggunakan email yang aktif</small></p>
                         <p class="text-danger">*<small class="text-black">Email harus menggunakan domain @gmail.com</small></p>
-                        <p class="text-danger">*<small class="text-black">Password harus mengandung huruf dan angka</small></p>
+                        <p class="text-danger">*<small class="text-black">Password harus mengandung huruf,angka, dan karakter unik</small></p>
                         <p class="text-danger">*<small class="text-black">Password harus memiliki panjang antara 8 hingga 50 karakter</small></p>
                         <p class="text-danger">*<small class="text-black">Nama harus memiliki panjang antara 4 hingga 50 karakter</small></p>
                         <p class="text-danger">*<small class="text-black">Nomor HP harus terdiri dari 10 hingga 15 digit angka</small></p>
-                        <p class="text-danger">*<small class="text-black">Nomor HP harus menggunakan format +62 sebagai ganti angka 0</small></p>
+                        <p class="text-danger">*<small class="text-black">Nomor HP menggunakan format +62 sebagai ganti angka 0</small></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

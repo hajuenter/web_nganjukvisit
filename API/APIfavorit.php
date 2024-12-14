@@ -1,6 +1,7 @@
 <?php
 include_once '../koneksi.php';
-
+include("../config/encryption_helper.php");
+include("../config/key.php");
 $action = $_POST['action'] ?? '';
 $kategori = $_POST['kategori'] ?? '';
 $id_user = $_POST['id_user'] ?? '';
@@ -162,4 +163,3 @@ function jsonResponse($status, $message, $data = null)
 {
     echo json_encode(['status' => $status, 'message' => $message, 'data' => $data]);
 }
-?>

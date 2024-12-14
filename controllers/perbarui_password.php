@@ -32,11 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Validasi pola password (kombinasi huruf dan angka)
-    if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,50}$/', $password_baru)) {
-        $_SESSION['error'] = "Password harus mengandung huruf, angka, dan panjang antara 8 hingga 50 karakter.";
-        header("Location:" . BASE_URL . "/admin/admin_ganti_password.php");
-        exit();
+    if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,50}$/', $password_baru)) {
+    $_SESSION['error'] = "Password harus mengandung huruf, angka, karakter unik, dan panjang antara 8 hingga 50 karakter.";
+    header("Location:" . BASE_URL . "/admin/admin_ganti_password.php");
+    exit;
     }
+
 
     // Cek apakah password baru dan konfirmasi password cocok
     if ($password_baru !== $konfir_password) {

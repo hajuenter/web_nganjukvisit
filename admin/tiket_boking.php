@@ -15,7 +15,7 @@ $sqlWisata = "
     SELECT d.id_wisata, d.nama_wisata, d.harga_tiket
     FROM detail_wisata d
     LEFT JOIN tiket_wisata t ON d.id_wisata = t.id_wisata
-    WHERE t.id_wisata IS NULL"; // Hanya ambil yang belum ada tiketnya
+    WHERE t.id_wisata IS NULL AND d.harga_tiket != 'Gratis';"; // Hanya ambil yang belum ada tiketnya
 
 $stmWisata = $conn->prepare($sqlWisata);
 $stmWisata->execute();

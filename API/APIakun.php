@@ -2,6 +2,8 @@
 header("Content-Type: application/json");
 include_once '../koneksi.php';
 include 'jsonResponse.php';
+include("../config/encryption_helper.php");
+include("../config/key.php");
 global $koneksi;
 // Mendapatkan parameter `action` untuk menentukan fungsi yang dipanggil
 $action = $_POST['action'] ?? '';
@@ -54,7 +56,7 @@ function login()
             $user = $result->fetch_assoc();
 
             if (password_verify($password, $user['password'])) {
-
+                $decrypted_no_hp = decryptData($user['no_hp'], ENCRYPTION_KEY);
                 jsonResponse(true, "Login berhasil", [
                     "id_user" => $user['id_user'],
                     "email" => $user['email'],
@@ -62,7 +64,7 @@ function login()
                     "role" => $user['role'],
                     "alamat" => $user['alamat'],
                     "gambar" => $user['gambar'],
-                    "no_hp" => $user['no_hp']
+                    "no_hp" => $decrypted_no_hp
                 ]);
             } else {
                 jsonResponse(false, "Password salah");
@@ -95,7 +97,6 @@ function register()
         } else {
             // Jika email belum terdaftar, lanjutkan dengan proses registrasi
             $password_hashed = password_hash($password, PASSWORD_DEFAULT);
-
             $sql = "INSERT INTO user (alamat, email, password, nama, role) VALUES (?, ?, ?, ?, 'user')";
             $stmt = $koneksi->prepare($sql);
             $stmt->bind_param("ssss", $alamat, $email, $password_hashed, $nama);
@@ -162,6 +163,7 @@ function getUserInfo()
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
+        $decrypted_no_hp = decryptData($user['no_hp'], ENCRYPTION_KEY);
         jsonResponse(true, "Data user ditemukan", [
             "id_user" => $user['id_user'],
             "email" => $user['email'],
@@ -169,7 +171,7 @@ function getUserInfo()
             "role" => $user['role'],
             "alamat" => $user['alamat'],
             "gambar" => $user['gambar'],
-            "no_hp" => $user['no_hp']
+            "no_hp" => $decrypted_no_hp
         ]);
     } else {
         jsonResponse(false, "Token tidak valid atau telah kedaluwarsa");
@@ -183,12 +185,14 @@ function editUserInfo()
     $id_user = $_POST['id_user'] ?? '';
     $nama = $_POST['nama'] ?? '';
     $alamat = $_POST['alamat'] ?? '';
-    $no_hp = $_POST['no_hp'] ?? ''; // URL atau path gambar
+    $no_hp = $_POST['no_hp'] ?? '';
+    $encrypted_no_hp = encryptData($no_hp, ENCRYPTION_KEY);
 
     if ($id_user) {
+
         $update_sql = "UPDATE user SET nama = ?, alamat = ?, no_hp = ? WHERE id_user = ?";
         $update_stmt = $koneksi->prepare($update_sql);
-        $update_stmt->bind_param("sssi", $nama, $alamat, $no_hp, $id_user);
+        $update_stmt->bind_param("sssi", $nama, $alamat, $encrypted_no_hp, $id_user);
 
         if ($update_stmt->execute()) {
             jsonResponse(true, "Informasi pengguna berhasil diperbarui");
@@ -214,13 +218,13 @@ function SearchNoPengelola()
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-        jsonResponse(true, "Data user ditemukan", [
-            "no_hp" => $user['no_hp']
+        $decrypted_no_hp = decryptData($user['no_hp'], ENCRYPTION_KEY);
+        jsonResponse(true, "Data pengelola ditemukan", [
+            "no_hp" => $decrypted_no_hp
         ]);
     } else {
         jsonResponse(false, "Nomor Hp tidak ditemukan");
     }
-
 }
 function LoginGoogle()
 {
@@ -246,7 +250,7 @@ function LoginGoogle()
     // Jika email ditemukan
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-
+        $decrypted_no_hp = decryptData($user['no_hp'], ENCRYPTION_KEY);
         $response = array(
             'status' => 'success',
             'message' => 'Login berhasil',
@@ -257,7 +261,7 @@ function LoginGoogle()
                 "role" => $user['role'],
                 "alamat" => $user['alamat'],
                 "gambar" => $user['gambar'],
-                "no_hp" => $user['no_hp'] // Tambahkan data yang diperlukan
+                "no_hp" => $decrypted_no_hp // Tambahkan data yang diperlukan
             )
         );
     } else {
@@ -273,85 +277,96 @@ function base64()
 {
     global $koneksi;
 
-    // Add error logging
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
     try {
-        // Validate input
         if (!isset($_POST["id_user"]) || !isset($_POST['photo'])) {
             jsonResponse(false, "Missing required parameters");
             return;
         }
 
-        $idUser = intval($_POST["id_user"]); // Ensure integer
+        $idUser = intval($_POST["id_user"]);
         $photo = htmlspecialchars($_POST['photo']);
 
-        // Remove base64 prefix and handle potential spaces
         $photo = preg_replace('/^data:image\/\w+;base64,/', '', $photo);
         $photo = str_replace(' ', '+', $photo);
 
-        // Decode base64 and validate
         $data = base64_decode($photo);
         if ($data === false) {
             jsonResponse(false, "Invalid base64 data");
             return;
         }
 
-        // Generate unique filename
-        $file = uniqid() . '.png';
+        $hash = md5($data);
+        $file = $hash . '.png';
         $filePath = "../public/gambar/" . $file;
 
-        // Ensure directory exists and is writable
         $uploadDir = dirname($filePath);
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
 
-        // Save file
-        if (file_put_contents($filePath, $data) === false) {
-            jsonResponse(false, "Failed to save file: " . error_get_last()['message']);
-            return;
-        }
+        $sqlCheckCurrentPhoto = "SELECT `gambar` FROM `user` WHERE `id_user` = ?";
+        $checkStmt = $koneksi->prepare($sqlCheckCurrentPhoto);
 
-        // Prepare database update
-        $sqlqueryupload = "UPDATE `user` SET `gambar` = ? WHERE `id_user` = ?";
-        $update_stmt = $koneksi->prepare($sqlqueryupload);
-
-        if ($update_stmt === false) {
-            // Log detailed error information
+        if ($checkStmt === false) {
             jsonResponse(false, "Prepare statement failed: " . $koneksi->error);
             return;
         }
 
-        // Bind parameters
+        $checkStmt->bind_param("i", $idUser);
+        $checkStmt->execute();
+        $checkStmt->store_result();
+
+        if ($checkStmt->num_rows > 0) {
+            $checkStmt->bind_result($currentImage);
+            $checkStmt->fetch();
+
+            if ($currentImage && $currentImage !== $file) {
+                $oldFilePath = "../public/gambar/" . $currentImage;
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+        }
+
+        $checkStmt->close();
+
+        if (file_exists($filePath)) {
+            jsonResponse(false, "Duplikat foto terdeteksi. Upload ditolak.");
+            return;
+        }
+
+        if (file_put_contents($filePath, $data) === false) {
+            jsonResponse(false, "Gagal menyimpan foto: " . error_get_last()['message']);
+            return;
+        }
+
+        $sqlqueryupload = "UPDATE `user` SET `gambar` = ? WHERE `id_user` = ?";
+        $update_stmt = $koneksi->prepare($sqlqueryupload);
+
+        if ($update_stmt === false) {
+            jsonResponse(false, "Prepare statement gagal: " . $koneksi->error);
+            return;
+        }
+
         $update_stmt->bind_param("si", $file, $idUser);
 
-        // Execute and check result
         if (!$update_stmt->execute()) {
-            jsonResponse(false, "Update failed: " . $update_stmt->error);
+            jsonResponse(false, "Update gagal: " . $update_stmt->error);
             return;
         }
 
-        // Check if any rows were actually updated
         if ($update_stmt->affected_rows === 0) {
-            jsonResponse(false, "No rows updated. Check if user ID exists.");
+            jsonResponse(false, "tidak ada baris yang diperbarui. Cek jika user ID exists.");
             return;
         }
 
-        // Close statement
         $update_stmt->close();
 
-        jsonResponse(true,$file);
-
+        jsonResponse(true, $file);
     } catch (Exception $e) {
-        // Catch any unexpected errors
         jsonResponse(false, "An error occurred: " . $e->getMessage());
     }
 }
-
-
-
-
-
-?>

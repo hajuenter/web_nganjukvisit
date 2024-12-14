@@ -97,7 +97,7 @@ if (!empty($search)) {
                             <th>Id Wisata</th>
                             <th style="white-space: nowrap;">Nama Wisata</th>
                             <th style="padding-left: 80px; padding-right: 80px;">Deskripsi</th>
-                            <th>Alamat</th>
+                            <th style="padding-left: 70px; padding-right: 70px;">Alamat</th>
                             <th style="white-space: nowrap;">Harga Tiket</th>
                             <th class="pe-5" style="white-space: nowrap;">Jadwal Buka Tutup Wisata</th>
                             <th>Gambar</th>
@@ -286,7 +286,8 @@ if (!empty($search)) {
             "ordering": true,
             "info": true,
             "searching": false,
-            "pageLength": 10,
+            "pageLength": 100, // Default page length
+            "lengthMenu": [3, 5, 10, 25, 50, 100], // Opsi jumlah entri
             "language": {
                 "emptyTable": "Tidak ada data ditemukan",
                 "zeroRecords": "Tidak ada data ditemukan"
@@ -294,6 +295,7 @@ if (!empty($search)) {
         });
     });
 </script>
+
 <!-- ambil data untuk edit -->
 <script>
     $(document).ready(function() {

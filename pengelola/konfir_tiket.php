@@ -1,14 +1,25 @@
 <?php
 include("../koneksi.php"); // Koneksi database
 
-$conn = $koneksi;
+// Ambil user_id dari session
+$user_id = $_SESSION['user_id'];
 
-// Mengambil detail tiket dari database yang statusnya 'diproses'
-$sqlq = "SELECT * FROM detail_tiket WHERE status = 'diproses'";
+// Query untuk mendapatkan id_wisata dari tabel user berdasarkan user_id
+$queryWisata = "SELECT ket_wisata FROM user WHERE id_user = ?";
+$stmtWisata = $conn->prepare($queryWisata);
+$stmtWisata->bind_param("i", $user_id);
+$stmtWisata->execute();
+$resultWisata = $stmtWisata->get_result();
+$ket_wisata = $resultWisata->fetch_assoc()['ket_wisata'];
+
+// Query untuk mendapatkan detail tiket yang sesuai dengan id_wisata dan status 'diproses'
+$sqlq = "SELECT * FROM detail_tiket WHERE status = 'diproses' AND id_wisata = ?";
 $stm = $conn->prepare($sqlq);
+$stm->bind_param("i", $ket_wisata);
 $stm->execute();
-$result = $stm->get_result(); // Mengambil hasil query
+$result = $stm->get_result();
 
+// Mengambil hasil query
 $hasil = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
@@ -31,6 +42,9 @@ $hasil = $result->fetch_all(MYSQLI_ASSOC);
         </div>
     <?php endif; ?>
     <p class="text-sm">Data pembelian tiket wisata</p>
+    <button class="btn btn-primary mb-2" onclick="window.location.href='pengelola_konfir_tiket.php'" id="refreshButton">
+            <i class="fas fa-sync-alt"></i> Refresh
+    </button>
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -42,8 +56,7 @@ $hasil = $result->fetch_all(MYSQLI_ASSOC);
                     <th>Harga</th>
                     <th>Jumlah</th>
                     <th>Total</th>
-                    <th>Bayar</th>
-                    <th>Kembalian</th>
+                    <th>Tanggal</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -59,8 +72,7 @@ $hasil = $result->fetch_all(MYSQLI_ASSOC);
                             <td><?php echo htmlspecialchars($row['harga']); ?></td>
                             <td><?php echo htmlspecialchars($row['jumlah']); ?></td>
                             <td><?php echo htmlspecialchars($row['total']); ?></td>
-                            <td><?php echo htmlspecialchars($row['bayar']); ?></td>
-                            <td><?php echo htmlspecialchars($row['kembalian']); ?></td>
+                            <td><?php echo htmlspecialchars($row['tanggal']); ?></td>
                             <td><?php echo htmlspecialchars($row['status']); ?></td>
                             <td>
                                 <form method="POST" action="../controllers/pengelola_aktivasi_pembayaran.php" style="display:inline;">

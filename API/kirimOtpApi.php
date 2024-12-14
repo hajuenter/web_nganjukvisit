@@ -62,7 +62,7 @@ if ($requestMethod === 'POST') {
 
         // Generate kode OTP
         $otp = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);// 8 digit OTP
-        $expiry = date('Y-m-d H:i:s', strtotime('+5 minutes')); // OTP berlaku selama 5 menit
+        $expiry = date('Y-m-d H:i:s', strtotime('+60 second')); // OTP berlaku selama 5 menit
 
         // Simpan OTP dan waktu kedaluwarsa di database
         $sql = "UPDATE user SET kode_otp = ?, expired_otp = ? WHERE email = ?";
@@ -91,8 +91,8 @@ if ($requestMethod === 'POST') {
                 // Konten email
                 $mail->isHTML(true); // Set email format ke HTML
                 $mail->Subject = 'Kode OTP untuk Pemulihan Password';
-                $mail->Body = "Kode OTP Anda adalah: <strong>$otp</strong><br>Kode ini berlaku selama 5 menit.";
-                $mail->AltBody = "Kode OTP Anda adalah: $otp\nKode ini berlaku selama 5 menit.";
+                $mail->Body = "Kode OTP Anda adalah: <strong>$otp</strong><br>Kode ini berlaku selama 60 detik.";
+                $mail->AltBody = "Kode OTP Anda adalah: $otp\nKode ini berlaku selama 60 detik.";
 
                 // Set timeout untuk pengiriman email
                 $mail->Timeout = 30; // Timeout dalam detik

@@ -2,6 +2,9 @@
 session_start();
 include("../koneksi.php");
 include("../base_url.php");
+include("../config/encryption_helper.php");
+include("../config/key.php");
+
 $conn = $koneksi;
 
 // Cek apakah form telah disubmit
@@ -14,11 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $no_hp = mysqli_real_escape_string($conn, $_POST['no_hp']);
     $ket_wisata = mysqli_real_escape_string($conn, $_POST['pilih_untuk_mengelola']); // ID wisata dari dropdown
 
-    // Validasi panjang password dan kombinasi huruf dan angka
-    if (strlen($password) < 8 || strlen($password) > 50 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/[0-9]/', $password)) {
-        $_SESSION['error_konfir'] = "Password harus memiliki panjang minimal 8 karakter, maksimal 50 karakter, dan harus mengandung huruf dan angka.";
-        header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
-        exit();
+    // Validasi pola password (kombinasi huruf dan angka)
+    if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,50}$/', $password)) {
+    $_SESSION['error'] = "Password harus mengandung huruf, angka, karakter unik, dan panjang antara 8 hingga 50 karakter.";
+    header("Location:" . BASE_URL . "/admin/admin_pengelola.php");
+    exit;
     }
 
     // Validasi nomor HP
@@ -46,10 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_close($stmt_check);
     }
 
+    $encrypted_no_hp = encryptData($no_hp, ENCRYPTION_KEY);
+
     // Cek apakah nomor HP sudah digunakan
     $query_check_no_hp = "SELECT no_hp FROM user WHERE no_hp = ?";
     if ($stmt_check_no_hp = mysqli_prepare($conn, $query_check_no_hp)) {
-        mysqli_stmt_bind_param($stmt_check_no_hp, 's', $no_hp);
+        mysqli_stmt_bind_param($stmt_check_no_hp, 's', $encrypted_no_hp);
         mysqli_stmt_execute($stmt_check_no_hp);
         mysqli_stmt_store_result($stmt_check_no_hp);
 
@@ -91,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           VALUES (?, ?, ?, ?, ?, ?, 'pengelola', 'active', ?)";
 
                 if ($stmt = mysqli_prepare($conn, $query)) {
-                    mysqli_stmt_bind_param($stmt, 'sssssss', $email, $nama, $hashedPassword, $alamat, $no_hp, $gambarBaru, $ket_wisata);
+                    mysqli_stmt_bind_param($stmt, 'sssssss', $email, $nama, $hashedPassword, $alamat, $encrypted_no_hp, $gambarBaru, $ket_wisata);
 
                     if (mysqli_stmt_execute($stmt)) {
                         // Ambil ID pengelola yang baru saja dimasukkan
@@ -102,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                        SET id_pengelola = ?, no_hp_pengelola = ? 
                                                        WHERE id_wisata = ?";
                         if ($stmt_update = mysqli_prepare($conn, $query_update_detail_wisata)) {
-                            mysqli_stmt_bind_param($stmt_update, 'iss', $id_pengelola, $no_hp, $ket_wisata);
+                            mysqli_stmt_bind_param($stmt_update, 'iss', $id_pengelola, $encrypted_no_hp, $ket_wisata);
 
                             if (mysqli_stmt_execute($stmt_update)) {
                                 $_SESSION['success_konfir'] = "Pengelola berhasil ditambahkan dan detail wisata diperbarui.";

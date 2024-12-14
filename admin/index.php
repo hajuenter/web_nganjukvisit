@@ -4,14 +4,14 @@ include("../base_url.php");
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     // Jika belum login, redirect ke halaman login
-    header("Location:" . BASE_URL . "/login.php");
+    header("Location: ../login.php");
     exit;
 }
 
 // Cek apakah pengguna memiliki role admin
 if ($_SESSION['role'] !== 'admin') {
     // Jika pengguna bukan admin, redirect ke halaman yang sesuai
-    header("Location:" . BASE_URL . "/login.php");
+    header("Location: ../login.php");
     exit;
 }
 ?>

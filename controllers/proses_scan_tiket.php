@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_detail_tiket = $_POST['barcodeInput'];
 
     // Ambil data tiket berdasarkan id_detail_tiket
-    $stmt = $conn->prepare("SELECT dt.*, dw.nama_wisata FROM detail_tiket dt 
+    $stmt = $conn->prepare("SELECT dt.*, dw.nama_wisata, dw.id_wisata FROM detail_tiket dt 
                             JOIN detail_wisata dw ON dt.id_wisata = dw.id_wisata 
                             WHERE dt.id_detail_tiket = ?");
     $stmt->bind_param("i", $id_detail_tiket);
@@ -17,19 +17,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tiket = $result->fetch_assoc();
 
     if ($tiket) {
+        // Ambil user_id dari session untuk validasi akses
+        $user_id = $_SESSION['user_id'];
+
+        // Query untuk mendapatkan id_wisata dari tabel user berdasarkan user_id
+        $queryWisata = "SELECT ket_wisata FROM user WHERE id_user = ?";
+        $stmtWisata = $conn->prepare($queryWisata);
+        $stmtWisata->bind_param("i", $user_id);
+        $stmtWisata->execute();
+        $resultWisata = $stmtWisata->get_result();
+        $ket_wisata = $resultWisata->fetch_assoc()['ket_wisata'];
+
+        // Cek apakah pengelola bisa memindai tiket ini (akses berdasarkan ket_wisata)
+        if ($tiket['id_wisata'] != $ket_wisata) {
+            echo json_encode(['success' => false, 'message' => 'Tiket tidak ditemukan atau Anda tidak memiliki akses untuk memindai tiket ini.']);
+            exit();
+        }
+
         // Validasi status harus "berhasil"
         if ($tiket['status'] !== 'berhasil') {
             echo json_encode(['success' => false, 'message' => 'Tiket belum dikonfirmasi.']);
             exit();
         }
 
-        // Validasi waktu 24 jam sejak konfirmasi
-        $waktu_konfirmasi = strtotime($tiket['waktu_konfirmasi']);
-        $waktu_sekarang = time();
-        $selisih_waktu = $waktu_sekarang - $waktu_konfirmasi;
+        // Validasi kadaluarsa berdasarkan tanggal_tiket
+        $tanggal_tiket = strtotime($tiket['tanggal']);
+        $tanggal_sekarang = strtotime(date('Y-m-d')); // Hanya membandingkan tanggal, bukan waktu
 
-        if ($selisih_waktu > 86400) { // 86400 detik = 24 jam
-            echo json_encode(['success' => false, 'message' => 'Tiket sudah kadaluarsa (lebih dari 24 jam).']);
+        if ($tanggal_sekarang > $tanggal_tiket) {
+            echo json_encode(['success' => false, 'message' => 'Tiket sudah kadaluarsa.']);
             exit();
         }
 
@@ -56,3 +72,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['success' => false, 'message' => 'Tiket tidak ditemukan.']);
     }
 }
+?>

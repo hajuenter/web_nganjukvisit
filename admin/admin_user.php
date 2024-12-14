@@ -29,7 +29,7 @@ if ($_SESSION['role'] !== 'admin') {
 
     <title>Admin Nganjuk Visit</title>
     <link rel="icon" href="../public/assets/favicon-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../vendor/datatables/dataTables.bootstrap4.min.css">
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -65,11 +65,15 @@ if ($_SESSION['role'] !== 'admin') {
     </a>
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Bootstrap core JavaScript-->
+
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../vendor/js/sb-admin-2.min.js"></script>
+
 </body>
 
 </html>

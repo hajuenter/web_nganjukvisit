@@ -62,7 +62,7 @@ $badgeVisible = !isset($_SESSION['notifications_read']);
                 </h6>
                 <?php if ($notifCount > 0): ?>
                     <?php foreach ($_SESSION['notifications'] as $notif): ?>
-                        <a class="dropdown-item d-flex align-items-center">
+                        <a href="admin_pengelola.php" class="dropdown-item d-flex align-items-center">
                             <div class="mr-3">
                                 <div class="icon-circle bg-primary">
                                     <i class="fa fa-exclamation-circle text-white"></i>

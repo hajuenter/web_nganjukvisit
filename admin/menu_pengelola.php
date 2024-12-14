@@ -1,5 +1,7 @@
 <?php
 include("../koneksi.php");
+include("../config/encryption_helper.php");
+include("../config/key.php");
 
 $conn = $koneksi;
 
@@ -67,6 +69,9 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                 <?php
                 if ($jumlahPengelolaActive > 0) {
                     while ($row = mysqli_fetch_assoc($resultActive)) {
+                         // Dekripsi nomor HP di dalam loop
+                        $decrypted_no_hp = decryptData($row['no_hp'], ENCRYPTION_KEY);
+
                         echo '<tr>';
                         echo '<td>' . htmlspecialchars($row['id_user']) . '</td>';
                         echo '<td>' . htmlspecialchars($row['email']) . '</td>';
@@ -74,7 +79,7 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         echo '<td><span class="badge badge-success rounded-pill py-2 px-3 d-inline">Pengelola</span></td>';
                         echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
                         echo '<td>' . htmlspecialchars($row['status']) . '</td>';
-                        echo '<td>' . htmlspecialchars($row['no_hp']) . '</td>';
+                        echo '<td>' . htmlspecialchars($decrypted_no_hp) . '</td>';
                         echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
                         echo '<td>' . htmlspecialchars($row['ket_wisata']) . '</td>';
                         echo '<td class="d-flex flex-column">';
@@ -108,12 +113,14 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                         <select class="form-control" id="wisata" name="wisata" required>
                             <option value="">Pilih Wisata</option>
                             <?php
-                            // Query untuk mengambil id_wisata dan nama_wisata
-                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata WHERE id_pengelola IS NULL OR id_pengelola = ''");
-
-                            // Loop untuk membuat pilihan dropdown
+                            // Query untuk mengambil wisata yang tidak gratis
+                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata 
+                                                           FROM detail_wisata 
+                                                           WHERE (id_pengelola IS NULL OR id_pengelola = '') 
+                                                           AND harga_tiket <> 'Gratis'");
+                            // Loop untuk mengisi opsi dropdown
                             while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<option value='" . $row['id_wisata'] . "'>" . $row['nama_wisata'] . "</option>";
+                                echo "<option value='" . htmlspecialchars($row['id_wisata']) . "'>" . htmlspecialchars($row['nama_wisata']) . "</option>";
                             }
                             ?>
                         </select>
@@ -175,10 +182,12 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
                             <?php
                             // Koneksi ke database
                             include("../koneksi.php");
-
-                            // Query untuk mengambil id_wisata dan nama_wisata
-                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata WHERE id_pengelola IS NULL OR id_pengelola = ''");
-
+                        
+                            // Query untuk mengambil id_wisata dan nama_wisata yang bukan "Gratis"
+                            $result = mysqli_query($conn, "SELECT id_wisata, nama_wisata FROM detail_wisata 
+                                                           WHERE (id_pengelola IS NULL OR id_pengelola = '') 
+                                                           AND harga_tiket <> 'Gratis'");
+                        
                             // Loop melalui hasil query dan buat opsi dropdown
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<option value='" . $row['id_wisata'] . "'>" . $row['nama_wisata'] . "</option>";
@@ -281,7 +290,8 @@ $jumlahPengelolaInactive = mysqli_num_rows($resultInactive);
             "ordering": true,
             "info": true,
             "searching": false,
-            "pageLength": 10,
+            "pageLength": 100, // Default page length
+            "lengthMenu": [3, 5, 10, 25, 50, 100], // Opsi jumlah entri
             "language": {
                 "emptyTable": "Tidak ada data pengelola aktif.",
                 "zeroRecords": "Tidak ada data pengelola aktif."

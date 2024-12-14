@@ -144,6 +144,7 @@ $conn->close();
                         </li>
                     </ul>
                     <div class="d-flex">
+                        <a href="./download/NganjukVisit.apk" download="NganjukVisit.apk" class="btn me-lg-2 btn-outline-success mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Unduk Apk</a>
                         <a href="login.php" class="btn me-lg-5 btn-outline-primary mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Login</a>
                     </div>
                 </div>
@@ -162,7 +163,7 @@ $conn->close();
                 ?>
                     <div class="col-md-4" data-aos="fade-up"
                         data-aos-duration="1500">
-                        <div class="card hvr-grow shadow-sm" style="min-height: 650px;">
+                        <div class="card hvr-grow shadow-sm" style="min-height: 680px;">
                             <div id="carousel-<?php echo $wisata['id_wisata']; ?>" class="carousel slide" data-bs-ride="carousel">
                                 <!-- Indicators -->
                                 <div class="carousel-indicators">

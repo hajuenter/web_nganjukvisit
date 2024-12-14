@@ -58,7 +58,7 @@ $jumlahUser = mysqli_num_rows($result);
                         echo '<td>' . htmlspecialchars($row['nama']) . '</td>';
                         echo '<td><span class="badge badge-info rounded-pill d-inline">' . htmlspecialchars($row['role']) . '</span></td>';
                         echo '<td>' . htmlspecialchars($row['alamat']) . '</td>';
-                        echo '<td><img src="' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
+                        echo '<td><img src="../public/gambar/' . htmlspecialchars($row['gambar']) . '" alt="Gambar" style="width: 45px; height: 45px;" class="rounded-circle"></td>';
                         echo '<td>';
                         echo '<button type="button" class="btn btn-danger btn-sm btn-rounded btn-hapus" data-id="' . htmlspecialchars($row['id_user']) . '" data-toggle="modal" data-target="#hapusModal">
                         <i class="fas fa-trash"></i>
@@ -110,7 +110,8 @@ $jumlahUser = mysqli_num_rows($result);
             "ordering": true,
             "info": true,
             "searching": false,
-            "pageLength": 10,
+            "pageLength": 100, // Default page length
+            "lengthMenu": [3, 5, 10, 25, 50, 100], // Opsi jumlah entri
             "language": {
                 "emptyTable": "Tidak ada data pengelola aktif.",
                 "zeroRecords": "Tidak ada data pengelola aktif."

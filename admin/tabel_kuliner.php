@@ -92,10 +92,10 @@ if (!empty($search)) {
                         <tr>
                             <th>Id Kuliner</th>
                             <th>Nama Kuliner</th>
-                            <th>Deskripsi</th>
+                            <th style="padding-left: 80px; padding-right: 80px;">Deskripsi</th>
                             <th>Harga</th>
                             <th>Gambar</th>
-                            <th>Alamat</th>
+                            <th style="padding-left: 80px; padding-right: 80px;">Alamat</th>
                             <th>Koordinat</th>
                             <th>Link Maps</th>
                             <th>Aksi</th>
@@ -157,7 +157,8 @@ if (!empty($search)) {
             "ordering": true,
             "info": true,
             "searching": false,
-            "pageLength": 10,
+            "pageLength": 100, // Default page length
+            "lengthMenu": [3, 5, 10, 25, 50, 100], // Opsi jumlah entri
             "language": {
                 "emptyTable": "Tidak ada data ditemukan",
                 "zeroRecords": "Tidak ada data ditemukan"
@@ -249,7 +250,7 @@ if (!empty($search)) {
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Wisata</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data Kuliner</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body-edit p-2">

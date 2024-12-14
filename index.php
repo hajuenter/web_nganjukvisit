@@ -177,6 +177,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                         </li>
                     </ul>
                     <div class="d-flex">
+                        <a href="./download/NganjukVisit.apk" download="NganjukVisit.apk" class="btn me-lg-2 btn-outline-success mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Unduk Apk</a>
                         <a href="login.php" class="btn me-lg-5 btn-outline-primary mt-2 mt-lg-0 mx-auto px-5 px-lg-3">Login</a>
                     </div>
                 </div>
@@ -375,7 +376,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                                         Baca Selengkapnya <i class="bi bi-chevron-down"></i>
                                     </button>
                                     <div class="collapse mt-2" id="descriptionWisata">
-                                        <ul class="list-group list-group-flush text-start">
+                                        <ul class="list-group list-group-flush text-center text-md-start">
                                             <li class="list-group-item">Nganjuk Visit menyediakan informasi lengkap tentang wisata di Kota Nganjuk.</li>
                                             <li class="list-group-item">Anda dapat memberikan rating, ulasan, like, dan memesan tiket secara online melalui aplikasi Nganjuk Visit.</li>
                                             <li class="list-group-item">Anda dapat melihat lokasi wisata, deskripsi, harga tiket dan cuplikan informasi wisata.</li>
@@ -395,7 +396,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                                         Baca Selengkapnya <i class="bi bi-chevron-down"></i>
                                     </button>
                                     <div class="collapse mt-2" id="descriptionKuliner">
-                                        <ul class="list-group list-group-flush text-start">
+                                        <ul class="list-group list-group-flush text-center text-md-start">
                                             <li class="list-group-item">Nganjuk Visit menyediakan informasi lengkap tentang kuliner di Kota Nganjuk.</li>
                                             <li class="list-group-item">Anda dapat menyukai dan memberi rating melalui aplikasi Nganjuk Visit.</li>
                                             <li class="list-group-item">Nikmati kuliner baik yang tradisional maupun yang modern, temukan berbagai pilihan kuliner dengan detail yang lengkap di Kota Nganjuk</li>
@@ -414,7 +415,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                                         Baca Selengkapnya <i class="bi bi-chevron-down"></i>
                                     </button>
                                     <div class="collapse mt-2" id="descriptionHotel">
-                                        <ul class="list-group list-group-flush text-start">
+                                        <ul class="list-group list-group-flush text-center text-md-start">
                                             <li class="list-group-item">Nganjuk Visit menyediakan informasi lengkap tentang penginapan di Kota Nganjuk.</li>
                                             <li class="list-group-item">Anda dapat memberikan rating, ulasan, like, dan melihat lokasi melalui aplikasi Nganjuk Visit.</li>
                                             <li class="list-group-item">Anda dapat melihat nama, deskripsi, harga tiket dan cuplikan informasi penginapan.</li>
@@ -434,7 +435,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                                         Baca Selengkapnya <i class="bi bi-chevron-down"></i>
                                     </button>
                                     <div class="collapse mt-2" id="descriptionEvent">
-                                        <ul class="list-group list-group-flush text-start">
+                                        <ul class="list-group list-group-flush text-center text-md-start">
                                             <li class="list-group-item">Nganjuk Visit menyediakan informasi event dan acara yang ada di Kota Nganjuk.</li>
                                             <li class="list-group-item">Anda dapat melihat nama event, deskripsi, tanggal dan cuplikan informasi event yang ada.</li>
                                         </ul>

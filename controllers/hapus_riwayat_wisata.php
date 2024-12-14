@@ -13,11 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param('s', $id_transaksi);
 
         if ($stmt->execute()) {
-            $_SESSION['win'] = "Riwsayat berhasil di hapus!";
+            $_SESSION['win'] = "Riwayat berhasil di hapus!";
             header("Location:" . BASE_URL . "/admin/admin_laporan_tiket.php"); // Redirect ke halaman awal dengan status success
             exit();
         } else {
-            $_SESSION['lose'] = "Riwsayat gagal di hapus!";
+            $_SESSION['lose'] = "Riwayat gagal di hapus!";
             header("Location:" . BASE_URL . "/admin/admin_laporan_tiket.php"); // Redirect ke halaman awal dengan status error
             exit();
         }
