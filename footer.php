@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-4 col-lg-3 col-xl-2">
                     <div class="widget">
                         <h4 class="widget-title mb-4 text-center">Nganjuk Visit</h4>
-                        <address class="mb-4 ms-lg-2">Pengelola wisata, kuliner, penginapan di Kota Ngajuk</address>
+                        <address class="mb-4 ms-lg-2">Pengelola wisata, kuliner, penginapan di Kota Nganjuk</address>
                         <p class="mb-1 ms-lg-2">Tim pengelola dari Dinas Pariwisata</p>
                         <p class="mb-0 ms-lg-2"><a class="text-decoration-none text-black">nganjukvisit86@gmail.com</a></p>
                     </div>
